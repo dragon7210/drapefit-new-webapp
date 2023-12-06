@@ -3,8 +3,8 @@ import { RadioGroup, Grid, FormControlLabel, FormHelperText } from '@mui/materia
 
 import CustomRadio from './CustomRadio';
 
-const Profession = (props) => {
-  const iProfession = [
+const your_occupation = (props) => {
+  const iyour_occupation = [
     'Architecture / Engineering',
     'Art / Design',
     'Building / Maintenance',
@@ -41,21 +41,21 @@ const Profession = (props) => {
   return (
     <RadioGroup
       aria-labelledby="demo-customized-radios"
-      name="profession"
+      name="your_occupation"
       value={props.value}
       onChange={props.handleChange}
     >
-      {props.touched?.profession && props.errors?.profession && (
+      {props.touched?.your_occupation && props.errors?.your_occupation && (
         <FormHelperText id="standard-weight-helper-text--signup" error>
-          {props.errors?.profession}
+          {props.errors?.your_occupation}
         </FormHelperText>
       )}
       <Grid container spacing={2}>
-        {iProfession.map((item, index) => (
+        {iyour_occupation.map((item, index) => (
           <Grid key={index} item xs={12} sm={6} lg={4}>
             <FormControlLabel
               // disabled={props.disabled}
-              className="profession-radio-btn"
+              className="your_occupation-radio-btn"
               style={{ margin: '-6px 0' }}
               value={index}
               control={<CustomRadio />}
@@ -68,7 +68,7 @@ const Profession = (props) => {
   );
 };
 
-Profession.propTypes = {
+your_occupation.propTypes = {
   disabled: PropTypes.bool,
   value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   touched: PropTypes.object,
@@ -76,4 +76,4 @@ Profession.propTypes = {
   handleChange: PropTypes.func
 };
 
-export default Profession;
+export default your_occupation;

@@ -14,15 +14,17 @@ import MenBrand from '../../models/client/menBrand.js';
 import MenAccessory from '../../models/client/menAccessory.js';
 import CustomDesign from '../../models/client/customDesign.js';
 import UserDetail from '../../models/admin/userDetail.js';
+import TypicallyWearMen from '../../models/admin/typicallyWearMen.js';
 
 const editMenBasicInfo = asyncHandler(async (req, res) => {
   try {
     const { id, are_you_a_parent, user_id, ...values } = req.body;
+    console.log(values);
     let { is_progressbar } = await UserDetail.findOne({ where: { user_id } });
     let parent = are_you_a_parent === 'Yes' ? 1 : are_you_a_parent === 'No' ? 2 : 0;
     await MenStats.update({ ...values, are_you_a_parent: parent }, { where: { user_id } });
     await MenStyle.update({ ...values }, { where: { user_id } });
-    console.log(values);
+    await TypicallyWearMen.update({ ...values }, { where: { user_id } });
     if (is_progressbar < 25) {
       await UserDetail.update({ is_progressbar: 25 }, { where: { user_id } });
     }
@@ -37,7 +39,7 @@ const editMenBasicInfo = asyncHandler(async (req, res) => {
 
 const getMenBasicInfo = asyncHandler(async (req, res) => {
   try {
-    let { user_id } = req.body;
+    const user_id = req.user.id;
     let menState = await MenStats.findOne({ where: { user_id } });
     if (!menState) {
       menState = await MenStats.create({
@@ -50,7 +52,13 @@ const getMenBasicInfo = asyncHandler(async (req, res) => {
         user_id
       });
     }
-    let data = { ...menState?.dataValues, ...menStyle?.dataValues };
+    let typicallyWearMan = await TypicallyWearMen.findOne({ where: { user_id } });
+    if (!typicallyWearMan) {
+      typicallyWearMan = await TypicallyWearMen.create({
+        user_id
+      });
+    }
+    let data = { ...menState?.dataValues, ...menStyle?.dataValues, ...typicallyWearMan?.dataValues };
     console.log('API_getMenBasicInfo_200:');
     res.status(200).json(data);
   } catch (e) {

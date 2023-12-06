@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Divider,
@@ -55,25 +55,13 @@ const Men_Size_Chart = GenS3Link('landing/images/client/profile/men/men-size-cha
 const BasicInfo = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { id } = useParams();
   const [viewState, setViewState] = useState(true);
-  const [user_id, setUser_id] = useState(-1);
   const { user } = useSelector((state) => state.auth);
   let saveReturn = false;
-  useEffect(() => {
-    if (id) {
-      setUser_id(id);
-      setViewState(false);
-    } else {
-      setUser_id(user.user_id);
-    }
-  }, [id, user]);
 
   useEffect(() => {
-    if (user_id !== -1) {
-      dispatch(mGetBasicInfo({ user_id }));
-    }
-  }, [dispatch, user_id]);
+    dispatch(mGetBasicInfo());
+  }, [dispatch]);
 
   const { mBasicInfo } = useSelector((state) => state.profile);
   const newBasinInfo = {
@@ -102,16 +90,16 @@ const BasicInfo = () => {
     weight_lb: '',
     birthday: new Date(),
     are_you_a_parent: '',
-    waist_size: '',
-    waist_size_run: 0,
-    shirt_size: 0,
-    shirt_size_run: '',
-    bottom_up_shirt_fit: 0,
-    inseam_size: 0,
-    shoe_size: 0,
-    shoe_size_run: '',
-    profession: '',
-    better_body_shape: 0,
+    waist: '',
+    waist_size_run: '--',
+    size: '--',
+    shirt: '',
+    men_bottom: '',
+    inseam: '--',
+    shoe: '--',
+    shoe_medium: '',
+    your_occupation: '',
+    body_type: 0,
     skin_tone: 0,
     linkdin_profile: '',
     instagram: '',
@@ -181,11 +169,11 @@ const BasicInfo = () => {
                 // waist_size: Yup.number()
                 //   .min(1, 'Please select waist size num')
                 //   .required('Please select waist size num'),
-                // shirt_size: Yup.number()
+                // size: Yup.number()
                 //   .min(1, 'Please select shirt size num')
                 //   .max(7)
                 //   .required('Please select shirt size num'),
-                // inseam_size: Yup.number().min(1, 'Please select inseam size').required('Please select inseam size')
+                // inseam: Yup.number().min(1, 'Please select inseam size').required('Please select inseam size')
               })}
               onSubmit={async (values) => {
                 if (saveReturn) {
@@ -363,18 +351,18 @@ const BasicInfo = () => {
                           <Grid item xs={12}>
                             <Grid container spacing={1}>
                               <Grid item xs={4}>
-                                <FormControl error={Boolean(touched.waist_size && errors.waist_size)} fullWidth>
+                                <FormControl error={Boolean(touched.waist && errors.waist)} fullWidth>
                                   <Select
                                     size="small"
-                                    autoFocus={Boolean(touched.waist_size && errors.waist_size)}
-                                    name="waist_size"
-                                    value={values.waist_size || ''}
+                                    autoFocus={Boolean(touched.waist && errors.waist)}
+                                    name="waist"
+                                    value={values.waist || ''}
                                     onBlur={handleBlur}
                                     onChange={handleChange}
                                     MenuProps={selectProps}
                                   >
                                     {iWaistSizeNum.map((item, index) => (
-                                      <MenuItem key={index} value={index}>
+                                      <MenuItem key={index} value={item}>
                                         {item}
                                       </MenuItem>
                                     ))}
@@ -386,13 +374,13 @@ const BasicInfo = () => {
                                   <Select
                                     size="small"
                                     name="waist_size_run"
-                                    value={values.waist_size_run || 0}
+                                    value={values.waist_size_run || ''}
                                     onBlur={handleBlur}
                                     onChange={handleChange}
                                     MenuProps={selectProps}
                                   >
                                     {iWaistSizeLabel.map((item, index) => (
-                                      <MenuItem key={index} value={index}>
+                                      <MenuItem key={index} value={item}>
                                         {item}
                                       </MenuItem>
                                     ))}
@@ -418,18 +406,18 @@ const BasicInfo = () => {
                           <Grid item xs={12}>
                             <Grid container spacing={1}>
                               <Grid item xs={4}>
-                                <FormControl error={Boolean(touched.shirt_size && errors.shirt_size)} fullWidth>
+                                <FormControl error={Boolean(touched.size && errors.size)} fullWidth>
                                   <Select
                                     size="small"
-                                    autoFocus={Boolean(touched.shirt_size && errors.shirt_size)}
-                                    name="shirt_size"
-                                    value={values.shirt_size || 0}
+                                    autoFocus={Boolean(touched.size && errors.size)}
+                                    name="size"
+                                    value={values.size || 0}
                                     onBlur={handleBlur}
                                     onChange={handleChange}
                                     MenuProps={selectProps}
                                   >
                                     {iShirtSizeNo.map((item, index) => (
-                                      <MenuItem key={index} value={index}>
+                                      <MenuItem key={index} value={item}>
                                         {item}
                                       </MenuItem>
                                     ))}
@@ -440,14 +428,14 @@ const BasicInfo = () => {
                                 <FormControl fullWidth>
                                   <Select
                                     size="small"
-                                    name="shirt_size_run"
-                                    value={values.shirt_size_run || ''}
+                                    name="shirt"
+                                    value={values.shirt || ''}
                                     onBlur={handleBlur}
                                     onChange={handleChange}
                                     MenuProps={selectProps}
                                   >
                                     {iShirtSizeLabel.map((item, index) => (
-                                      <MenuItem key={index} value={index}>
+                                      <MenuItem key={index} value={item}>
                                         {item}
                                       </MenuItem>
                                     ))}
@@ -455,9 +443,9 @@ const BasicInfo = () => {
                                 </FormControl>
                               </Grid>
                             </Grid>
-                            {touched.shirt_size && errors.shirt_size && (
+                            {touched.size && errors.size && (
                               <FormHelperText id="helper-text-shirtSizeNo" error>
-                                {errors.shirt_size}
+                                {errors.size}
                               </FormHelperText>
                             )}
                           </Grid>
@@ -474,8 +462,8 @@ const BasicInfo = () => {
                                 <FormControl fullWidth>
                                   <Select
                                     size="small"
-                                    name="bottom_up_shirt_fit"
-                                    value={values.bottom_up_shirt_fit || 0}
+                                    name="men_bottom"
+                                    value={values.men_bottom || 0}
                                     onBlur={handleBlur}
                                     onChange={handleChange}
                                     MenuProps={selectProps}
@@ -498,25 +486,25 @@ const BasicInfo = () => {
                                 </Typography>
                               </Grid>
                               <Grid item xs={12}>
-                                <FormControl error={Boolean(touched.inseam_size && errors.inseam_size)} fullWidth>
+                                <FormControl error={Boolean(touched.inseam && errors.inseam)} fullWidth>
                                   <Select
                                     size="small"
-                                    autoFocus={Boolean(touched.inseam_size && errors.inseam_size)}
-                                    name="inseam_size"
-                                    value={values.inseam_size || 0}
+                                    autoFocus={Boolean(touched.inseam && errors.inseam)}
+                                    name="inseam"
+                                    value={values.inseam || 0}
                                     onBlur={handleBlur}
                                     onChange={handleChange}
                                     MenuProps={selectProps}
                                   >
                                     {iInseam.map((item, index) => (
-                                      <MenuItem key={index} value={index}>
+                                      <MenuItem key={index} value={item}>
                                         {item}
                                       </MenuItem>
                                     ))}
                                   </Select>
-                                  {touched.inseam_size && errors.inseam_size && (
+                                  {touched.inseam && errors.inseam && (
                                     <FormHelperText id="helper-text-inseamSizeNum" error>
-                                      {errors.inseam_size}
+                                      {errors.inseam}
                                     </FormHelperText>
                                   )}
                                 </FormControl>
@@ -536,14 +524,14 @@ const BasicInfo = () => {
                                 <FormControl fullWidth>
                                   <Select
                                     size="small"
-                                    name="shoe_size"
-                                    value={values.shoe_size || 0}
+                                    name="shoe"
+                                    value={values.shoe || 0}
                                     onBlur={handleBlur}
                                     onChange={handleChange}
                                     MenuProps={selectProps}
                                   >
                                     {iShoeSizeNum.map((item, index) => (
-                                      <MenuItem key={index} value={index}>
+                                      <MenuItem key={index} value={item}>
                                         {item}
                                       </MenuItem>
                                     ))}
@@ -554,14 +542,14 @@ const BasicInfo = () => {
                                 <FormControl fullWidth>
                                   <Select
                                     size="small"
-                                    name="shoe_size_run"
-                                    value={values.shoe_size_run || ''}
+                                    name="shoe_medium"
+                                    value={values.shoe_medium || ''}
                                     onBlur={handleBlur}
                                     onChange={handleChange}
                                     MenuProps={selectProps}
                                   >
                                     {iShoeSizeLabel.map((item, index) => (
-                                      <MenuItem key={index} value={index}>
+                                      <MenuItem key={index} value={item}>
                                         {item}
                                       </MenuItem>
                                     ))}
@@ -583,7 +571,7 @@ const BasicInfo = () => {
                           touched={touched}
                           errors={errors}
                           handleChange={handleChange}
-                          value={values.profession || ''}
+                          value={values.your_occupation || ''}
                         />
                       </Grid>
                       <Grid item xs={12}>
@@ -595,9 +583,9 @@ const BasicInfo = () => {
                       <Grid item xs={12}>
                         <ImageSelectorRadioGroup
                           content={iBodyShapeLabel}
-                          value={values.better_body_shape || 0}
+                          value={values.body_type || 0}
                           setFieldValue={setFieldValue}
-                          name="better_body_shape"
+                          name="body_type"
                           touched={touched}
                           errors={errors}
                         />

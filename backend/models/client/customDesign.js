@@ -12,7 +12,7 @@ import User from '../admin/user.js';
 import KidsDetail from './kidsDetail.js';
 
 const CustomDesign = sequelize.define(
-  'custom_design',
+  'custom_desine',
   {
     user_id: {
       type: DataTypes.INTEGER,
@@ -40,7 +40,7 @@ const CustomDesign = sequelize.define(
   },
   {
     timestamps: false,
-    tableName: 'custom_design'
+    tableName: 'custom_desine'
   }
 );
 

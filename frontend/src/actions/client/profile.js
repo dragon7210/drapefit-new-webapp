@@ -53,9 +53,9 @@ export const mEditBasicInfo = (formData, navigate) => async (dispatch) => {
   }
 };
 
-export const mGetBasicInfo = (data) => async (dispatch) => {
+export const mGetBasicInfo = () => async (dispatch) => {
   try {
-    const res = await Api.post('/fitprofile/basicinfo/men', data);
+    const res = await Api.post('/fitprofile/basicinfo/men');
     dispatch({
       type: GET_MEN_BASIC_INFO,
       payload: res.data
