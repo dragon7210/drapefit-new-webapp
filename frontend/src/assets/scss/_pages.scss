@@ -1,0 +1,21 @@
+.notfound-bg {
+  @include banner-notfound(
+    $url: url($s3-bucket-url + '/images/client/banner-not-found.jpg'),
+    $urlWebp: url($s3-bucket-url + '/images/client/banner-not-found.webp'),
+    $minusHeight: 250px
+  );
+}
+
+.notfound-box {
+  margin-top: -50vh;
+  width: 60vw;
+  border-radius: 3vw;
+  padding: 30px 5vw;
+  background-color: #fff;
+  z-index: 1;
+  box-shadow: 1px 1px 5px 1px $bg-darker-color;
+  @media screen and (max-width: 600px) {
+    border-radius: 5vw;
+    width: 90vw;
+  }
+}

@@ -1,0 +1,15 @@
+.banner-top-men {
+  @include banner(
+    $url: url($s3-bucket-url + '/images/client/banner-men-fit.jpg'),
+    $urlWebp: url($s3-bucket-url + '/images/client/banner-men-fit.webp'),
+    $percentOfPos: 12%
+  );
+}
+
+.banner-top-big-tall {
+  @include banner(
+    $url: url($s3-bucket-url + '/images/client/banner-men-big-tall.jpg'),
+    $urlWebp: url($s3-bucket-url + '/images/client/banner-men-big-tall.webp'),
+    $percentOfPos: 14%
+  );
+}

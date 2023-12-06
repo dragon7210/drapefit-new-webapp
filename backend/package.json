@@ -1,0 +1,58 @@
+{
+  "name": "drapefit-new-webapp-backend",
+  "version": "0.1.6",
+  "type": "module",
+  "private": true,
+  "description": "Server for New version of Drape Fit Web App using MERN",
+  "keywords": [
+    "Drape Fit",
+    "MERN",
+    "Online Personal Stylist"
+  ],
+  "author": "Sukhendu Mukherjee",
+  "email": "smukherjee@drapefit.com",
+  "contributors": [
+    "li.yang@drapefit.com",
+    "suprakash.dev@drapefit.com",
+    "roman.tyshanov@drapefit.com"
+  ],
+  "company": "Drape Fit Inc.",
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.267.0",
+    "@aws-sdk/client-ses": "^3.272.0",
+    "@aws-sdk/s3-request-presigner": "^3.267.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.1",
+    "cors": "^2.8.5",
+    "date-fns": "^2.29.3",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-async-handler": "^1.2.0",
+    "express-favicon": "^2.0.4",
+    "express-mongo-sanitize": "^2.2.0",
+    "express-validator": "^6.14.3",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^6.9.0",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
+    "mysql2": "^3.5.2",
+    "newrelic": "^9.15.0",
+    "normalize-url": "^8.0.0",
+    "number-to-words": "^1.2.4",
+    "parse-json": "^7.0.0",
+    "sequelize": "^6.32.1",
+    "stripe": "^11.10.0",
+    "uuid": "^9.0.0",
+    "validator": "^13.9.0"
+  },
+  "devDependencies": {
+    "chai": "^4.3.7",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "esm": "^3.2.25",
+    "mocha": "^10.2.0",
+    "prettier": "^2.7.1",
+    "supertest": "^6.3.3"
+  },
+  "license": "MIT"
+}

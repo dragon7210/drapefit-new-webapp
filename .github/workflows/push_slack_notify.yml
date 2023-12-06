@@ -1,0 +1,28 @@
+# @author Sukhendu Mukherjee
+# @email smukherjee@drapefit.com
+# @developer li.yang@drapefit.com
+# @developer roman.tyshanov@drapefit.com
+# @coauthor suprakash.dev@drapefit.com
+# @company Drape Fit Inc.
+name: Notify Slack on push
+on:
+  push:
+    branches:
+      - main
+      - 'dev-liyang/**'
+      - 'dev-suprakash'
+      - 'dev-roman7210'
+      - 'release-**'
+
+jobs:
+  notify_slack_push:
+    name: Notify Slack on pushes
+    runs-on: ubuntu-latest
+    steps:
+      - uses: abinoda/slack-action@master
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+        with:
+          # message to send to slack
+          args: '{\"channel\":\"${{ secrets.SLACK_CHANNELid }}\",\"blocks\":[{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"*Repository pushed to:* ${{ github.event.repository.name }}\"}},{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"*Pusher:* ${{ github.event.pusher.name }}\n*Commit Message:* ${{ github.event.head_commit.message }}\"}},{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"<${{ github.event.repository.html_url }}|View Repository>\"}}]}'
+        if: success()

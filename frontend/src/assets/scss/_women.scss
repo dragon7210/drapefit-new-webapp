@@ -1,0 +1,47 @@
+.banner-top-women {
+  @include banner(
+    $url: url($s3-bucket-url + '/images/client/banner-women-fit.jpg'),
+    $urlWebp: url($s3-bucket-url + '/images/client/banner-women-fit.webp'),
+    $percentOfPos: 8%
+  );
+}
+
+.banner-top-plus-size {
+  @include banner(
+    $url: url($s3-bucket-url + '/images/client/banner-women-plus-size.jpg'),
+    $urlWebp: url($s3-bucket-url + '/images/client/banner-women-plus-size.webp'),
+    $percentOfPos: 14%
+  );
+}
+
+.banner-top-maternity {
+  @include banner(
+    $url: url($s3-bucket-url + '/images/client/banner-women-maternity.jpg'),
+    $urlWebp: url($s3-bucket-url + '/images/client/banner-women-maternity.webp'),
+    $percentOfPos: 14%
+  );
+}
+
+.banner-top-petite {
+  @include banner(
+    $url: url($s3-bucket-url + '/images/client/banner-women-petite.jpg'),
+    $urlWebp: url($s3-bucket-url + '/images/client/banner-women-petite.webp'),
+    $percentOfPos: 14%
+  );
+}
+
+.banner-top-women-jeans {
+  @include banner(
+    $url: url($s3-bucket-url + '/images/client/banner-women-jeans.jpg'),
+    $urlWebp: url($s3-bucket-url + '/images/client/banner-women-jeans.webp'),
+    $percentOfPos: 18%
+  );
+}
+
+.banner-top-women-business {
+  @include banner(
+    $url: url($s3-bucket-url + '/images/client/banner-women-business.jpg'),
+    $urlWebp: url($s3-bucket-url + '/images/client/banner-women-business.webp'),
+    $percentOfPos: 16%
+  );
+}

@@ -1,0 +1,19 @@
+.sign {
+  background-image: url($s3-bucket-url + '/images/client/wall-df-love.webp'),
+    url($s3-bucket-url + '/images/client/wall-df-love.jpg');
+  background-position: left 5.5% top;
+  background-repeat: no-repeat;
+  background-size: cover;
+  &.admin {
+    background-image: url($s3-bucket-url + '/images/client/banner-final.webp'),
+      url($s3-bucket-url + '/images/client/banner-final.jpg');
+    background-size: contain;
+    background-repeat: initial;
+    margin: -24px -24px -72px;
+  }
+}
+
+.terms-label {
+  margin-right: 0;
+  margin-bottom: 2px;
+}

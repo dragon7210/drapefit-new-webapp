@@ -1,0 +1,238 @@
+.banner-1 {
+  @include banner(
+    $url: url($s3-bucket-url + '/images/client/landing/banner1.jpg'),
+    $urlWebp: url($s3-bucket-url + '/images/client/landing/banner1.webp')
+  );
+}
+
+.banner-2 {
+  @include banner(
+    $url: url($s3-bucket-url + '/images/client/landing/banner2.jpg'),
+    $urlWebp: url($s3-bucket-url + '/images/client/landing/banner2.webp')
+  );
+}
+
+.banner-3 {
+  @include banner(
+    $url: url($s3-bucket-url + '/images/client/landing/banner3.jpg'),
+    $urlWebp: url($s3-bucket-url + '/images/client/landing/banner3.webp')
+  );
+}
+
+.banner-4 {
+  @include banner(
+    $url: url($s3-bucket-url + '/images/client/landing/banner4.jpg'),
+    $urlWebp: url($s3-bucket-url + '/images/client/landing/banner4.webp')
+  );
+}
+
+.how-it-works {
+  @include main-padding();
+}
+
+.two-fabulous-ways {
+  padding: 0 10vw;
+  @media screen and (max-width: 1000px) {
+    padding: 0 8vw;
+  }
+  @media screen and (max-width: 800px) {
+    padding: 0 5vw;
+  }
+  @media screen and (max-width: 600px) {
+    padding: 0 3vw;
+  }
+  .two-fabulous-ways-btn {
+    margin-bottom: 20px;
+  }
+}
+
+.expect-from-us {
+  @include main-padding();
+}
+
+.tell-us-slide {
+  padding: 0 3vw 20px;
+  background-color: $bg-lighter-color;
+}
+
+.tell-us-other {
+  padding: 0 10vw;
+  @media screen and (max-width: 1000px) {
+    padding: 0 8vw;
+  }
+  @media screen and (max-width: 800px) {
+    padding: 0 5vw;
+  }
+  @media screen and (max-width: 600px) {
+    padding: 0 3vw;
+  }
+}
+
+.tell-us-slide-btn {
+  margin-bottom: 20px;
+}
+
+.service-link-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $bg-lighter-color;
+  .service-link {
+    text-align: start;
+    font-size: 18px;
+    color: $font-darker-color;
+  }
+  .icon-arrow {
+    color: $font-darker-color;
+  }
+}
+
+.receive-box {
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  background: rgba(255, 255, 255, 0.68);
+  transform: translate(0, -50%);
+  padding: 25px 0;
+}
+
+.receive-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: $font-darker-color;
+  margin: 10px;
+  text-align: center;
+}
+
+.receive-content {
+  font-size: 17px;
+  color: $font-darker-color;
+  margin: 10px;
+  text-align: center;
+}
+
+.brands {
+  padding: 20px 10vw;
+  @media screen and (max-width: 1000px) {
+    padding: 20px 8vw;
+  }
+  @media screen and (max-width: 800px) {
+    padding: 16px 5vw;
+  }
+  @media screen and (max-width: 600px) {
+    padding: 15px 3vw;
+  }
+}
+
+.feedback {
+  .feedback-name {
+    color: $font-white-color;
+    font-size: 22px;
+    font-weight: 600;
+    padding: 30px;
+  }
+  .feedback-address {
+    font-size: 16px;
+  }
+  .feedback-content {
+    color: $font-white-color;
+    font-style: italic;
+    font-size: 18px;
+    line-height: 200%;
+    padding: 10px 15vw;
+    &::after,
+    &::before {
+      color: #ff6c00;
+      font-size: 30px;
+      font-weight: 500;
+      content: '\201d';
+      line-height: 0px;
+      padding: 12px 8px 0px 0px;
+    }
+  }
+}
+
+.faqs {
+  padding: 20px 10vw;
+  @media screen and (max-width: 1000px) {
+    padding: 20px 8vw;
+  }
+  @media screen and (max-width: 800px) {
+    padding: 16px 5vw;
+  }
+  @media screen and (max-width: 600px) {
+    padding: 15px 3vw;
+  }
+}
+
+.read-more {
+  padding: 20px 10vw;
+  background-color: #f6f8f7;
+  @media screen and (max-width: 1000px) {
+    padding: 20px 8vw;
+  }
+  @media screen and (max-width: 800px) {
+    padding: 16px 5vw;
+  }
+  @media screen and (max-width: 600px) {
+    padding: 15px 3vw;
+  }
+  .read-more-title {
+    color: #232f3e;
+    margin: 20px 0 10px;
+    padding: 0 8%;
+    font-size: 24px;
+    font-weight: 600;
+    font-family: 'Source Sans Pro', sans-serif;
+  }
+  .read-more-content {
+    font-family: 'HVDFontsBrandonTextRegular';
+    font-size: 18px;
+    font-weight: 300;
+    color: #6e7379;
+    line-height: 30px;
+    padding: 0 8%;
+    margin-bottom: 10px;
+  }
+}
+
+.finally-sign {
+  background-image: url($s3-bucket-url + '/images/client/landing/finally-sign.webp'),
+    url($s3-bucket-url + '/images/client/landing/finally-sign.jpg');
+  width: 100%;
+  height: calc(100vh - 250px);
+  background-position: left 60% top;
+  background-repeat: no-repeat;
+  background-size: cover;
+  flex-wrap: wrap;
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+  //-- Center slide text vertically
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}

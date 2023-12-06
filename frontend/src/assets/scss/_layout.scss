@@ -1,0 +1,220 @@
+.header {
+  background-color: $bg-admin-header-color;
+}
+
+.header-link-toggle-menu {
+  margin-top: '12px';
+  background-color: $bg-dark-color;
+}
+
+.header-btn-toggle {
+  background: $bg-light-color;
+  color: $font-darker-color;
+  &:hover {
+    background: $bg-dark-color;
+    color: $font-white-color;
+  }
+}
+
+.header-btn-notification {
+  background: $bg-light-color;
+  color: $font-darker-color;
+  &:hover {
+    background: $bg-dark-color;
+    color: $font-white-color;
+  }
+}
+
+//-- user layout
+.header-link-item {
+  color: $font-darker-color;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: bold;
+  margin: 12px 18px;
+  &:hover {
+    cursor: pointer;
+    color: $bg-orange-dark-color;
+  }
+}
+
+.header-link-btn {
+  border-radius: 24px;
+  background-color: $bg-darker-color;
+  text-decoration: none;
+  margin-left: 18px;
+  height: 36px;
+  &:hover {
+    background-color: $bg-orange-dark-color;
+  }
+}
+
+.header-link-outbtn {
+  border: 1px solid $bg-dark-color;
+  border-radius: 20px;
+  background-color: #fff;
+  text-decoration: none;
+  color: $bg-dark-color;
+  padding: 5px 10px;
+  &:hover {
+    border-color: $bg-orange-lighter-color;
+    background-color: $bg-orange-lighter-color;
+    color: #fff;
+  }
+}
+
+.toggle-btn-item {
+  color: #fff;
+  font-size: 12px;
+  padding: 8px 24px 8px 15px;
+  text-decoration: none;
+  .bell-badge {
+    float: right;
+    color: #ff6c00;
+    font-size: 18px;
+  }
+  &:hover {
+    background-color: $bg-orange-lighter-color;
+    cursor: pointer;
+    .bell-badge {
+      color: #232f3e;
+    }
+  }
+  &.admin-dashboard {
+    background-color: #154a68;
+    &:hover {
+      background-color: #ff6c00;
+    }
+  }
+}
+
+.toggle-btn-item-collapse {
+  background-color: #2e3947;
+  color: #fff;
+  font-size: 14px;
+  text-decoration: none;
+  padding: 8px 24px 8px 15px;
+  &:hover {
+    background-color: $bg-orange-lighter-color;
+    cursor: pointer;
+  }
+}
+
+.toggle-btn-item-sign {
+  width: 100%;
+  background-color: #010d1f;
+  color: #fff;
+  text-align: left;
+  text-decoration: none;
+  font-size: 14px;
+  padding: 8px 24px 8px 15px;
+  &:hover {
+    background-color: $bg-orange-lighter-color;
+    cursor: pointer;
+  }
+}
+
+.toggle-btn-item-btn {
+  width: 100%;
+  padding: 0;
+}
+
+.toggle-btn-divider {
+  border-color: #38516e;
+  margin: 0px !important;
+}
+
+.footer {
+  padding: 30px 8vw;
+  margin-top: 0px;
+  background-color: #f6f8f7;
+  .img-logo-full {
+    width: 179px;
+  }
+  .footer-do-best {
+    color: $bg-orange-dark-color;
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: -10px;
+    margin-left: 56px;
+    margin-bottom: 16px;
+    font-family: 'AmazonEmber', sans-serif;
+  }
+  .footer-usa {
+    text-decoration: none;
+    font-family: 'AmazonEmber', sans-serif;
+    color: #232f3e;
+    background-image: url($s3-bucket-url + '/images/client/usa.webp'), url($s3-bucket-url + '/images/client/usa.png');
+    background-position: 15px center;
+    background-repeat: no-repeat;
+    background-size: 27px;
+    font-weight: normal;
+    font-size: 15px;
+    border: 1px solid #232f3e;
+    padding: 14px 18px 14px 63px;
+    border-radius: 5px;
+    display: inline-block;
+    letter-spacing: 1px;
+    margin-bottom: 24px;
+  }
+  .footer-follow-us {
+    color: $bg-orange-dark-color;
+    font-size: 17px;
+    font-weight: 900;
+    font-family: 'AmazonEmber', sans-serif;
+  }
+  .footer-social-icon {
+    font-size: 30px;
+    color: $font-darker-color;
+    margin: 10px;
+  }
+  .footer-link-title {
+    color: $font-darker-color;
+    font-size: 17px;
+    font-weight: 800;
+    text-decoration: none;
+    word-break: break-word;
+  }
+  .footer-link-item {
+    color: $font-darker-color;
+    font-size: 15px;
+    text-decoration: none;
+    word-break: break-word;
+  }
+}
+
+.copyright {
+  background-color: $bg-darker-color;
+  padding: 20px 8vw;
+  @media screen and (max-width: 600px) {
+    padding: 16px 3vw;
+  }
+}
+
+.copyright-text {
+  font-size: 15px;
+  font-weight: 600;
+  color: $font-white-color;
+  @media screen and (max-width: 600px) {
+    font-size: 14px;
+    font-weight: 300;
+  }
+  a {
+    text-decoration: none;
+    font-weight: 500;
+    color: $font-white-color;
+    font-family: 'Source Sans Pro', sans-serif;
+    &:hover {
+      color: $font-gray-b3-color;
+      text-decoration: none;
+    }
+  }
+}
+
+.MuiDrawer-root {
+  &.MuiDrawer-modal {
+    &.MuiModal-root {
+      z-index: 1;
+    }
+  }
+}

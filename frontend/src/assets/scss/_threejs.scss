@@ -1,0 +1,21 @@
+.three-section-wrapper {
+  width: 100%;
+  padding: 0 3em;
+  @media screen and (max-width: '600px') {
+    padding: 0 10%;
+  }
+  .three-canvas-wrap {
+    width: 500px;
+    height: 500px;
+    margin: 2em auto 3em;
+    @media screen and (max-width: '600px') {
+      width: 90%;
+      height: auto;
+      aspect-ratio: 1 / 1;
+    }
+    canvas {
+      box-sizing: border-box;
+      background-color: #fff;
+    }
+  }
+}

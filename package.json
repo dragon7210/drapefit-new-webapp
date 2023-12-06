@@ -1,0 +1,45 @@
+{
+  "name": "drapefit-new-webapp",
+  "version": "0.1.6",
+  "private": true,
+  "author": "Sukhendu Mukherjee",
+  "email": "smukherjee@drapefit.com",
+  "contributors": [
+    "li.yang@drapefit.com",
+    "suprakash.dev@drapefit.com",
+    "roman.tyshanov@drapefit.com"
+  ],
+  "company": "Drape Fit Inc.",
+  "main": "backend/server.js",
+  "scripts": {
+    "backend": "node --max-old-space-size=4096 backend/server.js",
+    "backend:hotdev": "nodemon --max-old-space-size=4096 backend/server.js",
+    "client": "npm start --prefix frontend",
+    "dev": "concurrently \"npm run backend:hotdev\" \"npm run client\"",
+    "test:server_mocha": "mocha -r esm backend/app.test.js --exit",
+    "test:client_jest": "npm run test --prefix frontend",
+    "test:c8": "npx c8 node backend/app.js",
+    "test:c8_report": "npx c8 report && start \"\" \"coverage/index.html\"",
+    "client:build": "npm run build --prefix frontend",
+    "server:local": "npm run client:build && node --max-old-space-size=4096 backend/server.js",
+    "server:ec2_dev": "pm2 start ecosystem.config.js --node-args=\"--experimental-loader newrelic/esm-loader.mjs --max-old-space-size=4096\"",
+    "server:ec2_prod": "npm run client:build && pm2 start ecosystem.config.js --node-args=\"--experimental-loader newrelic/esm-loader.mjs --max-old-space-size=8192\""
+  },
+  "dependencies": {
+    "newrelic": "^9.15.0"
+  },
+  "devDependencies": {
+    "c8": "^7.13.0",
+    "chai": "^4.3.7",
+    "concurrently": "^7.6.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "esm": "^3.2.25",
+    "mocha": "^10.2.0",
+    "nodemon": "^2.0.20",
+    "pm2": "5.2.2",
+    "prettier": "^2.7.1",
+    "supertest": "^6.3.3"
+  },
+  "license": "MIT"
+}

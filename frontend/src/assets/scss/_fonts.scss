@@ -1,0 +1,1087 @@
+@font-face {
+  font-family: 'HVDFontsBrandonTextBold';
+  src: url(../fonts/HVDFontsBrandonTextBold.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'HVDFontsBrandonTextRegular';
+  src: url(../fonts/HVDFontsBrandonTextRegular.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'HVDFontsBrandonTextLight';
+  src: url(../fonts/HVDFontsBrandonTextLight.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'Pacifico';
+  src: url(../fonts/Pacifico.ttf) format('ttf');
+}
+
+@font-face {
+  font-family: 'AmazonEmber';
+  src: url(../fonts/AmazonUIFont-amazonember_V2_.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'Source Sans Pro';
+  src: url(../fonts/SourceSansPro-Regular.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Source Sans Pro';
+  src: url(../fonts/SourceSansPro-Bold.ttf) format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+.orange-bold-title {
+  font-family: 'Positype - Scotch Text Bold';
+  color: $bg-orange-dark-color;
+  font-weight: 700;
+  margin: 20px 10px 30px 10px;
+  text-align: center;
+  font-size: 38px;
+  @media screen and (max-width: 600px) {
+    font-size: 27px;
+  }
+}
+
+.darker-bold-title {
+  color: $font-darker-color;
+  font-weight: 700;
+  margin: 0 0 30px 0;
+  font-size: 40px;
+  text-shadow: 2px 2px 2px $font-white-color;
+  @media screen and (max-width: 600px) {
+    font-size: 25px;
+  }
+}
+
+.darker-sup-extra-bold-title {
+  font-size: 25px;
+  font-weight: 800;
+  color: $font-darker-color;
+  text-align: center;
+  padding: 0 5vw;
+}
+
+.darker-extra-bold-title {
+  font-size: 19px;
+  font-weight: 700;
+  color: $font-darker-color;
+  text-align: center;
+  padding: 0 5vw;
+}
+
+.darker-sub-bold-title {
+  color: $font-darker-color;
+  font-size: 15px;
+  font-weight: 600;
+  margin: 28px 0 0;
+  text-align: center;
+}
+
+.darker-sub-semibold-title {
+  color: $font-darker-color;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 10px;
+  text-align: center;
+}
+
+.darker-center-content {
+  font-size: 17px;
+  color: $font-darker-color;
+  line-height: 25px;
+}
+
+.darker-center-margin-content {
+  font-size: 17px;
+  color: $font-darker-color;
+  line-height: 35px;
+  padding: 0 3vw;
+  margin: 1.2rem 0;
+}
+
+.light-center-content {
+  color: $font-light-color;
+  font-size: 17px;
+  margin: 16px;
+  text-align: center;
+}
+
+.light-semibold-content {
+  color: $font-light-color;
+  font-size: 14px;
+  margin: 0 0 0 12px;
+  font-weight: 700;
+  &:hover {
+    color: $font-link-hover-dark-color;
+  }
+}
+
+.expect-from-us-item-num {
+  display: inline-block;
+  width: 70px;
+  height: 70px;
+  background: $font-darker-color;
+  color: #fff;
+  font-weight: bold;
+  font-size: 23px;
+  text-align: center;
+  line-height: 73px;
+  margin-bottom: 10px;
+}
+
+.expect-from-us-item-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: $font-darker-color;
+  margin: 10px 0;
+}
+
+.expect-from-us-item-content {
+  font-size: 16px;
+  color: $font-darker-color;
+  padding: 10px 10px 0 0;
+}
+
+.take-style-quiz-content {
+  font-size: 18px;
+  font-weight: 300;
+  color: #6e7379;
+  line-height: 30px;
+  font-family: 'HVDFontsBrandonTextRegular';
+  text-align: center;
+  padding: 0 14%;
+}
+
+.process-title {
+  color: #ff6c00;
+  font-size: 20px;
+  font-weight: 800;
+  text-align: center;
+  margin-top: 4px;
+  font-family: 'HVDFontsBrandonTextBold';
+  text-transform: capitalize;
+  margin-bottom: 16px;
+}
+
+.process-content {
+  font-size: 17px;
+  font-weight: 300;
+  color: #6e7379;
+  line-height: 30px;
+  font-family: 'HVDFontsBrandonTextRegular';
+  text-align: center;
+  margin-bottom: 0px;
+  padding: 0;
+  line-height: 23px;
+}
+
+.brands-content {
+  font-size: 17px;
+  text-align: center;
+  color: #000;
+  margin-top: -50px;
+  padding: 0px 15vw;
+  @media screen and (max-width: 600px) {
+    padding: 0px 5vw;
+  }
+  line-height: 23px;
+}
+
+.breadcrumb-link {
+  color: $bg-orange-dark-color;
+  font-size: 18px;
+  font-weight: 800;
+  font-family: 'HVDFontsBrandonTextRegular';
+}
+
+.breadcrumb-icon {
+  color: $font-darker-color;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.breadcrumb-typography {
+  color: $font-darker-color;
+  font-size: 18px;
+  font-weight: 800;
+  font-family: 'HVDFontsBrandonTextRegular';
+}
+
+.about-title {
+  text-align: center;
+  font-size: 38px;
+  @media screen and (max-width: 600px) {
+    font-size: 24px;
+  }
+  color: $font-darker-color;
+  font-family: 'HVDFontsBrandonTextLight';
+  margin: 12px 0;
+}
+
+.about-content {
+  font-family: 'HVDFontsBrandonTextRegular';
+  font-size: 18px;
+  color: $font-darker-color;
+  margin: 15px;
+}
+
+.about-content-margin {
+  font-family: 'HVDFontsBrandonTextRegular';
+  font-size: 18px;
+  color: $font-darker-color;
+  text-align: center;
+  margin: 15px 20vw;
+  @media screen and (max-width: 600px) {
+    margin: 15px 5vw;
+  }
+}
+
+.about-content-orange-big {
+  font-family: 'HVDFontsBrandonTextRegular';
+  color: #fe6c00;
+  font-size: 20px;
+  font-weight: 500;
+  margin: 15px;
+}
+
+.about-content-uppercase-bold {
+  font-family: 'HVDFontsBrandonTextBold';
+  font-size: 11pt;
+  color: black;
+  background: white;
+  margin: 15px;
+}
+
+.executive-team-top-title {
+  font-size: 44px;
+  color: $font-darker-color;
+  font-weight: 700;
+  font-family: 'HVDFontsBrandonTextBold';
+  position: absolute;
+  left: 30;
+  z-index: 1111;
+  top: 20%;
+  transform: translate(185%, -50%);
+}
+
+.executive-team-name {
+  font-size: 21px;
+  margin: 0;
+  color: $font-darker-color;
+  font-weight: 500;
+  font-family: 'HVDFontsBrandonTextBold';
+}
+
+.executive-team-career {
+  font-size: 13px;
+  font-weight: 300;
+  color: #7e7878;
+  margin: 5px 0;
+}
+
+.executive-team-summary {
+  font-size: 15px;
+  margin: 12px 0 15px;
+  color: #434344;
+  font-weight: 400;
+  line-height: 22px;
+  font-family: 'AmazonEmber', sans-serif;
+  height: 69px;
+  overflow: hidden;
+}
+
+.executive-co-founder-summary {
+  color: #000;
+  line-height: 150%;
+}
+
+.executive-co-founder-quote {
+  font-size: 18px;
+  color: orange;
+  font-weight: bold;
+  font-style: italic;
+  font-family: 'Comic Sans MS', cursive;
+  margin: 10px 0;
+}
+
+.executive-co-founder-name {
+  color: #000;
+  font-size: 18px;
+  font-family: 'AmazonEmber', sans-serif;
+  margin: 10px 0;
+}
+
+.executive-co-founder-career {
+  color: #000;
+  font-size: 14px;
+  font-family: 'AmazonEmber', sans-serif;
+  margin: 10px 0;
+}
+
+.executive-talk-title {
+  color: #fff;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 35px;
+  font-weight: 600;
+}
+
+.executive-talk-content {
+  color: #fff;
+  font-family: 'HVDFontsBrandonTextRegular';
+  font-size: 19px;
+  margin: 20px 0;
+}
+
+.post-title {
+  font-size: 24px;
+  color: $font-darker-color;
+  font-family: 'HVDFontsBrandonTextBold';
+}
+
+.post-date {
+  font-family: 'HVDFontsBrandonTextRegular';
+  font-size: 18px;
+  color: $font-darker-color;
+}
+
+.post-read-more {
+  font-size: 16px;
+  color: #fe6c00;
+  font-family: 'HVDFontsBrandonTextBold';
+  margin-top: 20px;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.for-job-title {
+  color: $font-darker-color;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  margin-top: 0;
+}
+
+.for-job-sub-title1 {
+  font-size: 18px;
+  font-family: 'AmazonEmber', sans-serif;
+  font-weight: 400;
+  color: $font-darker-color;
+  margin: 11px 0;
+  font-weight: 700;
+  line-height: 24px;
+  text-align: center;
+  text-decoration: underline;
+}
+
+.for-job-sub-title2 {
+  font-size: 16px;
+  font-family: 'AmazonEmber', sans-serif;
+  font-weight: 400;
+  color: $font-darker-color;
+  margin: 11px 0;
+  line-height: 24px;
+}
+
+.for-job-info {
+  font-size: 15px;
+  font-family: 'AmazonEmber', sans-serif;
+  font-weight: 400;
+  color: $font-darker-color;
+  margin: 5px 0;
+}
+
+.for-job-content {
+  font-size: 15px;
+  font-family: 'AmazonEmber', sans-serif;
+  font-weight: 400;
+  color: $font-darker-color;
+  margin: 11px 0;
+  line-height: 24px;
+}
+
+.help-center-title {
+  color: $font-darker-color;
+  font-size: 30px;
+  font-family: 'HVDFontsBrandonTextBold';
+  text-align: center;
+  @media screen and (max-width: '600px') {
+    font-size: 21px;
+  }
+}
+
+.help-center-sub-title {
+  color: $font-darker-color;
+  font-size: 21px;
+  font-family: 'HVDFontsBrandonTextBold';
+}
+
+.help-center-content {
+  display: block;
+  font-size: 18px;
+  font-family: 'HVDFontsBrandonTextRegular';
+  color: #5f5f5f;
+  margin: 12px 0;
+  text-decoration: none;
+  &:hover {
+    color: $bg-orange-dark-color;
+  }
+}
+
+.contact-us-title {
+  font-family: 'HVDFontsBrandonTextBold';
+  font-size: 18px;
+  color: $font-darker-color;
+  margin: 15px;
+  text-align: center;
+}
+
+.contact-us-content {
+  font-family: 'HVDFontsBrandonTextRegular';
+  font-size: 18px;
+  color: $font-darker-color;
+  margin: 15px;
+  text-align: center;
+}
+
+.contact-us-question {
+  color: $bg-orange-dark-color;
+  font-size: 36px;
+  font-family: 'HVDFontsBrandonTextBold';
+  text-align: center;
+}
+
+.contact-form-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: $font-darker-color;
+  margin-top: 30px;
+}
+
+.site-agree-content {
+  font-size: 17px;
+  color: $font-darker-color;
+  padding: 0;
+  line-height: 24px;
+  font-family: 'HVDFontsBrandonTextRegular';
+  margin-top: 20px;
+}
+
+.sitemap-title {
+  background-color: #fe6c00;
+  color: #fff;
+  padding: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.sitemap-link {
+  display: block;
+  color: $font-darker-color;
+  text-decoration: none;
+  font-weight: 700;
+  margin-top: 6px;
+}
+
+.recommended-top-title {
+  color: $font-darker-color;
+  font-size: 38px;
+  font-weight: 800;
+  text-align: center;
+  font-family: 'HVDFontsBrandonTextBold';
+  @media screen and (max-width: 600px) {
+    font-size: 24px;
+  }
+}
+
+.recommended-top-sub-title {
+  color: $bg-orange-lighter-color;
+  font-size: 20px;
+  font-family: 'HVDFontsBrandonTextBold';
+  text-align: center;
+}
+
+.recommended-top-content {
+  font-size: 17px;
+  color: #000;
+  padding: 0 16vw;
+  line-height: 23px;
+  text-align: center;
+  font-family: 'HVDFontsBrandonTextRegular';
+  @media screen and (max-width: 900px) {
+    padding: 0 5vw;
+  }
+}
+
+.finally-sign-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: $font-darker-color;
+  padding: 10px;
+  text-align: center;
+  @media screen and (max-width: '600px') {
+    font-size: 18px;
+    font-weight: 600;
+  }
+}
+
+.finally-sign-content {
+  font-size: 18px;
+  font-weight: 200;
+  color: $font-darker-color;
+  line-height: 25px;
+  padding: 10px;
+  text-align: center;
+}
+
+.finally-sign-account {
+  margin: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  color: $font-darker-color;
+  text-align: center;
+}
+
+.finally-sign-sign {
+  margin-left: 5px;
+  font-size: 13px;
+  color: $font-light-color;
+  text-align: center;
+}
+
+.finally-sign-link {
+  font-size: 14px;
+  text-decoration: none;
+  color: $bg-orange-lighter-color;
+  &:hover {
+    color: $font-darker-color;
+  }
+}
+
+.how-much-cost-title {
+  display: block;
+  font-size: 40px;
+  font-weight: 900;
+  line-height: 40px;
+  @media screen and (max-width: '1050px') {
+    font-size: 33px;
+  }
+  @media screen and (max-width: '600px') {
+    font-size: 30px;
+  }
+  -webkit-text-fill-color: #fff;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #000;
+}
+
+.how-much-cost-title-small {
+  font-size: 27px;
+  @media screen and (max-width: '600px') {
+    font-size: 21px;
+  }
+  display: block;
+  -webkit-text-fill-color: #232f3e;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #000;
+  &.margin-left {
+    margin-left: 270px;
+    @media screen and (max-width: '1050px') {
+      margin-left: 220px;
+    }
+    @media screen and (max-width: '600px') {
+      margin-left: 200px;
+    }
+  }
+}
+
+.accordions-title {
+  font-weight: bolder;
+  color: $bg-orange-dark-color;
+  margin: 40px 0px -10px 0px;
+}
+
+.accordions-item-title {
+  color: $font-darker-color;
+  font-weight: 700;
+  font-size: 19px;
+  margin-left: 12px;
+}
+
+.accordions-item-content {
+  color: $font-darker-color;
+  font-size: 17px;
+  padding: 10px;
+  white-space: pre-line;
+}
+
+.our-pricing-title {
+  color: #232f3e;
+  font-size: 28px;
+  font-weight: 800;
+  font-family: 'HVDFontsBrandonTextBold';
+  margin: 4vw 0 10px;
+  text-align: center;
+}
+
+.our-pricing-content {
+  font-size: 18px;
+  color: #232f3e;
+  line-height: 27px;
+  font-family: 'HVDFontsBrandonTextRegular';
+  text-align: center;
+}
+
+.about-stylist-content {
+  font-size: 20px;
+  color: #232f3e;
+  line-height: 30px;
+  font-family: 'HVDFontsBrandonTextRegular';
+  text-align: start;
+}
+
+.about-stylist-box {
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  width: 500px;
+  @media screen and (max-width: '600px') {
+    right: 3%;
+    bottom: 20px;
+    padding: 15px;
+    width: 94%;
+  }
+  padding: 30px 20px;
+  background-color: #fff;
+  .about-stylist-box-title {
+    text-align: center;
+    font-family: 'HVDFontsBrandonTextRegular';
+    color: #ff6c00;
+    font-size: 30px;
+    font-weight: 700;
+    @media screen and (max-width: '600px') {
+      font-size: 24px;
+      font-weight: 600;
+    }
+  }
+  .about-stylist-box-content {
+    text-align: center;
+    font-family: 'HVDFontsBrandonTextRegular';
+    font-size: 17px;
+  }
+}
+
+.basic-info-title {
+  font-weight: bold;
+  color: #232e3e;
+  font-family: 'AmazonEmber', sans-serif;
+  font-size: 22px;
+  margin: 10px 0;
+}
+
+.basic-info-title-gray {
+  font-size: 19px;
+  color: #949494;
+  font-weight: 700;
+  margin-top: 35px;
+}
+
+.basic-info-title-small {
+  font-size: 15px;
+  font-weight: 700;
+  font-family: 'AmazonEmber', sans-serif;
+  color: #232e3e;
+  text-align: left;
+  margin-top: 16px;
+}
+
+.basic-info-sub-title {
+  font-weight: 700;
+  color: #232e3e;
+  font-family: 'AmazonEmber', sans-serif;
+  font-size: 15px;
+  margin: 10px 0 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.basic-info-sup-content {
+  color: #585858;
+  font-family: 'AmazonEmber', sans-serif;
+  font-size: 17px;
+  letter-spacing: 1px;
+  padding: 0 20px;
+  @media screen and (max-width: '600px') {
+    font-size: 15px;
+    padding: 0 10px;
+  }
+}
+
+.basic-info-content {
+  color: #232e3e;
+  font-size: 15px;
+  line-height: 150%;
+  padding: 12px 0;
+}
+
+.basic-info-bold-title {
+  text-align: center;
+  line-height: 50px;
+  font-size: 25px;
+  letter-spacing: 2px;
+  font-weight: bold;
+  color: #232e3e;
+  font-family: 'AmazonEmber', sans-serif;
+}
+
+.fit-for-label {
+  color: #232f3e;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.save-return {
+  color: $bg-orange-lighter-color;
+  text-align: center;
+  text-decoration: none;
+  margin: 10px 0;
+  font-weight: bold;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.schedule-title {
+  font-size: 17px;
+  font-weight: 600;
+  font-family: 'AmazonEmber', sans-serif;
+  margin: 0;
+  padding: 5px 0 15px 0;
+  text-transform: uppercase;
+  border-bottom: 1px solid #fe6c21;
+  color: #fe6c00;
+  text-align: center;
+}
+
+.schedule-sub-title {
+  font-size: 11px;
+  color: #232e3e;
+  font-weight: 600;
+  font-family: 'AmazonEmber', sans-serif;
+  margin-top: -30px;
+  padding: 5px 0 10px 0;
+  text-transform: uppercase;
+  border-bottom: 1px solid #fe6c21;
+  text-align: center;
+}
+
+.schedule-content {
+  font-size: 15px;
+  font-family: 'AmazonEmber', sans-serif;
+  color: #5a5a5a;
+  margin-top: 20px;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.billing-info-title {
+  font-size: 36px;
+  text-align: center;
+  @media screen and (max-width: '600px') {
+    font-size: 24px;
+  }
+  margin: 40px 0 20px;
+  color: $font-darker-color;
+  font-family: 'Positype - Scotch Text Bold';
+  font-weight: 600;
+}
+
+.payment-title {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-size: 22px;
+  font-weight: bold;
+  font-family: 'AmazonEmber', sans-serif;
+  color: $font-darker-color;
+}
+
+.payment-sub-title {
+  font-size: 17px;
+  font-weight: 600;
+  font-family: 'AmazonEmber', sans-serif;
+  color: $font-darker-color;
+}
+
+.pay-continue-title {
+  font-size: 14px;
+  color: $font-darker-color;
+  padding: 5px 0;
+  &.bolder {
+    font-size: 16px;
+    padding: 12px;
+  }
+  .pay-continue-content {
+    font-weight: 600;
+    float: right;
+  }
+}
+
+.add-card-link {
+  color: #337ab7;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 700;
+  margin-left: 20px;
+  &:hover {
+    color: $bg-orange-lighter-color;
+    text-shadow: 1px 1px 1px $font-darker-color;
+  }
+}
+
+.df-size-chart {
+  color: #0b3b63;
+  font-size: 14px;
+  font-weight: 600;
+  float: right;
+  border-bottom: 1px solid #232f3e;
+  &:hover {
+    cursor: pointer;
+    color: $bg-orange-lighter-color;
+  }
+  margin-bottom: 10px;
+}
+
+.pay-success-title {
+  color: #ff6c00;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 7px;
+  font-family: 'AmazonEmber', sans-serif;
+  text-align: center;
+}
+
+.not-shipped-title {
+  font-size: 27px;
+  @media screen and (max-width: '600px') {
+    font-size: 18px;
+  }
+  color: #ff6c00;
+  font-weight: 700;
+  margin-bottom: 7px;
+  font-family: 'AmazonEmber', sans-serif;
+  text-align: center;
+  .icon {
+    font-size: 50px;
+    @media screen and (max-width: '600px') {
+      font-size: 30px;
+    }
+  }
+}
+
+.not-shipped-content {
+  text-align: center;
+  font-family: 'AmazonEmber', sans-serif;
+  font-size: 16px;
+  color: $font-darker-color;
+}
+
+.order-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: $font-darker-color;
+}
+
+.order-content {
+  color: $font-darker-color;
+}
+
+.referrals-title {
+  font-size: 30px;
+  color: $bg-orange-lighter-color;
+  letter-spacing: inherit;
+  font-family: 'AmazonEmber', sans-serif;
+  font-weight: bold;
+  text-align: center;
+  @media screen and (max-width: '600px') {
+    font-size: 24px;
+  }
+}
+
+.referrals-sub-title {
+  font-size: 18px;
+  color: $font-darker-color;
+  font-family: 'AmazonEmber', sans-serif;
+  font-weight: bold;
+}
+
+.referrals-content {
+  font-size: 15px;
+  color: $font-darker-color;
+  padding: 5px 0;
+  &.padding-20 {
+    padding: 15px 30px;
+    @media screen and (max-width: '600px') {
+      padding: 12px 10px;
+    }
+  }
+}
+
+.overview-sup-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: $bg-orange-lighter-color;
+}
+
+.overview-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: $font-darker-color;
+}
+
+.overview-content {
+  color: #a1a1a1;
+}
+
+.account-common-title {
+  font-size: 30px;
+  color: $font-darker-color;
+}
+
+.account-common-content {
+  font-size: 16px;
+  color: $font-darker-color;
+  font-family: 'AmazonEmber', sans-serif;
+  margin: 12px 0;
+  &.mt-1 {
+    margin: 24px 0 6px;
+  }
+}
+
+.link-to-btn {
+  color: #fff;
+  display: flex;
+  align-items: center;
+}
+
+.table-header {
+  color: #232f3e;
+  font-size: 20px;
+  padding: 0px 20px;
+}
+
+.sidebar-logout {
+  font-size: 1rem;
+  font-weight: 300;
+  padding: 6px 24px;
+  border: 1px solid #ff6c00;
+  border-radius: 4px;
+  color: #ff6c00;
+  background-color: #232f3e;
+  &:hover {
+    cursor: pointer;
+    color: #232f3e;
+    background-color: #ff6c00;
+  }
+}
+
+.uinfo-str {
+  font-size: 18px;
+  font-weight: 500;
+  text-align: right;
+}
+
+.uinfo-nstr {
+  font-size: 16px;
+  align-items: center;
+  color: #777;
+  font-weight: 400;
+  text-align: left;
+}
+
+.info-item {
+  color: $notification-info;
+  font-weight: 600;
+}
+
+.success-item {
+  color: $notification-success;
+  font-weight: 600;
+}
+
+.warning-item {
+  color: $notification-warning;
+  font-weight: 600;
+}
+
+.error-item {
+  color: $notification-error;
+  font-weight: 600;
+}
+
+.order-receipt-title {
+  font-weight: bold;
+  font-size: 32px;
+  text-align: center;
+}
+
+.order-receipt-inc {
+  margin-top: 30px;
+  font-weight: bold;
+  font-size: 25px;
+}
+
+.dialog-title {
+  font-size: 20px;
+  font-weight: 500;
+  text-align: center;
+  color: $font-dark-color;
+}
+
+.barcode-name {
+  font-size: 16px;
+  color: $font-dark-color;
+  .left {
+    float: left;
+  }
+  .right {
+    float: right;
+  }
+  &.border {
+    padding: 3px;
+    margin: 3px;
+    border-top: 1px solid #cecece;
+    border-bottom: 1px solid #cecece;
+  }
+}
+
+.barcode-subname {
+  font-size: 12px;
+  color: $font-dark-color;
+}
+
+.form-item-title {
+  padding-bottom: 10px;
+  padding-left: 10px;
+  font-weight: 600;
+}
+
+.form-item-to {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @media screen and (max-width: 900px) {
+    justify-content: left;
+    margin: -12px 0 -8px 8px;
+  }
+}
+
+.ft-bold {
+  font-weight: bold !important;
+}

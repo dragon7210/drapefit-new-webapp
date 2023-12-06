@@ -1,0 +1,6 @@
+{
+  "reporter": ["html", "text", "text-summary"],
+  "clean": true,
+  "include": ["backend", "frontend"],
+  "exclude": ["**/build"]
+}

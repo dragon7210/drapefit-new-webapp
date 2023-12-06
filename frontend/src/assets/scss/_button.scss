@@ -1,0 +1,410 @@
+.custom-btn {
+  color: $font-white-color;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 10px 30px;
+  border-radius: 24px;
+  background-color: $bg-orange-dark-color;
+  &:hover {
+    background-color: $font-darker-color;
+  }
+  &.small {
+    font-size: 14px;
+    font-weight: 600;
+    padding: 6px 20px;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 14px;
+    font-weight: 300;
+    padding: 4px 20px;
+  }
+}
+
+.sign-google-btn {
+  color: $font-darker-color;
+  border-color: #0000003b;
+  &:hover {
+    border-color: #db4437;
+  }
+}
+
+.sign-facebook-btn {
+  &:hover {
+    color: #fff;
+    background-color: #2196f3;
+  }
+}
+
+.sign-btn {
+  color: $font-white-color;
+  font-size: 17px;
+  font-weight: 600;
+  padding: 6px 50px;
+  border-radius: 8px;
+  background: linear-gradient(to right, $font-darker-color, $bg-orange-light-alpha-color);
+  &:hover {
+    background: linear-gradient(to right, $bg-orange-light-alpha-color, $font-darker-color);
+  }
+}
+
+.rounded-gradient-btn {
+  color: $font-white-color;
+  font-size: 17px;
+  font-weight: 600;
+  padding: 6px 50px;
+  margin: 20px 0;
+  border-radius: 24px;
+  background: linear-gradient(to right, $font-darker-color, $bg-orange-light-alpha-color);
+  &:hover {
+    background: linear-gradient(to right, $bg-orange-light-alpha-color, $font-darker-color);
+  }
+}
+
+.profile-gradient-btn {
+  color: $font-white-color;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 6px 40px;
+  margin: 20px 0;
+  border-radius: 24px;
+  background: linear-gradient(to right, $font-darker-color, $bg-orange-light-alpha-color);
+  &:hover {
+    background: linear-gradient(to right, $bg-orange-light-alpha-color, $font-darker-color);
+  }
+}
+
+.rounded-orange-btn {
+  font-size: 16px;
+  font-weight: 500;
+  padding: 3px 30px;
+  margin: 10px 0;
+  border-radius: 24px;
+  border: 1px solid $bg-orange-lighter-color;
+  color: #fff;
+  background-color: $bg-orange-lighter-color;
+  &:hover {
+    background-color: #fff;
+    color: $bg-orange-lighter-color;
+  }
+}
+
+.executive-close-btn {
+  position: absolute;
+  top: -12px;
+  right: -20px;
+  color: $font-darker-color;
+  font-size: 30px;
+  &:hover {
+    background-color: #00000000;
+    color: $bg-orange-dark-color;
+  }
+}
+
+.executive-read-btn {
+  color: $font-darker-color;
+  border-color: $font-darker-color;
+  &:hover {
+    color: $bg-orange-dark-color;
+    border-color: $bg-orange-dark-color;
+  }
+}
+
+.executive-talk-btn {
+  color: #fff;
+  background-color: $bg-orange-dark-color;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 6px 30px;
+  &:hover {
+    color: $bg-orange-dark-color;
+    background-color: #fff;
+  }
+}
+
+.upload-btn {
+  width: 100%;
+  color: $font-darker-color;
+  border-color: $font-darker-color;
+  &:hover {
+    border-color: $bg-orange-dark-color;
+    color: $bg-orange-dark-color;
+  }
+}
+
+.ant-upload {
+  &.ant-upload-select {
+    width: 100% !important;
+  }
+}
+
+.finally-sign-btn {
+  color: $font-white-color;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 6px 20px;
+  border-radius: 24px;
+  background: linear-gradient(to right, $font-darker-color, $bg-orange-light-alpha-color);
+  &:hover {
+    background: linear-gradient(to right, $bg-orange-light-alpha-color, $font-darker-color);
+  }
+}
+
+.radio-button-group {
+  height: 40px;
+  border-radius: 12px;
+  border: 1px solid #858585;
+  color: #656565;
+  font-weight: 600;
+  width: 33% !important;
+  line-height: 1.1em;
+  font-size: 1em;
+  &:hover {
+    color: #242424 !important;
+    border: 1px solid #858585;
+  }
+}
+
+.profession-radio-btn {
+  color: $font-darker-color;
+  margin: -3px 0;
+  .img-radio-label {
+    font-size: 12px;
+  }
+}
+
+.add-card-close-btn {
+  color: $bg-orange-lighter-color;
+  background-color: #fff;
+  border: 1px solid $bg-orange-lighter-color;
+  float: right;
+  &:hover {
+    color: #fff;
+    background-color: $bg-orange-lighter-color;
+  }
+}
+
+.card-list-continue-btn {
+  width: 100%;
+  padding: 8px 15px;
+  background: $font-darker-color;
+  font-size: 15px;
+  font-family: 'AmazonEmber', sans-serif;
+  font-weight: bold;
+  margin-bottom: 14px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  color: $bg-orange-lighter-color;
+  .font-color {
+    color: inherit;
+    &:hover {
+      color: inherit;
+    }
+  }
+  &:hover {
+    color: $font-darker-color;
+    background-color: $bg-orange-lighter-color;
+  }
+  &.mb {
+    margin-bottom: 0;
+  }
+}
+
+.continue-homepage-btn {
+  font-size: 15px;
+  color: $bg-orange-lighter-color;
+  background-color: $font-darker-color;
+  border-radius: 5px;
+  border: 1px solid $font-darker-color;
+  padding: 8px 24px;
+  font-weight: 600;
+  margin: 20px 0;
+  &:hover {
+    color: $font-darker-color;
+    background-color: #fff;
+  }
+  @media screen and (max-width: '600px') {
+    font-size: 13px;
+    font-weight: 500;
+  }
+}
+
+.link-copy-btn {
+  background-color: $bg-orange-lighter-color;
+  border: 1px solid #b1b1b1;
+  color: #fff;
+  font-weight: 600;
+  padding: 7px 18px;
+  border-radius: 0 6px 6px 0;
+  margin-right: -14px;
+  &:hover {
+    background-color: #fff;
+    color: $font-darker-color;
+  }
+  &.copied {
+    background-color: $font-darker-color;
+    &:hover {
+      background-color: #fff;
+      color: $bg-orange-lighter-color;
+    }
+  }
+}
+
+.create-link-btn {
+  background-color: $bg-orange-lighter-color;
+  color: #fff;
+  border-radius: 8px;
+  font-weight: 600;
+  padding: 8px 30px;
+  &:hover {
+    background-color: $font-darker-color;
+  }
+}
+
+.link-btn {
+  padding: 8px;
+  font-size: 16px;
+  margin: 5px;
+  text-decoration: none;
+  border-radius: 5px;
+  &.twitter {
+    border: 1px solid#00aced;
+    color: #00aced;
+  }
+  &.facebook {
+    border: 1px solid #3b5998;
+    color: #3b5998;
+  }
+  &.linkedin {
+    border: 1px solid#007bb6;
+    color: #007bb6;
+  }
+  &.pinterest {
+    border: 1px solid#cb2027;
+    color: #cb2027;
+  }
+  &.whatsapp {
+    border: 1px solid#29a628;
+    color: #29a628;
+  }
+  span {
+    @media screen and (max-width: '700px') {
+      display: none;
+    }
+  }
+}
+
+.account-or-btn {
+  width: 120px;
+  color: #2196f3;
+  background-color: #fff;
+  border: 1px solid #2196f3;
+  border-radius: 4px;
+  font-weight: 600;
+  padding: 5px 27px;
+  @media screen and (max-width: '600px') {
+    padding: 3px 18px;
+  }
+  margin: 6px 12px;
+  &:hover {
+    color: #fff;
+    background-color: #2196f3;
+    border: 1px solid #2196f3;
+  }
+}
+
+.account-delete-btn {
+  width: 120px;
+  color: #f32821;
+  background-color: #fff;
+  border: 1px solid #f32821;
+  border-radius: 4px;
+  font-weight: 600;
+  padding: 5px 27px;
+  @media screen and (max-width: '600px') {
+    padding: 3px 18px;
+  }
+  margin: 6px 12px;
+  &:hover {
+    color: #fff;
+    background-color: #f32821;
+    border: 1px solid #f32821;
+  }
+}
+
+.account-no-btn {
+  width: 120px;
+  color: $font-darker-color;
+  background-color: #fff;
+  border: 1px solid $font-darker-color;
+  border-radius: 4px;
+  font-weight: 600;
+  padding: 5px 27px;
+  @media screen and (max-width: '600px') {
+    padding: 3px 18px;
+  }
+  margin: 6px 12px;
+  &:hover {
+    color: #fff;
+    background-color: $font-darker-color;
+    border: 1px solid $font-darker-color;
+  }
+}
+
+.account-yes-btn {
+  width: 120px;
+  color: $bg-orange-lighter-color;
+  background-color: #fff;
+  border: 1px solid $bg-orange-lighter-color;
+  border-radius: 4px;
+  font-weight: 600;
+  padding: 5px 27px;
+  @media screen and (max-width: '600px') {
+    padding: 3px 18px;
+  }
+  margin: 6px 12px;
+  &:hover {
+    color: #fff;
+    background-color: $bg-orange-lighter-color;
+    border: 1px solid $bg-orange-lighter-color;
+  }
+  &.long {
+    width: 270px;
+    @media screen and (max-width: '600px') {
+      width: 140px;
+    }
+  }
+}
+
+.add-new-address {
+  color: $bg-orange-lighter-color;
+  border: 1px dashed $bg-orange-lighter-color;
+  margin-left: 30px;
+  min-width: 56px;
+  &:hover {
+    background-color: $bg-orange-lighter-color;
+    color: #fff;
+    border: 1px solid $bg-orange-lighter-color;
+  }
+}
+
+.set-default-btn {
+  color: $font-white-color;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 6px 40px;
+  border-radius: 24px;
+  background: linear-gradient(to right, $font-darker-color, $bg-orange-light-alpha-color);
+  &:hover {
+    background: linear-gradient(to right, $bg-orange-light-alpha-color, $font-darker-color);
+  }
+  &.default {
+    z-index: -1;
+    opacity: 0.3;
+  }
+}
+
+.small-date-picker {
+  .MuiInputBase-root {
+    height: 40px;
+  }
+}

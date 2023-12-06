@@ -1,0 +1,26 @@
+{
+  // @author Sukhendu Mukherjee
+  // @email smukherjee@drapefit.com
+  // @developer li.yang@drapefit.com
+  // @developer roman.tyshanov@drapefit.com
+  // @coauthor suprakash.dev@drapefit.com
+  // @company Drape Fit Inc.
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug Server for DFNew",
+      "type": "node",
+      "request": "launch",
+      "runtimeVersion": "18.12",
+      "skipFiles": ["<node_internals>/**"],
+      "program": "${workspaceFolder}/backend/server.js"
+    },
+    {
+      "name": "Debug Mocha Test for DFNew Backend Server",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
+      "args": ["--no-timeouts", "${workspaceFolder}/backend/app.test.js", "--exit"]
+    }
+  ]
+}

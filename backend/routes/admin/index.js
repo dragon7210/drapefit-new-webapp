@@ -1,0 +1,40 @@
+import express from 'express';
+import influencerRoutes from './influencerRoutes.js';
+import salesTaxRoutes from './salesTaxRoutes.js';
+import employeeRoutes from './employeeRoutes.js';
+import cmsRoutes from './cmsRoutes.js';
+import socialRoutes from './socialRoutes.js';
+import careerRoutes from './careerRoutes.js';
+import blogRoutes from './blogRoutes.js';
+import newsRoute from './newsRoutes.js';
+import offerPromoRoutes from './offerPromoRoutes.js';
+import promocodeRoutes from './promocodeRoutes.js';
+import giftcardRoutes from './giftcardRoutes.js';
+import customerRoutes from './customerRoutes.js';
+import productRoutes from './productRoutes.js';
+import subscriptionRoutes from './subscriptionRoutes.js';
+import reportRoutes from './reportRoutes.js';
+import masterSummaryRoutes from './masterSummaryRoutes.js';
+import masterSupportRoutes from './masterSupportRoutes.js';
+
+const adminRoutes = express.Router();
+
+adminRoutes.use('/manage/influencer', influencerRoutes);
+adminRoutes.use('/manage/state/salestax', salesTaxRoutes);
+adminRoutes.use('/manage/employee', employeeRoutes);
+adminRoutes.use('/manage/cms', cmsRoutes);
+adminRoutes.use('/manage/socialMedia', socialRoutes);
+adminRoutes.use('/manage/career', careerRoutes);
+adminRoutes.use('/manage', blogRoutes);
+adminRoutes.use('/manage/news', newsRoute);
+adminRoutes.use('/manage/offerPromocode', offerPromoRoutes);
+adminRoutes.use('/manage/promocode', promocodeRoutes);
+adminRoutes.use('/manage/giftcard', giftcardRoutes);
+adminRoutes.use('/manage/customer', customerRoutes);
+adminRoutes.use('/manage', productRoutes);
+adminRoutes.use('/manage/subscription', subscriptionRoutes);
+adminRoutes.use('/manage/report', reportRoutes);
+adminRoutes.use('/manage/master', masterSummaryRoutes);
+adminRoutes.use('/manage/master-support', masterSupportRoutes);
+
+export default adminRoutes;

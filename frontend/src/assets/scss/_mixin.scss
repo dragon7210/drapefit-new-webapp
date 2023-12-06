@@ -1,0 +1,483 @@
+@mixin banner($url, $urlWebp, $percentOfPos: 80%, $minusHeight: 275px) {
+  position: relative;
+  width: 100%;
+  background-image: $urlWebp, $url;
+  background-position: left $percentOfPos top;
+  background-repeat: no-repeat;
+  background-size: cover;
+  flex-wrap: wrap;
+  height: calc(100vh - $minusHeight);
+  @media only screen and (hover: none) and (pointer: coarse) and (orientation: landscape) {
+    height: calc(100vh - 66px);
+  }
+}
+
+@mixin banner-notfound($url, $urlWebp, $minusHeight: 275px) {
+  position: relative;
+  width: 100%;
+  background-image: $urlWebp, $url;
+  background-position: left bottom;
+  background-repeat: no-repeat;
+  background-size: cover;
+  flex-wrap: wrap;
+  height: calc(100vh - $minusHeight);
+  @media only screen and (hover: none) and (pointer: coarse) and (orientation: landscape) {
+    height: calc(100vh - 66px);
+  }
+}
+
+@mixin main-padding($padding: 20px 8vw) {
+  padding: $padding;
+}
+
+a {
+  text-decoration: none;
+  color: rgb(0, 108, 197);
+}
+
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #828282;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #353535;
+  border-radius: 16px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #424242;
+  cursor: pointer;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: #292929;
+}
+
+::-moz-selection {
+  background: #0b8593;
+  color: #fff;
+  text-shadow: 1px 1px 0 #000;
+}
+
+::selection {
+  background: #0b8593;
+  color: #fff;
+  text-shadow: 1px 1px 0 #000;
+}
+
+//-- back-top button
+.ant-float-btn-body {
+  background-color: #232f3e !important;
+  &:hover {
+    background-color: $bg-orange-lighter-color !important;
+  }
+}
+
+.ant-float-btn-icon {
+  color: white !important;
+}
+
+.swiper-button-prev:after {
+  color: $font-darker-color;
+  font-size: 24px !important;
+  padding: 8px 12px;
+  border-radius: 50%;
+  background-color: #33333399;
+}
+
+.swiper-button-next:after {
+  color: $font-darker-color;
+  font-size: 24px !important;
+  padding: 8px 12px;
+  border-radius: 50%;
+  background-color: #33333399;
+}
+
+.how-works {
+  @include main-padding();
+  background-color: #f6f8f7;
+  margin-top: 20px;
+}
+
+.process-img {
+  display: flex;
+  height: 150px;
+  width: 150px;
+  overflow: hidden;
+  border-radius: 100%;
+  border: 6px solid #fff;
+  box-shadow: 0px 0px 11px -4px #b3bfce;
+  margin-top: -90px;
+  margin-bottom: 16px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.process-num {
+  display: inline-block;
+  text-align: center;
+  height: 45px;
+  width: 45px;
+  background: #ff6c00;
+  color: #232f3e;
+  font-weight: 800;
+  border-radius: 63px;
+  line-height: 38px;
+  border: 3px solid #fff;
+  box-shadow: 0px 0px 11px -4px #b3bfce;
+}
+
+.process-box {
+  width: 100%;
+  background: #fff;
+  text-align: center;
+  padding: 15px;
+  height: 400px;
+  @media screen and (max-width: 1200px) {
+    height: 350px;
+  }
+  @media screen and (max-width: 600px) {
+    height: 300px;
+  }
+  border: 1px dashed #b3bfce;
+  border-radius: 8px;
+  margin-top: 70px;
+}
+
+.style-fit {
+  @include main-padding();
+}
+
+.notification-error {
+  background-color: $notification-error !important;
+  padding-bottom: 12px !important;
+}
+
+.notification-success {
+  background-color: $notification-success !important;
+  padding-bottom: 12px !important;
+}
+
+.notification-warning {
+  background-color: $notification-warning !important;
+  padding-bottom: 12px !important;
+}
+
+.notification-info {
+  background-color: $notification-info !important;
+  padding-bottom: 12px !important;
+}
+
+.notification-message {
+  color: #fff;
+}
+
+.notification-icon {
+  color: #fff;
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.timeline-dot {
+  background-color: #000;
+}
+
+.timeline-connector {
+  background-color: $font-darker-color;
+  height: 180px;
+}
+
+.timeline-content {
+  position: relative;
+}
+
+.timeline-content-icon {
+  margin-top: 0;
+  color: $font-darker-color;
+  font-weight: 800;
+  font-size: 24px;
+}
+
+.timeline-content-box {
+  width: 300px;
+  border: 2px solid #232f3e;
+  padding: 30px 40px;
+  top: 20px;
+  &.right {
+    position: absolute;
+    right: calc(50vw - 390px);
+  }
+  &.left {
+    position: absolute;
+    left: calc(50vw - 390px);
+  }
+  &.theme-md {
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+  }
+}
+
+.timeline-content-title {
+  font-family: 'HVDFontsBrandonTextBold';
+  font-size: 18px;
+  color: #232f3e;
+  text-align: start;
+  &.theme-md {
+    margin-top: 20px;
+    text-align: center;
+  }
+}
+
+.timeline-content-content {
+  font-family: 'HVDFontsBrandonTextRegular';
+  font-size: 17px;
+  text-align: start;
+  &.theme-md {
+    text-align: center;
+  }
+}
+
+.timeline-content-num {
+  display: inline-block;
+  width: 70px;
+  height: 70px;
+  background: #232f3e;
+  color: #fff;
+  font-weight: 700;
+  font-size: 25px;
+  border-radius: 61px;
+  text-align: center;
+  line-height: 58px;
+  border: 7px solid #fff;
+  position: absolute;
+  &.right {
+    right: -30px;
+    bottom: -30px;
+  }
+  &.left {
+    right: 265px;
+    bottom: -30px;
+  }
+  &.theme-md {
+    right: 112px;
+    top: -37px;
+  }
+}
+
+.how-much-cost {
+  position: relative;
+  @media screen and (min-width: '900px') {
+    &::after {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 360px;
+      width: 60%;
+      background: #232f3e;
+      content: '';
+      z-index: -1;
+    }
+  }
+  .lady {
+    object-fit: cover;
+    width: 80%;
+  }
+}
+
+.how-much-cost-content-box {
+  margin-top: 30px;
+  background-color: #fff;
+  box-shadow: 2px 2px 12px 2px $font-darker-color;
+  margin-left: -27vw;
+  @media screen and (max-width: '900px') {
+    margin-left: 0;
+    padding: 10px 30px;
+  }
+}
+
+.outlined {
+  @media screen and (min-width: '900px') {
+    &::after {
+      position: absolute;
+      top: -41px;
+      left: -72px;
+      height: 70%;
+      width: 68%;
+      border: 1px solid #232f3e;
+      content: '';
+      z-index: -1;
+    }
+  }
+}
+
+.ps__rail-x {
+  display: none !important;
+}
+
+.MuiTabs-indicator {
+  background-color: $bg-orange-lighter-color;
+}
+
+//-- image upload component (antd) customization
+.ant-upload-list-picture-card {
+  .ant-upload {
+    &.ant-upload-select {
+      width: 100% !important;
+      height: 100% !important;
+      aspect-ratio: 1 / 1;
+    }
+  }
+}
+
+.ant-upload-list-item-container {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.padding-12 {
+  padding: 12px 0;
+}
+
+.ant-tabs-tab {
+  &:hover {
+    color: $bg-orange-lighter-color !important;
+  }
+}
+
+.ant-tabs-tab-active {
+  .ant-tabs-tab-btn {
+    color: $bg-orange-lighter-color !important;
+  }
+}
+
+.ant-tabs-ink-bar {
+  &.ant-tabs-ink-bar-animated {
+    background-color: $bg-orange-lighter-color !important;
+  }
+}
+
+.ant-notification {
+  &.ant-notification-topRight {
+    z-index: 10000;
+  }
+}
+
+.MuiOutlinedInput-root {
+  border-radius: 6px;
+}
+
+.edit-modal {
+  .ant-modal-content {
+    margin-bottom: 50px;
+  }
+}
+
+.MuiFormLabel-root {
+  &.MuiInputLabel-root {
+    &.MuiInputLabel-formControl {
+      margin-top: -6px;
+      &.MuiInputLabel-sizeSmall,
+      &.MuiInputLabel-shrink {
+        margin-top: 0;
+      }
+    }
+  }
+}
+
+.error {
+  .MuiOutlinedInput-notchedOutline {
+    border-color: $notification-error;
+  }
+  .item {
+    color: $notification-error;
+  }
+}
+
+.warning {
+  .MuiOutlinedInput-notchedOutline {
+    border-color: $notification-warning;
+  }
+  .item {
+    color: $notification-warning;
+  }
+}
+
+.info {
+  .MuiOutlinedInput-notchedOutline {
+    border-color: $notification-info;
+  }
+  .item {
+    color: $notification-info;
+  }
+}
+
+.success {
+  .MuiOutlinedInput-notchedOutline {
+    border-color: $notification-success;
+  }
+  .item {
+    color: $notification-success;
+  }
+}
+
+.MuiDialogActions-root {
+  &.MuiDialogActions-spacing {
+    padding: 8px 24px 16px;
+    @media screen and (max-width: 500px) {
+      padding: 8px;
+    }
+  }
+}
+
+.react-datepicker-popper {
+  z-index: 2 !important;
+}
+
+.ellipsis-nowrap {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+//-- AntD image cropper modal (> 1300)
+.ant-modal-root {
+  .ant-modal-mask {
+    z-index: 1600;
+  }
+  .ant-modal-wrap {
+    &.img-crop-modal {
+      z-index: 1600;
+    }
+  }
+}
+
+.no-margin {
+  margin: 0 !important;
+}
+
+.txt-error {
+  color: $notification-error !important;
+}
+
+.txt-warning {
+  color: $notification-warning !important;
+}
+
+.txt-info {
+  color: $notification-info !important;
+}
+
+.txt-success {
+  color: $notification-success !important;
+}
+
+.txt-center {
+  text-align: center !important;
+}

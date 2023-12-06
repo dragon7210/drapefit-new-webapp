@@ -1,0 +1,41 @@
+/**
+ * Loading Spinner Styling
+ */
+body {
+  background-color: #232f3e;
+}
+.loader-container {
+  text-align: center;
+  margin-top: calc(50vh - 1em);
+}
+.loader {
+  font-size: 2em;
+  display: inline-block;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: bold;
+  color: #263238;
+  box-sizing: border-box;
+  text-shadow: 0 0 2px #fff, 0 0 1px #fff, 0 0 1px #fff;
+  letter-spacing: 2px;
+  position: relative;
+}
+.loader::after {
+  content: 'DrapeFit';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #f76c02;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+  animation: animloader 3s ease-in infinite;
+}
+@keyframes animloader {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}

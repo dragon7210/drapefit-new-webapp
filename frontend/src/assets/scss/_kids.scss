@@ -1,0 +1,7 @@
+.banner-top-kids {
+  @include banner(
+    $url: url($s3-bucket-url + '/images/client/banner-kids.jpg'),
+    $urlWebp: url($s3-bucket-url + '/images/client/banner-kids.webp'),
+    $percentOfPos: 12%
+  );
+}
