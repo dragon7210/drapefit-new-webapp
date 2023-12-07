@@ -13,23 +13,59 @@ import WomenInformation from '../../models/client/womenInformation.js';
 import WomenStyleSphereSelections from '../../models/client/womenStyleSphereSelections.js';
 import CustomDesign from '../../models/client/customDesign.js';
 import WomenShoePrefer from '../../models/client/womenShoePrefer.js';
+import WomenHeelHightPrefer from '../../models/client/womenHeelHightPrefer.js';
 import UserDetail from '../../models/admin/userDetail.js';
+import PersonalizedFix from '../../models/admin/personalizedFix.js';
+import SizeChart from '../../models/admin/sizeChart.js';
 
 const editWomenFPBasicInfo = asyncHandler(async (req, res) => {
   try {
-    const { id, are_you_a_parent, user_id, ...values } = req.body;
+    let user_id = req.user.id;
+    let { id, are_you_a_parent, ...values } = req.body;
     let { is_progressbar } = await UserDetail.findOne({ where: { user_id } });
-    const womenInfo = await WomenInformation.findOne({ where: { user_id } });
+    let womenInfo = await WomenInformation.findOne({ where: { user_id } });
     if (womenInfo) {
       await WomenInformation.update({ ...values }, { where: { user_id } });
     } else {
       await WomenInformation.create({ ...values, user_id: user_id });
     }
-    const womenS = await WomenStyle.findOne({ where: { user_id } });
+    let womenS = await WomenStyle.findOne({ where: { user_id } });
     if (womenS) {
       await WomenStyle.update({ ...values }, { where: { user_id } });
     } else {
-      await WomenStyle.create({ ...values, user_id: user_id });
+      await WomenStyle.create({ ...values, user_id });
+    }
+    let personalizedFix = await PersonalizedFix.findOne({
+      where: { user_id }
+    });
+    if (!personalizedFix) {
+      await PersonalizedFix.create({ ...values, user_id });
+    } else {
+      await PersonalizedFix.update({ ...values }, { where: { user_id } });
+    }
+    let sizeChart = await SizeChart.findOne({
+      where: { user_id }
+    });
+    if (!sizeChart) {
+      await SizeChart.create({ ...values, user_id });
+    } else {
+      await SizeChart.update({ ...values }, { where: { user_id } });
+    }
+    let womenShoePrefer = await WomenShoePrefer.findOne({
+      where: { user_id }
+    });
+    if (!womenShoePrefer) {
+      await WomenShoePrefer.create({ ...values, user_id });
+    } else {
+      await WomenShoePrefer.update({ ...values }, { where: { user_id } });
+    }
+    let womenHeelHightPrefer = await WomenHeelHightPrefer.findOne({
+      where: { user_id }
+    });
+    if (!womenHeelHightPrefer) {
+      await WomenHeelHightPrefer.create({ ...values, user_id });
+    } else {
+      await WomenHeelHightPrefer.update({ ...values }, { where: { user_id } });
     }
     if (is_progressbar < 25) {
       await UserDetail.update({ is_progressbar: 25 }, { where: { user_id } });
@@ -45,26 +81,53 @@ const editWomenFPBasicInfo = asyncHandler(async (req, res) => {
 
 const getWomenFPBasicInfo = asyncHandler(async (req, res) => {
   try {
-    let { user_id } = req.body;
+    let user_id = req.user.id;
     let womenFP = await WomenStyle.findOne({
       where: { user_id },
       attributes: ['linkdin_profile', 'instagram', 'twitter', 'pinterest']
     });
     if (!womenFP) {
-      womenFP = await WomenStyle.create({ user_id: user_id });
+      womenFP = await WomenStyle.create({ user_id });
     }
     let womenInfo = await WomenInformation.findOne({
       where: { user_id }
     });
     if (!womenInfo) {
-      womenInfo = await WomenInformation.create({ user_id: user_id });
+      womenInfo = await WomenInformation.create({ user_id });
     }
-    if (!womenFP && !womenInfo) {
-      console.log('API_getWomenFPBasicInfo_200:', 'No Fit Profile yet');
-      return res.status(200).json(null);
+    let personalizedFix = await PersonalizedFix.findOne({
+      where: { user_id }
+    });
+    if (!personalizedFix) {
+      personalizedFix = await PersonalizedFix.create({ user_id });
     }
+    let sizeChart = await SizeChart.findOne({
+      where: { user_id }
+    });
+    if (!sizeChart) {
+      sizeChart = await SizeChart.create({ user_id });
+    }
+    let womenShoePrefer = await WomenShoePrefer.findOne({
+      where: { user_id }
+    });
+    if (!womenShoePrefer) {
+      womenShoePrefer = await WomenShoePrefer.create({ user_id });
+    }
+    let womenHeelHightPrefer = await WomenHeelHightPrefer.findOne({
+      where: { user_id }
+    });
+    if (!womenHeelHightPrefer) {
+      womenHeelHightPrefer = await WomenHeelHightPrefer.create({ user_id });
+    }
+    res.status(200).json({
+      ...womenFP?.dataValues,
+      ...womenInfo?.dataValues,
+      ...personalizedFix.dataValues,
+      ...sizeChart.dataValues,
+      ...womenShoePrefer.dataValues,
+      ...womenHeelHightPrefer.dataValues
+    });
     console.log('API_getWomenFPBasicInfo_200:', 'Basic Info of Fit Profile is retrieved');
-    res.status(200).json({ ...womenFP?.dataValues, ...womenInfo?.dataValues });
   } catch (e) {
     console.log('API_getWomenFPBasicInfo_500:', e?.message);
     res.status(500);
@@ -77,17 +140,17 @@ const editWomenFPStyleFit = asyncHandler(async (req, res) => {
     const { user_id, ...values } = req.body;
     let { is_progressbar } = await UserDetail.findOne({ where: { user_id } });
 
-    let womenStyleData = await WomenStyle.findOne({ where: { user_id } });
-    if (womenStyleData) {
-      await WomenStyle.update({ ...values }, { where: { user_id } });
-    } else {
-      await WomenStyle.create({ ...values, user_id: user_id });
-    }
+    // let womenStyleData = await WomenStyle.findOne({ where: { user_id } });
+    // if (womenStyleData) {
+    //   await WomenStyle.update({ ...values }, { where: { user_id } });
+    // } else {
+    //   await WomenStyle.create({ ...values, user_id });
+    // }
     let womenInfoData = await WomenStyleSphereSelections.findOne({ where: { user_id } });
     if (womenInfoData) {
       await WomenStyleSphereSelections.update({ ...values }, { where: { user_id } });
     } else {
-      await WomenStyleSphereSelections.create({ ...values, user_id: user_id });
+      await WomenStyleSphereSelections.create({ ...values, user_id });
     }
     if (is_progressbar < 50) {
       await UserDetail.update({ is_progressbar: 50 }, { where: { user_id } });
@@ -103,12 +166,12 @@ const editWomenFPStyleFit = asyncHandler(async (req, res) => {
 
 const getWomenFPStyleFit = asyncHandler(async (req, res) => {
   try {
-    let { user_id } = req.body;
+    let user_id = req.user.id;
     let womenSel = await WomenStyleSphereSelections.findOne({
       where: { user_id }
     });
     if (!womenSel) {
-      womenSel = WomenStyleSphereSelections.create({ user_id: user_id });
+      womenSel = WomenStyleSphereSelections.create({ user_id });
     }
     let womenDenim = await WomenStyle.findOne({
       where: { user_id },
@@ -120,7 +183,7 @@ const getWomenFPStyleFit = asyncHandler(async (req, res) => {
       ]
     });
     if (!womenDenim) {
-      womenDenim = await WomenStyle.create({ user_id: user_id });
+      womenDenim = await WomenStyle.create({ user_id });
     }
 
     if (!womenSel || !womenDenim) {

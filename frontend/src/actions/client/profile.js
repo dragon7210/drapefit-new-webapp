@@ -171,9 +171,9 @@ export const wEditBasicInfo = (formData, navigate) => async (dispatch) => {
   }
 };
 
-export const wGetBasicInfo = (data) => async (dispatch) => {
+export const wGetBasicInfo = () => async (dispatch) => {
   try {
-    const res = await Api.post('/fitprofile/basicinfo/women', data);
+    const res = await Api.post('/fitprofile/basicinfo/women');
     dispatch({
       type: GET_WOMEN_BASIC_INFO,
       payload: res.data
@@ -200,9 +200,9 @@ export const wEditStyleFit = (formData, navigate) => async (dispatch) => {
   }
 };
 
-export const wGetStyleFit = (data) => async (dispatch) => {
+export const wGetStyleFit = () => async (dispatch) => {
   try {
-    const res = await Api.post('/fitprofile/stylefit/women', data);
+    const res = await Api.post('/fitprofile/stylefit/women');
     dispatch({
       type: GET_WOMEN_STYLE_FIT,
       payload: res.data

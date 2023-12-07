@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Divider, Grid, Typography, Button } from '@mui/material';
 import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
@@ -40,7 +40,8 @@ import {
   iMissingFit,
   iDressupOccasion,
   iMissingCloset,
-  iMostlyLightsColor
+  iMostlyLightsColor,
+  iStyleInspiration
 } from 'constant/womenStyleFit';
 
 import { arrayToStringValue } from 'constant/function';
@@ -50,28 +51,18 @@ const Style_Fit = GenS3Link('landing/images/client/profile/women/style-fit/style
 const StyleFit = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { id } = useParams();
   const [viewState, setViewState] = useState(true);
-  const [user_id, setUser_id] = useState(-1);
   const { user } = useSelector((state) => state.auth);
   let saveReturn = false;
-  useEffect(() => {
-    if (id) {
-      setUser_id(id);
-      setViewState(false);
-    } else {
-      setUser_id(user?.user_id);
-    }
-  }, [id, user]);
 
   useEffect(() => {
-    dispatch(wGetStyleFit({ user_id }));
-  }, [dispatch, user_id]);
+    dispatch(wGetStyleFit());
+  }, [dispatch]);
 
   const { wStyleFit } = useSelector((state) => state.profile);
   let newWomenStyleFit = {
     ...wStyleFit,
-    // styleInspiration: wStyleFit?.styleInspiration?.split(','),
+    style_sphere_selections_v2: exceptionValue(wStyleFit?.style_sphere_selections_v2),
     wo_dress_length: exceptionValue(wStyleFit?.wo_dress_length),
     wo_top_half: exceptionValue(wStyleFit?.wo_top_half),
     wo_pant_length: exceptionValue(wStyleFit?.wo_pant_length),
@@ -80,19 +71,19 @@ const StyleFit = () => {
     wo_appare: exceptionValue(wStyleFit?.wo_appare),
     wo_bottom_style: exceptionValue(wStyleFit?.wo_bottom_style),
     wo_top_style: exceptionValue(wStyleFit?.wo_top_style),
-    missing_from_your_fIT: wStyleFit?.missing_from_your_fIT?.split(','),
-    color_mostly_wear: wStyleFit?.color_mostly_wear?.split(','),
-    style_sphere_selections_v2: wStyleFit?.style_sphere_selections_v2?.split(','),
-    style_sphere_selections_v3_3: wStyleFit?.style_sphere_selections_v3_3?.split(','),
+    missing_from_your_fIT: exceptionValue(wStyleFit?.missing_from_your_fIT),
+    color_mostly_wear: exceptionValue(wStyleFit?.color_mostly_wear),
+    wo_dress_length: exceptionValue(wStyleFit?.wo_dress_length),
     color_prefer: wStyleFit?.color_prefer ? JSON.parse(wStyleFit?.color_prefer) : []
   };
+  console.log(newWomenStyleFit);
   const left = {
     title: `Hi ${FirstUpper(user?.name)}`,
     content: 'Please complete your style information that will help us to get completed a best FIT',
     image: Style_Fit
   };
   const initVal = {
-    styleInspiration: [],
+    style_sphere_selections_v2: [],
     wo_dress_length: [],
     wo_top_half: [],
     wo_pant_length: [],
@@ -106,7 +97,7 @@ const StyleFit = () => {
     missing_from_your_fIT: [],
     color_mostly_wear: [],
     style_sphere_selections_v2: [],
-    style_sphere_selections_v3_3: [],
+    wo_dress_length: [],
     distressed_denim_non: '',
     distressed_denim_minimally: '',
     distressed_denim_fairly: '',
@@ -162,7 +153,7 @@ const StyleFit = () => {
                 initialValues={wStyleFit == null ? initVal : newWomenStyleFit}
                 enableReinitialize
                 validationSchema={Yup.object().shape({
-                  styleInspiration: Yup.array().min(1, 'Please select Style Inspiration'),
+                  style_sphere_selections_v2: Yup.array().min(1, 'Please select Style Inspiration'),
                   avoidPattern: Yup.array().min(1, 'Please select Avoid Pattern'),
                   outFit: Yup.array().min(1, 'Please select OutFit')
                 })}
@@ -180,14 +171,14 @@ const StyleFit = () => {
                     missing_from_your_fIT: values?.missing_from_your_fIT.toString(),
                     color_mostly_wear: values?.color_mostly_wear.toString(),
                     style_sphere_selections_v2: values?.style_sphere_selections_v2.toString(),
-                    style_sphere_selections_v3_3: values?.style_sphere_selections_v3_3.toString(),
+                    wo_dress_length: values?.wo_dress_length.toString(),
                     color_prefer: arrayToStringValue(values?.color_prefer)
                   };
                   if (saveReturn) {
-                    dispatch(wEditStyleFit({ ...StyleSubmitValues, user_id }));
+                    dispatch(wEditStyleFit(StyleSubmitValues));
                     saveReturn = false;
                   } else {
-                    dispatch(wEditStyleFit({ ...StyleSubmitValues, user_id }, navigate));
+                    dispatch(wEditStyleFit(StyleSubmitValues, navigate));
                   }
                 }}
               >
@@ -204,17 +195,17 @@ const StyleFit = () => {
                             styles below that you inspire to look like or would like to explore.
                           </Typography>
                         </Grid>
-                        {/* <Grid item xs={12}>
+                        <Grid item xs={12}>
                           <ImageSelectorCheckbox
                             content={iStyleInspiration}
                             touched={touched}
                             errors={errors}
                             handleBlur={handleBlur}
                             handleChange={handleChange}
-                            name="styleInspiration"
-                            value={values.styleInspiration}
+                            name="style_sphere_selections_v2"
+                            value={values.style_sphere_selections_v2}
                           />
-                        </Grid> */}
+                        </Grid>
                         <Grid item xs={12}>
                           <Divider sx={{ margin: '20px 0' }} />
                         </Grid>
@@ -323,7 +314,7 @@ const StyleFit = () => {
                             Please tell us the OutFit you prefer to wear. <span style={{ color: 'red' }}>*</span>
                           </Typography>
                         </Grid>
-                        <Grid item xs={12}>
+                        {/* <Grid item xs={12}>
                           <ImageSelectorWithRadioGroup
                             content={wOutFit}
                             errors={errors}
@@ -331,11 +322,11 @@ const StyleFit = () => {
                             handleBlur={handleBlur}
                             handleChange={handleChange}
                             setFieldValue={setFieldValue}
-                            name="style_sphere_selections_v3_3"
-                            rname="style_sphere_selections_v3_3"
+                            name="wo_dress_length"
+                            rname="wo_dress_length"
                             value={values}
                           />
-                        </Grid>
+                        </Grid> */}
                         <Grid item xs={12}>
                           <Divider sx={{ margin: '20px 0' }} />
                         </Grid>
@@ -346,8 +337,8 @@ const StyleFit = () => {
                             errors={errors}
                             handleBlur={handleBlur}
                             handleChange={handleChange}
-                            name="style_sphere_selections_v2"
-                            value={values.style_sphere_selections_v2}
+                            name="style_sphere_selections_v10"
+                            value={values.style_sphere_selections_v10}
                           />
                         </Grid>
                         <Grid item xs={12}>

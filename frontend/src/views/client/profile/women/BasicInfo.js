@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   Divider,
   Grid,
@@ -66,33 +66,21 @@ const Women_Size_Chart = GenS3Link('landing/images/client/profile/women/women-si
 const BasicInfo = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { id } = useParams();
   const [viewState, setViewState] = useState(true);
-  const [user_id, setUser_id] = useState(-1);
   const { user } = useSelector((state) => state.auth);
   let saveReturn = false;
 
   useEffect(() => {
-    if (id) {
-      setUser_id(id);
-      setViewState(false);
-    } else {
-      setUser_id(user.user_id);
-    }
-  }, [id, user]);
-  useEffect(() => {
-    if (user_id !== -1) {
-      dispatch(wGetBasicInfo({ user_id }));
-    }
-  }, [dispatch, user_id]);
+    dispatch(wGetBasicInfo());
+  }, [dispatch]);
 
   const { wBasicInfo } = useSelector((state) => state.profile);
   let newWBasicInfo = {
     ...wBasicInfo,
-    pants_size: wBasicInfo?.pants_size === null ? '' : wBasicInfo?.pants_size,
-    heel_height_label: wBasicInfo?.heel_height_label?.split(','),
-    shoes_style_label: wBasicInfo?.shoes_style_label?.split(','),
-    body_show_in_off: wBasicInfo?.body_show_in_off?.split(','),
+    pants: wBasicInfo?.pants === null ? '' : wBasicInfo?.pants,
+    height: wBasicInfo?.height?.split(','),
+    brands: wBasicInfo?.brands?.split(','),
+    comfortable_showing_off: wBasicInfo?.comfortable_showing_off?.split(','),
     keep_covered: wBasicInfo?.keep_covered?.split(',')
   };
   const [open, setOpen] = useState(false);
@@ -111,35 +99,35 @@ const BasicInfo = () => {
     image: Basic_Info
   };
   const initVal = {
-    height_feet: 0,
-    height_inch: 0,
+    tell_in_feet: '',
+    tell_in_inch: '',
     weight_lbs: 0,
     birthday: new Date(),
     parent: 0,
     body_type: 0,
     skin_tone: 0,
-    bra_size_num: 0,
-    bra_size_label: '',
-    shirt_blouse_size_no: 0,
-    shirt_blouse_size_label: '',
+    bra: '--',
+    bra_recomend: '--',
+    shirt_blouse: '--',
+    shirt_blouse_recomend: '--',
     jacket_size: '',
-    dress_size_no: '',
-    dress_size_label: '',
-    skirt_size: '',
-    pants_size: '',
-    jeans_size: 0,
-    bottom_size: '',
-    shoe_size_num: '',
-    shoes_style_label: [],
-    heel_height_label: [],
-    profession: '',
-    body_show_in_off: [],
+    dress: '',
+    dress_recomended: '--',
+    skirt: '',
+    pants: '',
+    jeans: 0,
+    pantsr1: '',
+    shoe: '',
+    brands: [],
+    height: [],
+    occupation_v2: '',
+    comfortable_showing_off: [],
     keep_covered: [],
-    arms: '',
-    shoulders: 0,
-    legs: 0,
-    hips: 0,
-    is_pregnant: 0,
+    proportion_arms: '--',
+    proportion_shoulders: '--',
+    proportion_legs: '--',
+    proportion_hips: '--',
+    pregnant: '',
     dueDate: new Date(),
     maternity_fit: 0,
     loose_fitted: 0,
@@ -149,6 +137,7 @@ const BasicInfo = () => {
     twitter: '',
     pinterest: ''
   };
+  console.log(newWBasicInfo);
   const year = new Date();
   const minBirthYear = year.getFullYear() - 18;
   const maxBirthYear = year.getFullYear() - 120;
@@ -203,9 +192,9 @@ const BasicInfo = () => {
               initialValues={wBasicInfo === null ? initVal : newWBasicInfo}
               enableReinitialize
               validationSchema={Yup.object().shape({
-                height_feet: Yup.number()
-                  .min(1, 'Please fill the height in feet')
-                  .max(3)
+                tell_in_feet: Yup.number()
+                  .min(4, 'Please fill the height in feet')
+                  .max(6)
                   .required('Please fill the height in feet'),
                 weight_lbs: Yup.number()
                   .min(10, 'Please enter a value greater than or equal to 10')
@@ -220,17 +209,17 @@ const BasicInfo = () => {
               onSubmit={async (values) => {
                 const valueToSubmit = {
                   ...values,
-                  heel_height_label: values.heel_height_label?.toString(),
-                  shoes_style_label: values.shoes_style_label?.toString(),
-                  body_show_in_off: values.body_show_in_off?.toString(),
+                  height: values.height?.toString(),
+                  brands: values.brands?.toString(),
+                  comfortable_showing_off: values.comfortable_showing_off?.toString(),
                   keep_covered: values.keep_covered?.toString()
                 };
 
                 if (saveReturn) {
-                  dispatch(wEditBasicInfo({ ...valueToSubmit, user_id }));
+                  dispatch(wEditBasicInfo({ ...valueToSubmit }));
                   saveReturn = false;
                 } else {
-                  dispatch(wEditBasicInfo({ ...valueToSubmit, user_id }, navigate));
+                  dispatch(wEditBasicInfo({ ...valueToSubmit }, navigate));
                 }
               }}
             >
@@ -251,22 +240,22 @@ const BasicInfo = () => {
                           <Grid item xs={12}>
                             <Grid container spacing={1}>
                               <Grid item xs={6}>
-                                <FormControl fullWidth error={Boolean(touched.height_feet && errors.height_feet)}>
+                                <FormControl fullWidth error={Boolean(touched.tell_in_feet && errors.tell_in_feet)}>
                                   <InputLabel>
                                     ft. <span style={{ color: 'red' }}>*</span>
                                   </InputLabel>
                                   <Select
                                     size="small"
                                     label="ft. *"
-                                    autoFocus={Boolean(touched.height_feet && errors.height_feet)}
-                                    value={values.height_feet || 0}
-                                    name="height_feet"
+                                    autoFocus={Boolean(touched.tell_in_feet && errors.tell_in_feet)}
+                                    value={values.tell_in_feet}
+                                    name="tell_in_feet"
                                     onBlur={handleBlur}
                                     onChange={handleChange}
                                     MenuProps={selectProps}
                                   >
                                     {iHeightFt.map((item, index) => (
-                                      <MenuItem key={index} value={index}>
+                                      <MenuItem key={index} value={item}>
                                         {item}
                                       </MenuItem>
                                     ))}
@@ -279,14 +268,14 @@ const BasicInfo = () => {
                                   <Select
                                     size="small"
                                     label="in."
-                                    value={values.height_inch || 0}
-                                    name="height_inch"
+                                    value={values.tell_in_inch}
+                                    name="tell_in_inch"
                                     onBlur={handleBlur}
                                     onChange={handleChange}
                                     MenuProps={selectProps}
                                   >
                                     {iHeightIn.map((item, index) => (
-                                      <MenuItem key={index} value={index}>
+                                      <MenuItem key={index} value={item}>
                                         {item}
                                       </MenuItem>
                                     ))}
@@ -294,9 +283,9 @@ const BasicInfo = () => {
                                 </FormControl>
                               </Grid>
                             </Grid>
-                            {touched.height_feet && errors.height_feet && (
+                            {touched.tell_in_feet && errors.tell_in_feet && (
                               <FormHelperText id="standard-weight-helper-text--signup" error>
-                                {errors.height_feet}
+                                {errors.tell_in_feet}
                               </FormHelperText>
                             )}
                           </Grid>
@@ -319,7 +308,7 @@ const BasicInfo = () => {
                                 size="small"
                                 label="lbs. *"
                                 autoFocus={Boolean(touched.weight_lbs && errors.weight_lbs)}
-                                value={values.weight_lbs || 0}
+                                value={values.weight_lbs}
                                 type="number"
                                 name="weight_lbs"
                                 onBlur={handleBlur}
@@ -423,14 +412,14 @@ const BasicInfo = () => {
                                 <FormControl fullWidth>
                                   <Select
                                     size="small"
-                                    name="bra_size_num"
-                                    value={values.bra_size_num || 0}
+                                    name="bra"
+                                    value={values.bra || 0}
                                     onBlur={handleBlur}
                                     onChange={handleChange}
                                     MenuProps={selectProps}
                                   >
                                     {iBraSizeNum.map((item, index) => (
-                                      <MenuItem key={index} value={index}>
+                                      <MenuItem key={index} value={item}>
                                         {item}
                                       </MenuItem>
                                     ))}
@@ -441,14 +430,14 @@ const BasicInfo = () => {
                                 <FormControl fullWidth>
                                   <Select
                                     size="small"
-                                    name="bra_size_label"
-                                    value={values.bra_size_label || ''}
+                                    name="bra_recomend"
+                                    value={values.bra_recomend || ''}
                                     onBlur={handleBlur}
                                     onChange={handleChange}
                                     MenuProps={selectProps}
                                   >
                                     {iBraSizeLabel.map((item, index) => (
-                                      <MenuItem key={index} value={index}>
+                                      <MenuItem key={index} value={item}>
                                         {item}
                                       </MenuItem>
                                     ))}
@@ -469,21 +458,22 @@ const BasicInfo = () => {
                           <Grid item xs={12}>
                             <Grid container spacing={1}>
                               <Grid item xs={4}>
-                                <FormControl
-                                  error={Boolean(touched.shirt_blouse_size_no && errors.shirt_blouse_size_no)}
-                                  fullWidth
-                                >
+                                <FormControl error={Boolean(touched.shirt_blouse && errors.shirt_blouse)} fullWidth>
                                   <Select
                                     size="small"
-                                    autoFocus={Boolean(touched.shirt_blouse_size_no && errors.shirt_blouse_size_no)}
-                                    name="shirt_blouse_size_no"
-                                    value={values.shirt_blouse_size_no || 0}
+                                    autoFocus={Boolean(touched.shirt_blouse && errors.shirt_blouse)}
+                                    name="shirt_blouse"
+                                    value={values.shirt_blouse || 0}
                                     onBlur={handleBlur}
                                     onChange={handleChange}
                                     MenuProps={selectProps}
                                   >
                                     {iShirtBlouseSizeNo.map((item, index) => (
-                                      <MenuItem key={index} value={index} disabled={item.type === 0 ? false : true}>
+                                      <MenuItem
+                                        key={index}
+                                        value={item.value}
+                                        disabled={item.type === 0 ? false : true}
+                                      >
                                         {item.value}
                                       </MenuItem>
                                     ))}
@@ -494,14 +484,18 @@ const BasicInfo = () => {
                                 <FormControl fullWidth>
                                   <Select
                                     size="small"
-                                    name="shirt_blouse_size_label"
-                                    value={values.shirt_blouse_size_label || ''}
+                                    name="shirt_blouse_recomend"
+                                    value={values.shirt_blouse_recomend || ''}
                                     onBlur={handleBlur}
                                     onChange={handleChange}
                                     MenuProps={selectProps}
                                   >
                                     {iShirtBlouseSizeLabel.map((item, index) => (
-                                      <MenuItem key={index} value={index} disabled={item.type === 0 ? false : true}>
+                                      <MenuItem
+                                        key={index}
+                                        value={item.value}
+                                        disabled={item.type === 0 ? false : true}
+                                      >
                                         {item.value}
                                       </MenuItem>
                                     ))}
@@ -509,9 +503,9 @@ const BasicInfo = () => {
                                 </FormControl>
                               </Grid>
                             </Grid>
-                            {touched.shirt_blouse_size_no && errors.shirt_blouse_size_no && (
+                            {touched.shirt_blouse && errors.shirt_blouse && (
                               <FormHelperText id="standard-weight-helper-text--signup" error>
-                                {errors.shirt_blouse_size_no}
+                                {errors.shirt_blouse}
                               </FormHelperText>
                             )}
                           </Grid>
@@ -552,18 +546,22 @@ const BasicInfo = () => {
                           <Grid item xs={12}>
                             <Grid container spacing={1}>
                               <Grid item xs={4}>
-                                <FormControl error={Boolean(touched.dress_size_no && errors.dress_size_no)} fullWidth>
+                                <FormControl error={Boolean(touched.dress && errors.dress)} fullWidth>
                                   <Select
                                     size="small"
-                                    autoFocus={Boolean(touched.dress_size_no && errors.dress_size_no)}
-                                    name="dress_size_no"
-                                    value={values.dress_size_no || ''}
+                                    autoFocus={Boolean(touched.dress && errors.dress)}
+                                    name="dress"
+                                    value={values.dress}
                                     onBlur={handleBlur}
                                     onChange={handleChange}
                                     MenuProps={selectProps}
                                   >
                                     {iDressSizeNo.map((item, index) => (
-                                      <MenuItem key={index} value={index} disabled={item.type === 0 ? false : true}>
+                                      <MenuItem
+                                        key={index}
+                                        value={item.value}
+                                        disabled={item.type === 0 ? false : true}
+                                      >
                                         {item.value}
                                       </MenuItem>
                                     ))}
@@ -574,14 +572,18 @@ const BasicInfo = () => {
                                 <FormControl fullWidth>
                                   <Select
                                     size="small"
-                                    name="dress_size_label"
-                                    value={values.dress_size_label || ''}
+                                    name="dress_recomended"
+                                    value={values.dress_recomended}
                                     onBlur={handleBlur}
                                     onChange={handleChange}
                                     MenuProps={selectProps}
                                   >
                                     {iDressSizeLabel.map((item, index) => (
-                                      <MenuItem key={index} value={index} disabled={item.type === 0 ? false : true}>
+                                      <MenuItem
+                                        key={index}
+                                        value={item.value}
+                                        disabled={item.type === 0 ? false : true}
+                                      >
                                         {item.value}
                                       </MenuItem>
                                     ))}
@@ -589,9 +591,9 @@ const BasicInfo = () => {
                                 </FormControl>
                               </Grid>
                             </Grid>
-                            {touched.dress_size_no && errors.dress_size_no && (
+                            {touched.dress && errors.dress && (
                               <FormHelperText id="standard-weight-helper-text--signup" error>
-                                {errors.dress_size_no}
+                                {errors.dress}
                               </FormHelperText>
                             )}
                           </Grid>
@@ -608,14 +610,14 @@ const BasicInfo = () => {
                                 <FormControl fullWidth>
                                   <Select
                                     size="small"
-                                    name="skirt_size"
-                                    value={values.skirt_size || 0}
+                                    name="skirt"
+                                    value={values.skirt}
                                     onBlur={handleBlur}
                                     onChange={handleChange}
                                     MenuProps={selectProps}
                                   >
                                     {iSkirtSize.map((item, index) => (
-                                      <MenuItem key={index} value={index}>
+                                      <MenuItem key={index} value={item}>
                                         {item}
                                       </MenuItem>
                                     ))}
@@ -632,25 +634,29 @@ const BasicInfo = () => {
                                 </Typography>
                               </Grid>
                               <Grid item xs={12}>
-                                <FormControl error={Boolean(touched.pantsSize && errors.pantsSize)} fullWidth>
+                                <FormControl error={Boolean(touched.pants && errors.pants)} fullWidth>
                                   <Select
                                     size="small"
-                                    autoFocus={Boolean(touched.pants_size && errors.pants_size)}
-                                    name="pants_size"
-                                    value={values.pants_size}
+                                    autoFocus={Boolean(touched.pants && errors.pants)}
+                                    name="pants"
+                                    value={values.pants}
                                     onBlur={handleBlur}
                                     onChange={handleChange}
                                     MenuProps={selectProps}
                                   >
                                     {iPantsSize.map((item, index) => (
-                                      <MenuItem key={index} value={index} disabled={item.type === 0 ? false : true}>
+                                      <MenuItem
+                                        key={index}
+                                        value={item.value}
+                                        disabled={item.type === 0 ? false : true}
+                                      >
                                         {item.value}
                                       </MenuItem>
                                     ))}
                                   </Select>
-                                  {touched.pants_size && errors.pants_size && (
+                                  {touched.pants && errors.pants && (
                                     <FormHelperText id="standard-weight-helper-text--signup" error>
-                                      {errors.pants_size}
+                                      {errors.pants}
                                     </FormHelperText>
                                   )}
                                 </FormControl>
@@ -670,14 +676,18 @@ const BasicInfo = () => {
                                 <FormControl fullWidth>
                                   <Select
                                     size="small"
-                                    name="jeans_size"
-                                    value={values.jeans_size || 0}
+                                    name="jeans"
+                                    value={values.jeans}
                                     onBlur={handleBlur}
                                     onChange={handleChange}
                                     MenuProps={selectProps}
                                   >
                                     {iJeansSize.map((item, index) => (
-                                      <MenuItem key={index} value={index} disabled={item.type === 0 ? false : true}>
+                                      <MenuItem
+                                        key={index}
+                                        value={item.value}
+                                        disabled={item.type === 0 ? false : true}
+                                      >
                                         {item.value}
                                       </MenuItem>
                                     ))}
@@ -694,12 +704,12 @@ const BasicInfo = () => {
                                 </Typography>
                               </Grid>
                               <Grid item xs={12}>
-                                <FormControl error={Boolean(touched.bottom_size && errors.bottom_size)} fullWidth>
+                                <FormControl error={Boolean(touched.pantsr1 && errors.pantsr1)} fullWidth>
                                   <Select
                                     size="small"
-                                    name="bottom_size"
-                                    autoFocus={Boolean(touched.bottom_size && errors.bottom_size)}
-                                    value={values.bottom_size || ''}
+                                    name="pantsr1"
+                                    autoFocus={Boolean(touched.pantsr1 && errors.pantsr1)}
+                                    value={values.pantsr1 || ''}
                                     onBlur={handleBlur}
                                     onChange={handleChange}
                                     MenuProps={selectProps}
@@ -710,9 +720,9 @@ const BasicInfo = () => {
                                       </MenuItem>
                                     ))}
                                   </Select>
-                                  {touched.bottom_size && errors.bottom_size && (
+                                  {touched.pantsr1 && errors.pantsr1 && (
                                     <FormHelperText id="standard-weight-helper-text--signup" error>
-                                      {errors.bottom_size}
+                                      {errors.pantsr1}
                                     </FormHelperText>
                                   )}
                                 </FormControl>
@@ -733,8 +743,8 @@ const BasicInfo = () => {
                             <FormControl fullWidth>
                               <Select
                                 size="small"
-                                name="shoe_size_num"
-                                value={values.shoe_size_num || ''}
+                                name="shoe"
+                                value={values.shoe}
                                 onBlur={handleBlur}
                                 onChange={handleChange}
                                 MenuProps={selectProps}
@@ -759,8 +769,8 @@ const BasicInfo = () => {
                           errors={errors}
                           handleChange={handleChange}
                           handleBlur={handleBlur}
-                          name="shoes_style_label"
-                          value={values.shoes_style_label || []}
+                          name="brands"
+                          value={values.brands || []}
                         />
                       </Grid>
                       <Grid item xs={12}>
@@ -773,8 +783,8 @@ const BasicInfo = () => {
                           errors={errors}
                           handleChange={handleChange}
                           handleBlur={handleBlur}
-                          name="heel_height_label"
-                          value={values.heel_height_label || []}
+                          name="height"
+                          value={values.height || []}
                         />
                       </Grid>
                       <Grid item xs={12}>
@@ -788,7 +798,7 @@ const BasicInfo = () => {
                           touched={touched}
                           errors={errors}
                           handleChange={handleChange}
-                          value={values.profession || ''}
+                          value={values.occupation_v2 || ''}
                         />
                       </Grid>
                       <Grid item xs={12}>
@@ -820,8 +830,8 @@ const BasicInfo = () => {
                           errors={errors}
                           handleBlur={handleBlur}
                           handleChange={handleChange}
-                          name="body_show_in_off"
-                          value={values.body_show_in_off || []}
+                          name="comfortable_showing_off"
+                          value={values.comfortable_showing_off || []}
                         />
                       </Grid>
                       <Grid item xs={12}>
@@ -865,14 +875,18 @@ const BasicInfo = () => {
                                 <FormControl fullWidth>
                                   <Select
                                     size="small"
-                                    name="shoulders"
-                                    value={values.shoulders || 0}
+                                    name="proportion_shoulders"
+                                    value={values.proportion_shoulders}
                                     onBlur={handleBlur}
                                     onChange={handleChange}
                                     MenuProps={selectProps}
                                   >
                                     {iJeansSize.map((item, index) => (
-                                      <MenuItem key={index} value={index} disabled={item.type === 0 ? false : true}>
+                                      <MenuItem
+                                        key={index}
+                                        value={item.value}
+                                        disabled={item.type === 0 ? false : true}
+                                      >
                                         {item.value}
                                       </MenuItem>
                                     ))}
@@ -890,14 +904,14 @@ const BasicInfo = () => {
                                 <FormControl fullWidth>
                                   <Select
                                     size="small"
-                                    name="arms"
-                                    value={values.arms || ''}
+                                    name="proportion_arms"
+                                    value={values.proportion_arms}
                                     onBlur={handleBlur}
                                     onChange={handleChange}
                                     MenuProps={selectProps}
                                   >
                                     {iSizeArms.map((item, index) => (
-                                      <MenuItem key={index} value={index}>
+                                      <MenuItem key={index} value={item}>
                                         {item}
                                       </MenuItem>
                                     ))}
@@ -915,14 +929,18 @@ const BasicInfo = () => {
                                 <FormControl fullWidth>
                                   <Select
                                     size="small"
-                                    name="hips"
-                                    value={values.hips || 0}
+                                    name="proportion_hips"
+                                    value={values.proportion_hips}
                                     onBlur={handleBlur}
                                     onChange={handleChange}
                                     MenuProps={selectProps}
                                   >
                                     {iJeansSize.map((item, index) => (
-                                      <MenuItem key={index} value={index} disabled={item.type === 0 ? false : true}>
+                                      <MenuItem
+                                        key={index}
+                                        value={item.value}
+                                        disabled={item.type === 0 ? false : true}
+                                      >
                                         {item.value}
                                       </MenuItem>
                                     ))}
@@ -940,14 +958,14 @@ const BasicInfo = () => {
                                 <FormControl fullWidth>
                                   <Select
                                     size="small"
-                                    name="legs"
-                                    value={values.legs || 0}
+                                    name="proportion_legs"
+                                    value={values.proportion_legs}
                                     onBlur={handleBlur}
                                     onChange={handleChange}
                                     MenuProps={selectProps}
                                   >
                                     {iBraSizeNum.map((item, index) => (
-                                      <MenuItem key={index} value={index}>
+                                      <MenuItem key={index} value={item}>
                                         {item}
                                       </MenuItem>
                                     ))}
@@ -969,8 +987,8 @@ const BasicInfo = () => {
                           <Grid item xs={12}>
                             <RadioButtonGroup
                               group={['Yes', 'No']}
-                              name="is_pregnant"
-                              value={values.is_pregnant || 0}
+                              name="pregnant"
+                              value={values.pregnant}
                               touched={touched}
                               errors={errors}
                               setFieldValue={setFieldValue}
@@ -981,7 +999,7 @@ const BasicInfo = () => {
                       <Grid item xs={12}>
                         <Divider sx={{ margin: '20px 0' }} />
                       </Grid>
-                      {values.is_pregnant === null && (
+                      {values.pregnant === null && (
                         <>
                           <Grid item xs={12}>
                             <Typography className="basic-info-title">What is your due date?</Typography>
