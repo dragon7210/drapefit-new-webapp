@@ -137,7 +137,6 @@ const BasicInfo = () => {
     twitter: '',
     pinterest: ''
   };
-  console.log(newWBasicInfo);
   const year = new Date();
   const minBirthYear = year.getFullYear() - 18;
   const maxBirthYear = year.getFullYear() - 120;

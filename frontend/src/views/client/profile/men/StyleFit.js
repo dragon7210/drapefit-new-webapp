@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Divider, Grid, Button, Typography } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -32,24 +32,13 @@ const Style_Fit = GenS3Link('landing/images/client/profile/men/style-fit/style-f
 const StyleFit = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { id } = useParams();
   const [viewState, setViewState] = useState(true);
-  const [user_id, setUser_id] = useState(-1);
   const { user } = useSelector((state) => state.auth);
   let saveReturn = false;
+
   useEffect(() => {
-    if (id) {
-      setUser_id(id);
-      setViewState(false);
-    } else {
-      setUser_id(user?.user_id);
-    }
-  }, [id, user]);
-  useEffect(() => {
-    if (user_id !== -1) {
-      dispatch(mGetStyleFit({ user_id }));
-    }
-  }, [dispatch, user_id]);
+    dispatch(mGetStyleFit());
+  }, [dispatch]);
 
   const { mStyleFit } = useSelector((state) => state.profile);
   const newMStyle = {
@@ -61,8 +50,7 @@ const StyleFit = () => {
     your_pants_to_fit: mStyleFit?.your_pants_to_fit.split(','),
     prefer_color: exceptionValue(mStyleFit?.prefer_color),
     prefer_your_shorts: mStyleFit?.prefer_your_shorts.split(','),
-    take_note_of: mStyleFit?.take_note_of.split(','),
-    user_id: mStyleFit?.user_id
+    take_note_of: mStyleFit?.take_note_of.split(',')
   };
 
   const left = {

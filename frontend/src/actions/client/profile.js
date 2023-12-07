@@ -111,9 +111,9 @@ export const mEditPriceRange = (formData, navigate) => async (dispatch) => {
   }
 };
 
-export const mGetPriceRange = (data) => async (dispatch) => {
+export const mGetPriceRange = () => async (dispatch) => {
   try {
-    const res = await Api.post('/fitprofile/pricerange/men', data);
+    const res = await Api.post('/fitprofile/pricerange/men');
     dispatch({
       type: GET_MEN_PRICE_RANGE,
       payload: res.data
@@ -258,9 +258,9 @@ export const wEditStyleCustom = (formData, navigate) => async (dispatch) => {
   }
 };
 
-export const wGetStyleCustom = (data) => async (dispatch) => {
+export const wGetStyleCustom = () => async (dispatch) => {
   try {
-    const res = await Api.post('/fitprofile/customdsgnbrand/women', data);
+    const res = await Api.post('/fitprofile/customdsgnbrand/women');
     dispatch({
       type: GET_WOMEN_STYLE_CUSTOM,
       payload: res.data

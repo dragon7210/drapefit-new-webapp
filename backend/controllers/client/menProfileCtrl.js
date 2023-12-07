@@ -69,7 +69,7 @@ const getMenBasicInfo = asyncHandler(async (req, res) => {
 
 const editMenStyleFit = asyncHandler(async (req, res) => {
   try {
-    const {
+    let {
       shirt_shoulder,
       casual_shirts_to_fit,
       button_up_shirts_to_fit,
@@ -78,9 +78,9 @@ const editMenStyleFit = asyncHandler(async (req, res) => {
       your_pants_to_fit,
       prefer_color,
       prefer_your_shorts,
-      take_note_of,
-      user_id
+      take_note_of
     } = req.body;
+    let user_id = req.user.id;
     await MenFit.update(
       {
         shirt_shoulder: shirt_shoulder.toString(),
@@ -110,7 +110,7 @@ const editMenStyleFit = asyncHandler(async (req, res) => {
 
 const getMenStyleFit = asyncHandler(async (req, res) => {
   try {
-    let { user_id } = req.body;
+    let user_id = req.user.id;
     let data = await MenFit.findOne({
       where: {
         user_id
@@ -132,7 +132,8 @@ const getMenStyleFit = asyncHandler(async (req, res) => {
 
 const editMenPriceRange = asyncHandler(async (req, res) => {
   try {
-    const { id, user_id, ...values } = req.body;
+    let user_id = req.user.id;
+    let { id, ...values } = req.body;
     let { is_progressbar } = await UserDetail.findOne({ where: { user_id } });
     let menAccess = await MenAccessory.findOne({ where: { user_id } });
     if (menAccess) {
@@ -160,7 +161,7 @@ const editMenPriceRange = asyncHandler(async (req, res) => {
 
 const getMenPriceRange = asyncHandler(async (req, res) => {
   try {
-    let { user_id } = req.body;
+    let user_id = req.user.id;
     let men = await MenStyle.findOne({
       where: { user_id },
       attributes: [
@@ -192,7 +193,8 @@ const getMenPriceRange = asyncHandler(async (req, res) => {
 
 const editMenCustomDsgnBrand = asyncHandler(async (req, res) => {
   try {
-    let { user_id, ...values } = req.body;
+    let user_id = req.user.id;
+    let { ...values } = req.body;
     let { is_progressbar } = await UserDetail.findOne({ where: { user_id } });
     await MenBrand.update({ ...values }, { where: { user_id } });
     await MenStats.update({ ...values }, { where: { user_id } });
@@ -211,8 +213,7 @@ const editMenCustomDsgnBrand = asyncHandler(async (req, res) => {
 
 const getMenCustomDsgnBrand = asyncHandler(async (req, res) => {
   try {
-    let { user_id } = req.body;
-
+    let user_id = req.user.id;
     let menBs = await MenBrand.findOne({
       where: { user_id },
       attributes: ['mens_brands', 'user_id']

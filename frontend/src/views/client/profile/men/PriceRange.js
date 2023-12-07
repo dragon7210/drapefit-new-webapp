@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Divider, Grid, Button, Typography } from '@mui/material';
 import { Formik, Form } from 'formik';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -20,24 +20,13 @@ const Price_Range = GenS3Link('landing/images/client/profile/men/price-range/pri
 const PriceRange = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { id } = useParams();
   const [viewState, setViewState] = useState(true);
-  const [user_id, setUser_id] = useState(-1);
   const { user } = useSelector((state) => state.auth);
   let saveReturn = false;
+
   useEffect(() => {
-    if (id) {
-      setUser_id(id);
-      setViewState(false);
-    } else {
-      setUser_id(user.user_id);
-    }
-  }, [id, user]);
-  useEffect(() => {
-    if (user_id !== -1) {
-      dispatch(mGetPriceRange({ user_id }));
-    }
-  }, [dispatch, user_id]);
+    dispatch(mGetPriceRange());
+  }, [dispatch]);
   const { mPriceRange } = useSelector((state) => state.profile);
 
   const left = {
