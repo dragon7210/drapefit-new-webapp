@@ -63,6 +63,8 @@ const StyleFit = () => {
   let newWomenStyleFit = {
     ...wStyleFit,
     style_sphere_selections_v2: exceptionValue(wStyleFit?.style_sphere_selections_v2),
+    style_sphere_selections_v3_3: exceptionValue(wStyleFit?.style_sphere_selections_v3_3),
+    style_sphere_selections_v10: exceptionValue(wStyleFit?.style_sphere_selections_v10),
     wo_dress_length: exceptionValue(wStyleFit?.wo_dress_length),
     wo_top_half: exceptionValue(wStyleFit?.wo_top_half),
     wo_pant_length: exceptionValue(wStyleFit?.wo_pant_length),
@@ -76,7 +78,7 @@ const StyleFit = () => {
     wo_dress_length: exceptionValue(wStyleFit?.wo_dress_length),
     color_prefer: wStyleFit?.color_prefer ? JSON.parse(wStyleFit?.color_prefer) : []
   };
-  console.log(newWomenStyleFit);
+
   const left = {
     title: `Hi ${FirstUpper(user?.name)}`,
     content: 'Please complete your style information that will help us to get completed a best FIT',
@@ -84,6 +86,8 @@ const StyleFit = () => {
   };
   const initVal = {
     style_sphere_selections_v2: [],
+    style_sphere_selections_v3_3: [],
+    style_sphere_selections_v10: [],
     wo_dress_length: [],
     wo_top_half: [],
     wo_pant_length: [],
@@ -96,7 +100,6 @@ const StyleFit = () => {
     following_occasions: 0,
     missing_from_your_fIT: [],
     color_mostly_wear: [],
-    style_sphere_selections_v2: [],
     wo_dress_length: [],
     distressed_denim_non: '',
     distressed_denim_minimally: '',
@@ -171,6 +174,8 @@ const StyleFit = () => {
                     missing_from_your_fIT: values?.missing_from_your_fIT.toString(),
                     color_mostly_wear: values?.color_mostly_wear.toString(),
                     style_sphere_selections_v2: values?.style_sphere_selections_v2.toString(),
+                    style_sphere_selections_v3_3: values?.style_sphere_selections_v3_3.toString(),
+                    style_sphere_selections_v10: values?.style_sphere_selections_v10.toString(),
                     wo_dress_length: values?.wo_dress_length.toString(),
                     color_prefer: arrayToStringValue(values?.color_prefer)
                   };
@@ -314,7 +319,7 @@ const StyleFit = () => {
                             Please tell us the OutFit you prefer to wear. <span style={{ color: 'red' }}>*</span>
                           </Typography>
                         </Grid>
-                        {/* <Grid item xs={12}>
+                        <Grid item xs={12}>
                           <ImageSelectorWithRadioGroup
                             content={wOutFit}
                             errors={errors}
@@ -322,11 +327,11 @@ const StyleFit = () => {
                             handleBlur={handleBlur}
                             handleChange={handleChange}
                             setFieldValue={setFieldValue}
-                            name="wo_dress_length"
-                            rname="wo_dress_length"
+                            name="style_sphere_selections_v3_3"
+                            rname="style_sphere_selections_v"
                             value={values}
                           />
-                        </Grid> */}
+                        </Grid>
                         <Grid item xs={12}>
                           <Divider sx={{ margin: '20px 0' }} />
                         </Grid>
@@ -424,7 +429,7 @@ const StyleFit = () => {
                               <RadioButtonImage
                                 group={iDenimStyle1}
                                 name="distressed_denim_non"
-                                value={values.distressed_denim_non || ''}
+                                value={values.distressed_denim_non}
                                 touched={touched}
                                 errors={errors}
                                 setFieldValue={setFieldValue}
@@ -434,7 +439,7 @@ const StyleFit = () => {
                               <RadioButtonImage
                                 group={iDenimStyle2}
                                 name="distressed_denim_minimally"
-                                value={values.distressed_denim_minimally || ''}
+                                value={values.distressed_denim_minimally}
                                 touched={touched}
                                 errors={errors}
                                 setFieldValue={setFieldValue}
@@ -444,7 +449,7 @@ const StyleFit = () => {
                               <RadioButtonImage
                                 group={iDenimStyle3}
                                 name="distressed_denim_fairly"
-                                value={values.distressed_denim_fairly || ''}
+                                value={values.distressed_denim_fairly}
                                 touched={touched}
                                 errors={errors}
                                 setFieldValue={setFieldValue}
@@ -454,7 +459,7 @@ const StyleFit = () => {
                               <RadioButtonImage
                                 group={iDenimStyle4}
                                 name="distressed_denim_heavily"
-                                value={values.distressed_denim_heavily || ''}
+                                value={values.distressed_denim_heavily}
                                 touched={touched}
                                 errors={errors}
                                 setFieldValue={setFieldValue}

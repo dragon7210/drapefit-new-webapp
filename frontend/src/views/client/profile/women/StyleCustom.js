@@ -91,7 +91,7 @@ const StyleCustom = () => {
                 dispatch(wEditStyleCustom({ ...values, brands: values.brands.toString() }));
                 saveReturn = false;
               } else {
-                dispatch(wEditStyleCustom(values, navigate));
+                dispatch(wEditStyleCustom({ ...values, brands: values.brands.toString() }, navigate));
               }
             }}
           >

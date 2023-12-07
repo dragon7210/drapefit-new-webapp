@@ -137,16 +137,14 @@ const getWomenFPBasicInfo = asyncHandler(async (req, res) => {
 
 const editWomenFPStyleFit = asyncHandler(async (req, res) => {
   try {
-    let user_id = req.user.id;
-    const { ...values } = req.body;
+    const { user_id, id, ...values } = req.body;
     let { is_progressbar } = await UserDetail.findOne({ where: { user_id } });
-
-    // let womenStyleData = await WomenStyle.findOne({ where: { user_id } });
-    // if (womenStyleData) {
-    //   await WomenStyle.update({ ...values }, { where: { user_id } });
-    // } else {
-    //   await WomenStyle.create({ ...values, user_id });
-    // }
+    let womenStyleData = await WomenStyle.findOne({ where: { user_id } });
+    if (womenStyleData) {
+      await WomenStyle.update({ ...values }, { where: { user_id } });
+    } else {
+      await WomenStyle.create({ ...values, user_id });
+    }
     let womenInfoData = await WomenStyleSphereSelections.findOne({ where: { user_id } });
     if (womenInfoData) {
       await WomenStyleSphereSelections.update({ ...values }, { where: { user_id } });
@@ -202,7 +200,8 @@ const getWomenFPStyleFit = asyncHandler(async (req, res) => {
 
 const editWomenFPPriceRange = asyncHandler(async (req, res) => {
   try {
-    const { id, user_id, ...values } = req.body;
+    let user_id = req.user.id;
+    let { id, ...values } = req.body;
     let { is_progressbar } = await UserDetail.findOne({ where: { user_id } });
 
     let womenPriceData = await WomenStyle.findOne({ where: { user_id } });
@@ -225,8 +224,7 @@ const editWomenFPPriceRange = asyncHandler(async (req, res) => {
 
 const getWomenFPPriceRange = asyncHandler(async (req, res) => {
   try {
-    let { user_id } = req.body;
-
+    let user_id = req.user.id;
     let womenFP = await WomenStyle.findOne({
       where: { user_id },
       attributes: ['bottoms', 'jewelry', 'outwear', 'jeans', 'accessproes', 'tops', 'dress']
