@@ -53,7 +53,8 @@ const editKidBasicInfo = asyncHandler(async (req, res) => {
 
 const getKidBasicInfo = asyncHandler(async (req, res) => {
   try {
-    let { kid_count, user_id } = req.body;
+    let { kid_count } = req.body;
+    let user_id = req.user.id;
     let kid = await KidsDetail.findOne({
       where: { user_id, kid_count },
       attributes: [
@@ -104,7 +105,8 @@ const editKidStyleFit = asyncHandler(async (req, res) => {
 
 const getKidStyleFit = asyncHandler(async (req, res) => {
   try {
-    const { user_id, kid_count } = req.body;
+    let { kid_count } = req.body;
+    let user_id = req.user.id;
     let kidFPStyle, kidFit, kidsDetail;
     kidsDetail = await KidsDetail.findOne({
       where: { user_id, kid_count },
@@ -167,7 +169,8 @@ const editKidPriceRange = asyncHandler(async (req, res) => {
 
 const getKidPriceRange = asyncHandler(async (req, res) => {
   try {
-    const { user_id, kid_count } = req.body;
+    let { kid_count } = req.body;
+    let user_id = req.user.id;
     let kidsDetail = await KidsDetail.findOne({
       where: { user_id, kid_count }
     });
@@ -205,7 +208,8 @@ const editKidCustomDsgnBrand = asyncHandler(async (req, res) => {
 
 const getKidCustomDsgnBrand = asyncHandler(async (req, res) => {
   try {
-    const { user_id, kid_count } = req.body;
+    let { kid_count } = req.body;
+    let user_id = req.user.id;
     let kidsDetail = await KidsDetail.findOne({
       where: { user_id, kid_count }
     });

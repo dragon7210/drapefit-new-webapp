@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   Divider,
   Grid,
@@ -51,25 +51,14 @@ const Kids_Size_Chart = GenS3Link('landing/images/client/profile/kids/kids-size-
 const BoyStyleFit = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { id } = useParams();
   const kid_count = localStorage.getItem('order');
   const [viewState, setViewState] = useState(true);
-  const [user_id, setUser_id] = useState(-1);
   const { user } = useSelector((state) => state.auth);
   let saveReturn = false;
+
   useEffect(() => {
-    if (id) {
-      setUser_id(id);
-      setViewState(false);
-    } else {
-      setUser_id(user.user_id);
-    }
-  }, [id, user]);
-  useEffect(() => {
-    if (user_id !== -1) {
-      dispatch(kGetStyleFit({ kid_count, user_id }));
-    }
-  }, [dispatch, kid_count, user_id]);
+    dispatch(kGetStyleFit({ kid_count }));
+  }, [dispatch, kid_count]);
   const { kStyleFit } = useSelector((state) => state.kids);
 
   const [open, setOpen] = useState(false);

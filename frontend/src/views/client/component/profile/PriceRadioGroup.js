@@ -22,7 +22,7 @@ const PriceRadioGroup = (props) => {
               <RadioGroup
                 aria-labelledby="demo-customized-radios"
                 name={item.value}
-                value={props?.value[`${item.value}`]}
+                value={props?.value[`${item.value}`] || ''}
                 onChange={props.handleChange}
               >
                 <Grid container spacing={2}>

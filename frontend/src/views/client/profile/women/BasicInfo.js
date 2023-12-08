@@ -83,6 +83,7 @@ const BasicInfo = () => {
     comfortable_showing_off: wBasicInfo?.comfortable_showing_off?.split(','),
     keep_covered: wBasicInfo?.keep_covered?.split(',')
   };
+  console.log(newWBasicInfo);
   const [open, setOpen] = useState(false);
   const showModal = () => {
     setOpen(true);
@@ -127,11 +128,11 @@ const BasicInfo = () => {
     proportion_shoulders: '--',
     proportion_legs: '--',
     proportion_hips: '--',
-    pregnant: '',
-    dueDate: new Date(),
-    maternity_fit: 0,
-    loose_fitted: 0,
-    maternity_pants: '',
+    pregnant: 0,
+    iexpected_due_date: new Date(),
+    is_prefer_maternity: '--',
+    loose_fitted: '--',
+    is_pregnant: '',
     linkdin_profile: '',
     instagram: '',
     twitter: '',
@@ -140,9 +141,8 @@ const BasicInfo = () => {
   const year = new Date();
   const minBirthYear = year.getFullYear() - 18;
   const maxBirthYear = year.getFullYear() - 120;
-  // const minDueDate = AddDays(new Date(), -1);
-  // const maxDueDate = AddDays(new Date(), 280);
-
+  // const miniexpected_due_date = AddDays(new Date(), -1);
+  // const maxiexpected_due_date = AddDays(new Date(), 280);
   const iMaternityForm = ['--', '7', '8', '9', '10'];
   return (
     <>
@@ -211,7 +211,8 @@ const BasicInfo = () => {
                   height: values.height?.toString(),
                   brands: values.brands?.toString(),
                   comfortable_showing_off: values.comfortable_showing_off?.toString(),
-                  keep_covered: values.keep_covered?.toString()
+                  keep_covered: values.keep_covered?.toString(),
+                  pregnant: values.pregnant === 'Yes' ? 0 : 1
                 };
 
                 if (saveReturn) {
@@ -998,7 +999,7 @@ const BasicInfo = () => {
                       <Grid item xs={12}>
                         <Divider sx={{ margin: '20px 0' }} />
                       </Grid>
-                      {values.pregnant === null && (
+                      {(values.pregnant === 0 || values.pregnant === 'Yes') && (
                         <>
                           <Grid item xs={12}>
                             <Typography className="basic-info-title">What is your due date?</Typography>
@@ -1008,18 +1009,18 @@ const BasicInfo = () => {
                               <LocalizationProvider dateAdapter={AdapterDayjs}>
                                 <DatePicker
                                   className="small-date-picker"
-                                  name="dueDate"
-                                  value={values.dueDate}
+                                  name="iexpected_due_date"
+                                  value={values.iexpected_due_date}
                                   onChange={(value) => {
                                     const date = new Date(Date.parse(value));
-                                    setFieldValue('dueDate', date);
+                                    setFieldValue('iexpected_due_date', date);
                                   }}
                                   renderInput={(params) => <TextField {...params} />}
                                 />
                               </LocalizationProvider>
-                              {touched.dueDate && errors.dueDate && (
+                              {touched.iexpected_due_date && errors.iexpected_due_date && (
                                 <FormHelperText id="standard-weight-helper-text--signup" error>
-                                  {errors.dueDate}
+                                  {errors.iexpected_due_date}
                                 </FormHelperText>
                               )}
                             </FormControl>
@@ -1034,14 +1035,14 @@ const BasicInfo = () => {
                             <FormControl fullWidth>
                               <Select
                                 size="small"
-                                name="maternity_fit"
-                                value={values.maternity_fit || 0}
+                                name="is_prefer_maternity"
+                                value={values.is_prefer_maternity}
                                 onBlur={handleBlur}
                                 onChange={handleChange}
                                 MenuProps={selectProps}
                               >
                                 {iMaternityForm.map((item, index) => (
-                                  <MenuItem key={index} value={index}>
+                                  <MenuItem key={index} value={item}>
                                     {item}
                                   </MenuItem>
                                 ))}
@@ -1059,13 +1060,13 @@ const BasicInfo = () => {
                               <Select
                                 size="small"
                                 name="loose_fitted"
-                                value={values.loose_fitted || 0}
+                                value={values.loose_fitted}
                                 onBlur={handleBlur}
                                 onChange={handleChange}
                                 MenuProps={selectProps}
                               >
                                 {iMaternityForm.map((item, index) => (
-                                  <MenuItem key={index} value={index}>
+                                  <MenuItem key={index} value={item}>
                                     {item}
                                   </MenuItem>
                                 ))}
@@ -1083,9 +1084,9 @@ const BasicInfo = () => {
                           <Grid item xs={12}>
                             <ImageSelectorRadioGroup
                               content={iMaternityPants}
-                              value={values.maternity_pants || ''}
+                              value={values.is_pregnant}
                               setFieldValue={setFieldValue}
-                              name="maternity_pants"
+                              name="is_pregnant"
                               touched={touched}
                               errors={errors}
                             />
