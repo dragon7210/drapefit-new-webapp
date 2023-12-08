@@ -76,7 +76,7 @@ const BoyStyleCustom = () => {
                 </Link>
               </Grid>
               <Grid className="gray-border breadcrumb-tab" item xs={12} sm={3}>
-                <Link to="/welcome/price-range/kids/boy" style={{ color: '#232f3e' }}>
+                <Link to="/welcome/price-range/kids/boys" style={{ color: '#232f3e' }}>
                   Price Range
                 </Link>
               </Grid>

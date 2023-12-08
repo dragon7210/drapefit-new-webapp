@@ -38,7 +38,7 @@ const BoyPriceRange = () => {
     casual_shirts: '',
     shorts: '',
     jeans_paint: '',
-    jackets: '',
+    jaket: '',
     sweaters: '',
     button_downs: '',
     casual_bootms: '',
@@ -48,7 +48,7 @@ const BoyPriceRange = () => {
     { title: 'CASUAL SHIRTS', value: 'casual_shirts', prices: ['$20 - $30', '$30 - $40', '$40 - $50', '$50+'] },
     { title: 'SHORTS', value: 'shorts', prices: ['$20 - $30', '$30 - $40', '$40 - $50', '$50+'] },
     { title: 'JEANS & PANTS', value: 'jeans_paint', prices: ['$20 - $30', '$30 - $40', '$40 - $50', '$50+'] },
-    { title: 'JACKETS', value: 'jackets', prices: ['$20 - $30', '$30 - $40', '$40 - $50', '$50+'] },
+    { title: 'JACKETS', value: 'jaket', prices: ['$20 - $30', '$30 - $40', '$40 - $50', '$50+'] },
     { title: 'SWEATERS', value: 'sweaters', prices: ['$20 - $30', '$30 - $40', '$40 - $50', '$50+'] },
     { title: 'BUTTON DOWNS', value: 'button_downs', prices: ['$20 - $30', '$30 - $40', '$40 - $50', '$50+'] },
     { title: 'CASUAL BOTTOMS', value: 'casual_bootms', prices: ['$20 - $30', '$30 - $40', '$40 - $50', '$50+'] },
@@ -84,7 +84,7 @@ const BoyPriceRange = () => {
                 </Link>
               </Grid>
               <Grid className="gray-border breadcrumb-tab" item xs={12} sm={3}>
-                <Link to="/welcome/price-range/kids/boy" style={{ color: '#ff6c00' }}>
+                <Link to="/welcome/price-range/kids/boys" style={{ color: '#ff6c00' }}>
                   Price Range
                 </Link>
               </Grid>

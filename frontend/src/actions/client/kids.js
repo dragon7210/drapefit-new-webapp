@@ -89,7 +89,6 @@ export const kGetStyleFit = (data) => async (dispatch) => {
 
 export const kEditPriceRange = (formData, kid_count, navigate) => async (dispatch) => {
   try {
-    DFnewLogger(formData);
     const res = await Api.post(`/kidsprofile/pricerange/kid/edit`, { ...formData, kid_count });
     if (res.data === 'Price Range of Kid Fit Profile has been saved') {
       if (navigate) {
