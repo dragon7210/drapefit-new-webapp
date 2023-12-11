@@ -17,7 +17,7 @@ const editShipAddress = asyncHandler(async (req, res) => {
   try {
     let { id, ...rest } = req.body;
     await ShippingAddress.update({ ...rest }, { where: { id } });
-    res.status(200).send('success');
+    res.status(200).send('API_editShipAddress_200:success');
   } catch (e) {
     console.log('API_editShipAddress_500:', e?.message);
     res.status(500);
@@ -27,10 +27,13 @@ const editShipAddress = asyncHandler(async (req, res) => {
 
 const addShipAddress = asyncHandler(async (req, res) => {
   try {
+    let user_id = req.user.id;
     let { ...rest } = req.body;
     await ShippingAddress.create({
-      ...rest
+      ...rest,
+      user_id
     });
+    console.log('API_addShipAddress_200');
     res.status(200).send('success');
   } catch (e) {
     console.log('API_addShipAddress_500:', e?.message);
@@ -89,7 +92,7 @@ const deliverShipAddress = asyncHandler(async (req, res) => {
 
 const editLoginDetails = asyncHandler(async (req, res) => {
   try {
-    let user = await User.findByPk(req.user.id);
+    let user = await User.findOne({ id: req.user.id });
     if (!user) {
       console.log('API_editLoginDetails_400:', 'User not found');
       return res.status(400).json({

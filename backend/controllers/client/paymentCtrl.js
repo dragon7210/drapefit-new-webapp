@@ -12,7 +12,6 @@ import Stripe from 'stripe';
 const attachPayMethod = asyncHandler(async (req, res) => {
   try {
     const stripe = new Stripe(process.env.STRIPE_TEST_SK); // *
-    //-- `req.user` was set in [authMdware.js]
     const customerId = req.user?.stripe_customer_key;
     if (!customerId) {
       console.log('API_attachPayMethod_400:', 'User has no Stripe customer ID');
@@ -35,8 +34,7 @@ const attachPayMethod = asyncHandler(async (req, res) => {
 
 const getPayMethods = asyncHandler(async (req, res) => {
   try {
-    const stripe = new Stripe(process.env.STRIPE_TEST_SK); // *
-    //-- `req.user` was set in [authMdware.js]
+    const stripe = new Stripe(process.env.STRIPE_TEST_SK);
     const customerId = req.user?.stripe_customer_key;
     if (!customerId) {
       console.log('API_getPayMethods_400:', 'User has no Stripe customer ID');

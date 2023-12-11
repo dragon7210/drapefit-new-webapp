@@ -60,7 +60,6 @@ const Address = () => {
     setOpen(!open);
   };
   const { allAddress } = useSelector((state) => state.profile);
-
   return (
     <>
       {state && (
