@@ -12,29 +12,23 @@ import path from 'path';
 
 import bcrypt from 'bcryptjs';
 
-import User from '../../models/admin/user.js';
-
-// import invSettingValueSetSchema from '../../models/inventory/invSettingValueSetSchema.js';
-// import invSettingEmailTplSchema from '../../models/inventory/invSettingEmailTplSchema.js';
-import { sequelize } from '../../config/db.js';
+import User, { HashPassword } from '../../models/admin/user.js';
 import { s3Client } from '../../libs/s3Client.js';
 import { listMRTableHandler, genUsername, compareStartAndEndDates } from '../../utils/helper.js';
 import { sendSesEmail } from '../../libs/sendSesEmail.js';
 import { USER_ROLE_INVENTORY, USER_EMPLOYEE_TYPES } from '../../utils/constant.js';
+import InvUser from '../../models/inventory/user.js';
 
 const __dirname = path.resolve();
 
 const getInvProfile = asyncHandler(async (req, res) => {
   try {
-    //-- `req.user` was set in [authMdware.js]
-    const ProfileEmployeeModel = sequelize.model('ProfileEmployee', profileEmployeeSchema);
-
-    const profile = await ProfileEmployeeModel.findOne({ userId: req.user?.id });
+    const profile = await InvUser.findOne({ user_id: req.user?.id });
     if (!profile) {
       console.log('API_getInvProfile:', 'Inventory employee profile does not exist yet');
       //-- ignore incompleteness
       return res.status(200).send({
-        name: `${req.user?.name} ${req.user?.lastName}`,
+        name: req.user?.name,
         email: req.user?.email,
         phone: '',
         address: ''
@@ -52,30 +46,16 @@ const getInvProfile = asyncHandler(async (req, res) => {
 
 const editInvProfile = asyncHandler(async (req, res) => {
   try {
-    //-- `req.user` was set in [authMdware.js]
-    const ProfileEmployeeModel = sequelize.model('ProfileEmployee', profileEmployeeSchema);
-
-    const { email, phone, address } = req.body;
+    const { ...rest } = req.body;
     if (req.user?.role !== USER_ROLE_INVENTORY || req.user?.email !== email) {
       console.log('API_editInvProfile_400:', 'Invalid API request');
       return res.status(400).json({
         msg: 'Invalid API request'
       });
     }
-    //-- edit employee profile
-    const dataFields = {
-      name: `${req.user?.name} ${req.user?.lastName}`,
-      email,
-      phone,
-      address,
-      type: 1,
-      typeStr: USER_EMPLOYEE_TYPES[1]
-    };
-    //-- use upsert option (create new if no match is found)
-    const profile = await ProfileEmployeeModel.findOneAndUpdate(
-      { userId: req.user?.id },
-      { $set: dataFields },
-      { new: true, upsert: true, setDefaultsOnInsert: true }
+    const profile = await InvUser.update(
+      { new: true, upsert: true, setDefaultsOnInsert: true, type: 1, typeStr: USER_EMPLOYEE_TYPES[1], ...rest },
+      { where: { user_id: req.user?.id } }
     );
     if (!profile) {
       console.log('API_editInvProfile_400:', 'Failed to edit inventory employee profile');
@@ -95,9 +75,6 @@ const editInvProfile = asyncHandler(async (req, res) => {
 
 const resetInvPwd = asyncHandler(async (req, res) => {
   try {
-    //-- `req.user` was set in [authMdware.js]
-    const UserModel = sequelize.model('User', User);
-
     const { currentPwd, newPwd, confirmPwd } = req.body;
     if (req.user?.role !== USER_ROLE_INVENTORY) {
       console.log('API_resetInvPwd_400:', 'Invalid API request');
@@ -111,7 +88,7 @@ const resetInvPwd = asyncHandler(async (req, res) => {
         msg: 'New passwords do not match'
       });
     }
-    const user = await UserModel.findById(req.user?.id);
+    const user = await User.findOne({ where: { user_id: req.user?.id } });
     if (!user) {
       console.log('API_resetInvPwd_400:', 'User not found');
       return res.status(400).json({
@@ -132,7 +109,7 @@ const resetInvPwd = asyncHandler(async (req, res) => {
       });
     }
     const { email } = user;
-    user.password = newPwd;
+    user.password = await HashPassword(newPwd);
     user.pwdChangedAt = new Date();
     await user.save();
 
@@ -194,8 +171,6 @@ const resetInvPwd = asyncHandler(async (req, res) => {
 
 const getInvValueSet = asyncHandler(async (req, res) => {
   try {
-    const InvSettingValueSetModel = dbInventoryConn.model('InvSettingValueSet', invSettingValueSetSchema);
-
     const valueset = await InvSettingValueSetModel.findOne({}, null, { sort: '-updatedAt' });
     if (!valueset) {
       console.log('API_getInvValueSet:', 'Inventory value setting does not exist yet');
@@ -214,8 +189,6 @@ const getInvValueSet = asyncHandler(async (req, res) => {
 
 const editInvValueSet = asyncHandler(async (req, res) => {
   try {
-    const InvSettingValueSetModel = dbInventoryConn.model('InvSettingValueSet', invSettingValueSetSchema);
-
     const { ...rest } = req.body;
     const valueset = await InvSettingValueSetModel.findOne({}, null, { sort: '-updatedAt' });
     if (!valueset) {
@@ -252,8 +225,6 @@ const editInvValueSet = asyncHandler(async (req, res) => {
 
 const listInvEmailTpl = asyncHandler(async (req, res) => {
   try {
-    const InvSettingEmailTplModel = dbInventoryConn.model('InvSettingEmailTpl', invSettingEmailTplSchema);
-
     const result = await listMRTableHandler(InvSettingEmailTplModel, req.body);
     if (result === null) {
       console.log('API_listInvEmailTpl_400:', 'Failed to get table list data');
@@ -273,9 +244,7 @@ const listInvEmailTpl = asyncHandler(async (req, res) => {
 
 const addInvEmailTpl = asyncHandler(async (req, res) => {
   try {
-    const InvSettingEmailTplModel = dbInventoryConn.model('InvSettingEmailTpl', invSettingEmailTplSchema);
     const { emailName, template } = req.body;
-
     const emailtpl = await InvSettingEmailTplModel.create({
       emailName,
       template: template ?? ''
@@ -305,9 +274,7 @@ const addInvEmailTpl = asyncHandler(async (req, res) => {
 
 const editInvEmailTpl = asyncHandler(async (req, res) => {
   try {
-    const InvSettingEmailTplModel = dbInventoryConn.model('InvSettingEmailTpl', invSettingEmailTplSchema);
     const { id, emailName, template } = req.body;
-
     const emailtpl = await InvSettingEmailTplModel.findById(id);
     if (!emailtpl) {
       console.log('API_editInvEmailTpl_400:', 'Email template not found');

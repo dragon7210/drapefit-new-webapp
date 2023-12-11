@@ -11,21 +11,20 @@ const { createHmac } = await import('node:crypto');
 import Stripe from 'stripe';
 
 import userSchema from '../../models/admin/user.js';
-import userLoginLogSchema from '../models/admin/userLoginLogSchema.js';
-import kidSchema from '../models/admin/kidSchema.js';
-import wFitProfileSchema from '../models/admin/wFitProfileSchema.js';
-import mFitProfileSchema from '../models/admin/mFitProfileSchema.js';
-import kgFitProfileSchema from '../models/admin/kgFitProfileSchema.js';
-import kbFitProfileSchema from '../models/admin/kbFitProfileSchema.js';
+// import userLoginLogSchema from '../models/admin/userLoginLogSchema.js';
+// import kidSchema from '../models/admin/kidSchema.js';
+// import wFitProfileSchema from '../models/admin/wFitProfileSchema.js';
+// import mFitProfileSchema from '../models/admin/mFitProfileSchema.js';
+// import kgFitProfileSchema from '../models/admin/kgFitProfileSchema.js';
+// import kbFitProfileSchema from '../models/admin/kbFitProfileSchema.js';
 import { sequelize } from '../../config/db.js';
 import { chkEmailVeriToken, genUsername, isValidEmailVeriTokenTTL } from '../../utils/helper.js';
 import { sendSesEmail } from '../../libs/sendSesEmail.js';
 import { USER_ROLE_CLIENT, MOB_PLT_LIST } from '../../utils/constant.js';
+import User from '../../models/admin/user.js';
 
 const loginMobUser = asyncHandler(async (req, res) => {
   try {
-    const UserModel = sequelize.model('User', userSchema);
-    const UserLoginLogModel = sequelize.model('UserLoginLog', userLoginLogSchema);
     const { email, password, platform } = req.body;
 
     if (!MOB_PLT_LIST.includes(platform)) {
@@ -34,7 +33,7 @@ const loginMobUser = asyncHandler(async (req, res) => {
         msg: 'Invalid platform access'
       });
     }
-    const user = await UserModel.findOne({ email });
+    const user = await User.findOne({ email });
     if (!user) {
       console.log('API_loginMobUser_400:', 'User not found');
       return res.status(400).json({
@@ -81,13 +80,6 @@ const loginMobUser = asyncHandler(async (req, res) => {
 
 const getMobUserInfo = asyncHandler(async (req, res) => {
   try {
-    const UserModel = sequelize.model('User', userSchema);
-    const WFitProfileModel = sequelize.model('WFitProfile', wFitProfileSchema);
-    const MFitProfileModel = sequelize.model('MFitProfile', mFitProfileSchema);
-    const KidsModel = sequelize.model('Kids', kidSchema);
-    const KgFitProfileModel = sequelize.model('KgFitProfile', kgFitProfileSchema);
-    const KbFitProfileModel = sequelize.model('KbFitProfile', kbFitProfileSchema);
-
     //-- `req.user` was set in [authMdware.js]
     const userId = req.user.id;
     const user = await UserModel.findById(userId);

@@ -16,7 +16,7 @@ const addColor = asyncHandler(async (req, res) => {
 const editColor = asyncHandler(async (req, res) => {
   try {
     const { id, name } = req.body;
-    const color = await InvColor.findByPk(id);
+    const color = await InvColor.findOne({ id });
     color.name = name;
     await color.save();
     console.log('API_editColor_200:', 'Color has been updated');

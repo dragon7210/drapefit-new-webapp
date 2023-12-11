@@ -8,18 +8,15 @@
  */
 import asyncHandler from 'express-async-handler';
 import SupplyVendor from '../../models/supply/supplyVendor.js';
+import { HashPassword } from '../../models/admin/user.js';
 
 const addVendor = asyncHandler(async (req, res) => {
   try {
-    const { name, email, password, phone, about, address_one, address_two } = req.body;
+    const { password, ...rest } = req.body;
+    const newPwd = await HashPassword(password);
     await SupplyVendor.create({
-      name,
-      email,
-      password,
-      phone,
-      about,
-      address_one,
-      address_two,
+      ...rest,
+      password: newPwd,
       created: new Date(),
       is_active: 0
     });
@@ -33,8 +30,9 @@ const addVendor = asyncHandler(async (req, res) => {
 
 const editVendor = asyncHandler(async (req, res) => {
   try {
-    const { name, email, password, phone, about, address_one, address_two, id } = req.body;
-    await SupplyVendor.update({ name, email, password, phone, about, address_one, address_two }, { where: { id } });
+    const { password, id, ...rest } = req.body;
+    const newPwd = await HashPassword(password);
+    await SupplyVendor.update({ password: newPwd, ...rest }, { where: { id } });
     res.status(200).send('success');
   } catch (error) {
     console.log('API_editVendor_500:', e?.message);
@@ -69,7 +67,8 @@ const deleteVendor = asyncHandler(async (req, res) => {
 const changepwdVendor = asyncHandler(async (req, res) => {
   try {
     const { id, password } = req.body;
-    await SupVendorModel.update({ password }, { where: { id } });
+    const newPwd = await HashPassword(password);
+    await SupVendorModel.update({ password: newPwd }, { where: { id } });
     res.status(200).send('success');
   } catch (error) {
     console.log('API_changepwdVendor_500:', e?.message);
@@ -81,7 +80,7 @@ const changepwdVendor = asyncHandler(async (req, res) => {
 const toggleactiveVendor = asyncHandler(async (req, res) => {
   try {
     const { id } = req.body;
-    let vendor = await SupplyVendor.findByPk(id);
+    let vendor = await SupplyVendor.findOne({ where: { id } });
     let is_active = vendor.is_active === 0 ? 1 : 0;
     console.log('Current is_active value:', is_active);
     await SupplyVendor.update({ is_active }, { where: { id } });

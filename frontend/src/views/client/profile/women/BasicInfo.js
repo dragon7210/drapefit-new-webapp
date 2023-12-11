@@ -83,7 +83,6 @@ const BasicInfo = () => {
     comfortable_showing_off: wBasicInfo?.comfortable_showing_off?.split(','),
     keep_covered: wBasicInfo?.keep_covered?.split(',')
   };
-  console.log(newWBasicInfo);
   const [open, setOpen] = useState(false);
   const showModal = () => {
     setOpen(true);

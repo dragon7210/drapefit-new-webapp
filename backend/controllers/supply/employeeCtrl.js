@@ -8,11 +8,13 @@
  */
 import asyncHandler from 'express-async-handler';
 import Employee from '../../models/supply/employee.js';
+import { HashPassword } from '../../models/admin/user.js';
 
 const addEmployee = asyncHandler(async (req, res) => {
   try {
-    const { name, email, password, phone, type, about, address } = req.body;
-    await Employee.create({ name, email, password, phone, type, about, address, created: new Date(), is_active: 0 });
+    const { password, ...rest } = req.body;
+    const newPwd = await HashPassword(password);
+    await Employee.create({ created: new Date(), password: newPwd, is_active: 0, ...rest });
     res.status(200).send('success');
   } catch (error) {
     console.log('API_addEmployee_500:', e?.message);
@@ -23,8 +25,9 @@ const addEmployee = asyncHandler(async (req, res) => {
 
 const editEmployee = asyncHandler(async (req, res) => {
   try {
-    const { name, email, password, phone, type, about, address, id } = req.body;
-    await Employee.update({ name, email, password, phone, type, about, address }, { where: { id } });
+    const { password, id, ...rest } = req.body;
+    const newPwd = await HashPassword(password);
+    await Employee.update({ password: newPwd, ...rest }, { where: { id } });
     res.status(200).send('success');
   } catch (error) {
     console.log('API_editEmployee_500:', error?.message);
@@ -59,7 +62,8 @@ const deleteEmployee = asyncHandler(async (req, res) => {
 const changepwdEmployee = asyncHandler(async (req, res) => {
   try {
     const { id, password } = req.body;
-    await Employee.update({ password }, { where: { id } });
+    const newPwd = await HashPassword(password);
+    await Employee.update({ password: newPwd }, { where: { id } });
     res.status(200).send('success');
   } catch (error) {
     console.log('API_getEmployees_500:', e?.message);

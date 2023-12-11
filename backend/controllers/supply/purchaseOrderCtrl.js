@@ -156,9 +156,8 @@ const editPurchaseOrder = asyncHandler(async (req, res) => {
 
 const setAssignPurchaseOrder = asyncHandler(async (req, res) => {
   try {
-    const SupPurchaseOrderModel = dbSupplierConn.model('SupPurchaseOrder', supPurchaseOrderSchema);
     let { id } = req.body;
-    await SupPurchaseOrderModel.findOneAndUpdate({ id }, { assign: 'true' });
+    await PurchaseOrder.update({ assign: 'true' }, { where: { id } });
     res.status(200).send('success');
   } catch (error) {
     console.log('API_setAssignPurchaseOrder_500:', e?.message);
@@ -281,11 +280,8 @@ const getPurchaseOrdered = asyncHandler(async (req, res) => {
 
 const handleOrderedEdit = asyncHandler(async (req, res) => {
   try {
-    const { order, name, product_photo, description, required_quantity, deadline, id } = req.body;
-    await PurchaseOrder.update(
-      { order, name, product_photo, description, required_quantity, deadline },
-      { where: { id } }
-    );
+    const { id, ...rest } = req.body;
+    await PurchaseOrder.update({ ...rest }, { where: { id } });
     res.status(200).send('success');
     console.log('handleOrderedEdit success');
   } catch (error) {

@@ -71,7 +71,6 @@ const toggleInvProductActive = asyncHandler(async (req, res) => {
 
 const reportInvProductsTbllist = asyncHandler(async (req, res) => {
   try {
-    console.log(req.body);
     let data = await InvProduct.findAll();
     console.log('API_reportInvProductsTbllist_200:', 'Report table list data is retrieved');
     res.status(200).send(data);
@@ -85,7 +84,6 @@ const reportInvProductsTbllist = asyncHandler(async (req, res) => {
 const summaryInvProductsListForMen = asyncHandler(async (req, res) => {
   try {
     let data = await InvProduct.findAll();
-    //-- okay
     console.log('API_summaryInvProductsListForMen_200:', 'Report table list data is retrieved');
     res.status(200).send(data);
   } catch (e) {
@@ -99,7 +97,6 @@ const getIndProduct = asyncHandler(async (req, res) => {
   try {
     const { id } = req.body;
     const invProduct = await InvProduct.findOne({ where: { id }, include: InvColor });
-    //-- okay
     console.log('API_getIndProduct_200:');
     res.status(200).send(invProduct);
   } catch (e) {

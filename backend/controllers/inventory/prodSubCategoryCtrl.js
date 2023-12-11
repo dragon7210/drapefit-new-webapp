@@ -4,12 +4,9 @@ import InvProductType from '../../models/inventory/productType.js';
 
 const addInvProdSubCategoryRack = asyncHandler(async (req, res) => {
   try {
-    const { in_product_type_id, rack_number, rack_name, location_note } = req.body;
+    const { ...rest } = req.body;
     await InvRack.create({
-      in_product_type_id,
-      rack_number,
-      rack_name,
-      location_note
+      ...rest
     });
     console.log('API_addInvProdSubCategoryRack_200:', 'Product sub-category has been added');
     res.status(200).send('success');
@@ -34,12 +31,8 @@ const getInvProdSubCategories = asyncHandler(async (req, res) => {
 
 const editInvProdSubCategoryRack = asyncHandler(async (req, res) => {
   try {
-    const { id, in_product_type_id, rack_number, rack_name, location_note } = req.body;
-    const invRack = await InvRack.findByPk(id);
-    invRack.in_product_type_id = in_product_type_id;
-    invRack.rack_number = rack_number;
-    invRack.rack_name = rack_name;
-    invRack.location_note = location_note;
+    const { id, ...rest } = req.body;
+    const invRack = await InvRack.update({ ...rest }, { where: { id } });
     await invRack.save();
     res.status(200).send('success');
   } catch (e) {
@@ -51,7 +44,6 @@ const editInvProdSubCategoryRack = asyncHandler(async (req, res) => {
 const deleteInvProdSubCategoryRack = asyncHandler(async (req, res) => {
   try {
     const { id } = req.body;
-
     await InvRack.destroy({ where: { id } });
     console.log('API_deleteInvProdSubCategoryRack_200:', 'Product sub-category has been deleted');
     res.status(200).send('success');

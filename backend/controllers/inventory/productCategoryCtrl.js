@@ -4,12 +4,8 @@ import InvRack from '../../models/inventory/rack.js';
 
 const editInvProdType = asyncHandler(async (req, res) => {
   try {
-    const { id, product_type, name, note } = req.body;
-    const prodType = await InvProductType.findByPk(id);
-    prodType.product_type = product_type;
-    prodType.name = name;
-    prodType.note = note;
-    await prodType.save();
+    const { id, ...rest } = req.body;
+    const prodType = await InvProductType.update({ ...rest }, { where: { id } });
     console.log('API_editInvProdType_200:', 'Product category has been updated');
     res.status(200).json(prodType);
   } catch (e) {
@@ -32,11 +28,9 @@ const deleteInvProdType = asyncHandler(async (req, res) => {
 
 const addInvProdType = asyncHandler(async (req, res) => {
   try {
-    const { product_type, name, note } = req.body;
+    const { ...rest } = req.body;
     const prodCategory = await InvProductType.create({
-      product_type,
-      name,
-      note
+      ...rest
     });
     console.log('API_addInvProdType_200:', 'Product category has been added');
     res.status(200).send(prodCategory);
@@ -60,8 +54,6 @@ const getInvProdTypes = asyncHandler(async (req, res) => {
 });
 
 const getSubCategories = asyncHandler(async (req, res) => {
-  console.log('subcategories');
-  console.log(req.body);
   try {
     let { in_product_type_id } = req.body;
     const data = await InvRack.findAll({ where: { in_product_type_id } });
