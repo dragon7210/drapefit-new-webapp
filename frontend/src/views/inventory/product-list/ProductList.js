@@ -111,7 +111,6 @@ const ProductList = () => {
 
   const { prodCategories } = useSelector((state) => state.invProductCategory);
   const { tableData } = useSelector((state) => state.invProduct);
-
   let updateData = [];
   updateData = tableData.map((item, index) => {
     const action_btn = (

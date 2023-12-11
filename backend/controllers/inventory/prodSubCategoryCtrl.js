@@ -32,8 +32,7 @@ const getInvProdSubCategories = asyncHandler(async (req, res) => {
 const editInvProdSubCategoryRack = asyncHandler(async (req, res) => {
   try {
     const { id, ...rest } = req.body;
-    const invRack = await InvRack.update({ ...rest }, { where: { id } });
-    await invRack.save();
+    await InvRack.update({ ...rest }, { where: { id } });
     res.status(200).send('success');
   } catch (e) {
     console.log('API_editInvProdSubCategoryRack_500:', e?.message);

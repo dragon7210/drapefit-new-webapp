@@ -10,7 +10,7 @@ import { sequelize } from '../../config/db.js';
 import { DataTypes } from 'sequelize';
 
 const invCollaborationBrand = sequelize.define(
-  'in_collaborationBrand',
+  'in_collaboration_brand',
   {
     name: {
       type: DataTypes.STRING
@@ -24,7 +24,7 @@ const invCollaborationBrand = sequelize.define(
     address: {
       type: DataTypes.STRING
     },
-    brandName: {
+    brand_name: {
       type: DataTypes.STRING
     },
     website: {
@@ -32,7 +32,7 @@ const invCollaborationBrand = sequelize.define(
     }
   },
   {
-    timestamps: true
+    timestamps: false
   }
 );
 

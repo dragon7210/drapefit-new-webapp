@@ -11,7 +11,7 @@ import { DataTypes } from 'sequelize';
 import User from './user.js';
 
 const ProfileBrandStaff = sequelize.define(
-  'profileBrandStaffs',
+  'profile_brand_staff',
   {
     user_id: {
       type: DataTypes.INTEGER,

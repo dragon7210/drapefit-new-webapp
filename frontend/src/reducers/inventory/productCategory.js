@@ -1,7 +1,6 @@
 import { INV_EDIT_PRODUCT_CATEGORY, INV_GET_PRODUCT_CATEGORIES } from 'actions/common/types';
 
 const initialState = {
-  tableData: [],
   prodCategories: []
 };
 
@@ -11,7 +10,7 @@ const productCategoryReducer = (state = initialState, action) => {
     case INV_EDIT_PRODUCT_CATEGORY:
       return {
         ...state,
-        tableData: state.tableData.map((data) => (data.id === payload.id ? payload : data))
+        prodCategories: state.prodCategories.map((item) => (item.id === payload.id ? payload : item))
       };
     case INV_GET_PRODUCT_CATEGORIES:
       return {

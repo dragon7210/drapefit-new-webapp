@@ -12,11 +12,9 @@ export const addProductCategory = (values, data) => async (dispatch) => {
     dispatch({ type: SET_LOADING });
     if (res.data) {
       setAlert('Product category has been added', 'success');
-      dispatch(getProductCategoryList(data));
-      return Promise.resolve();
+      dispatch(getProductCategories(data));
     } else {
       setAlert('ACTION_addProductCategory_ERROR', 'error');
-      return Promise.reject();
     }
   } catch (err) {
     dispatch({ type: SET_LOADING });
@@ -28,7 +26,6 @@ export const addProductCategory = (values, data) => async (dispatch) => {
 
 export const editProductCategory = (values) => async (dispatch) => {
   try {
-    DFnewLogger(values);
     dispatch({ type: SET_LOADING });
     const res = await Api.post('/adminventory/manage/product/category/edit', values);
     dispatch({ type: SET_LOADING });
@@ -53,13 +50,12 @@ export const editProductCategory = (values) => async (dispatch) => {
 
 export const deleteProductCategory = (values, data) => async (dispatch) => {
   try {
-    DFnewLogger(values);
     dispatch({ type: SET_LOADING });
     const res = await Api.post('/adminventory/manage/product/category/delete', values);
     dispatch({ type: SET_LOADING });
     if (res.data === 'Product category has been deleted') {
       setAlert(res.data, 'success');
-      dispatch(getProductCategoryList(data));
+      dispatch(getProductCategories(data));
       return Promise.resolve();
     } else {
       setAlert('ACTION_deleteProductCategory_ERROR', 'error');

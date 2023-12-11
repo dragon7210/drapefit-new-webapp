@@ -5,7 +5,8 @@ import InvRack from '../../models/inventory/rack.js';
 const editInvProdType = asyncHandler(async (req, res) => {
   try {
     const { id, ...rest } = req.body;
-    const prodType = await InvProductType.update({ ...rest }, { where: { id } });
+    await InvProductType.update({ ...rest }, { where: { id } });
+    const prodType = await InvProductType.findOne({ where: { id } });
     console.log('API_editInvProdType_200:', 'Product category has been updated');
     res.status(200).json(prodType);
   } catch (e) {

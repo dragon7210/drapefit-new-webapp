@@ -23,7 +23,6 @@ export const getProdSubCategories = () => async (dispatch) => {
 
 export const addProdSubCategory = (values) => async (dispatch) => {
   try {
-    DFnewLogger(values);
     dispatch({ type: SET_LOADING });
     const res = await Api.post('/adminventory/manage/product/subCategory/add', values);
     dispatch({ type: SET_LOADING });
@@ -45,7 +44,6 @@ export const addProdSubCategory = (values) => async (dispatch) => {
 
 export const editProdSubCategory = (values) => async (dispatch) => {
   try {
-    DFnewLogger(values);
     dispatch({ type: SET_LOADING });
     const res = await Api.post('/adminventory/manage/product/subCategory/edit', values);
     dispatch({ type: SET_LOADING });
@@ -67,7 +65,6 @@ export const editProdSubCategory = (values) => async (dispatch) => {
 
 export const deleteProdSubCategory = (values) => async (dispatch) => {
   try {
-    DFnewLogger(values);
     dispatch({ type: SET_LOADING });
     const res = await Api.post('/adminventory/manage/product/subCategory/delete', values);
     dispatch({ type: SET_LOADING });
@@ -88,7 +85,6 @@ export const deleteProdSubCategory = (values) => async (dispatch) => {
 };
 
 export const getProductSubCategories = (in_product_type_id) => async (dispatch) => {
-  console.log(in_product_type_id);
   try {
     const res = await Api.post(`/adminventory/manage/product/category/subCategories`, { in_product_type_id });
     if (res.data) {

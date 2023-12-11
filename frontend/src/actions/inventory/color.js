@@ -23,7 +23,6 @@ export const getColor = () => async (dispatch) => {
 
 export const addColor = (values) => async (dispatch) => {
   try {
-    DFnewLogger(values);
     dispatch({ type: SET_LOADING });
     const res = await Api.post('/adminventory/manage/color/add', values);
     dispatch({ type: SET_LOADING });
@@ -45,7 +44,6 @@ export const addColor = (values) => async (dispatch) => {
 
 export const editColor = (values) => async (dispatch) => {
   try {
-    DFnewLogger(values);
     dispatch({ type: SET_LOADING });
     const res = await Api.post('/adminventory/manage/color/edit', values);
     dispatch({ type: SET_LOADING });
@@ -70,7 +68,6 @@ export const editColor = (values) => async (dispatch) => {
 
 export const deleteColor = (values) => async (dispatch) => {
   try {
-    DFnewLogger(values);
     dispatch({ type: SET_LOADING });
     const res = await Api.post('/adminventory/manage/color/delete', values);
     dispatch({ type: SET_LOADING });

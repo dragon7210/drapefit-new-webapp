@@ -71,10 +71,10 @@ const ViewBrand = () => {
   });
   const [initEdit, setInitEdit] = useState({
     id: '',
-    firstName: '',
-    lastName: '',
+    first_name: '',
+    last_name: '',
     email: '',
-    brandName: '',
+    brand_name: '',
     address: '',
     phone: ''
   });
@@ -360,16 +360,16 @@ const ViewBrand = () => {
           <Formik
             initialValues={initEdit}
             validationSchema={Yup.object().shape({
-              firstName: Yup.string().trim().max(50, 'First name is too long').required('Please enter first name'),
-              lastName: Yup.string().trim().max(50, 'Last name is too long').required('Please enter last name'),
-              brandName: Yup.string().trim().max(255, 'Brand name is too long').required('Please enter brand name'),
+              first_name: Yup.string().trim().max(50, 'First name is too long').required('Please enter first name'),
+              last_name: Yup.string().trim().max(50, 'Last name is too long').required('Please enter last name'),
+              brand_name: Yup.string().trim().max(255, 'Brand name is too long').required('Please enter brand name'),
               phone: Yup.string()
                 .phone(['US', 'IN'], 'Please enter a valid phone number')
                 .required('Please enter phone number')
             })}
             onSubmit={async (values, actions) => {
               try {
-                await dispatch(editBrand(values));
+                dispatch(editBrand(values));
                 actions.resetForm();
                 handleEditDialog();
               } catch (err) {
@@ -384,41 +384,41 @@ const ViewBrand = () => {
                     <Typography color="#ff0000">All (*) fields are mandatory</Typography>
                   </Grid>
                   <Grid item xs={12} sm={6}>
-                    <FormControl fullWidth error={Boolean(touched.firstName && errors.firstName)}>
+                    <FormControl fullWidth error={Boolean(touched.first_name && errors.first_name)}>
                       <InputLabel>
                         First Name <span style={{ color: 'red' }}>*</span>
                       </InputLabel>
                       <OutlinedInput
                         size="small"
                         label="First Name *"
-                        name="firstName"
-                        value={values.firstName}
+                        name="first_name"
+                        value={values.first_name}
                         onBlur={handleBlur}
                         onChange={handleChange}
                       />
-                      {touched.firstName && errors.firstName && (
-                        <FormHelperText id="helper-text-firstName" error>
-                          {errors.firstName}
+                      {touched.first_name && errors.first_name && (
+                        <FormHelperText id="helper-text-first_name" error>
+                          {errors.first_name}
                         </FormHelperText>
                       )}
                     </FormControl>
                   </Grid>
                   <Grid item xs={12} sm={6}>
-                    <FormControl fullWidth error={Boolean(touched.lastName && errors.lastName)}>
+                    <FormControl fullWidth error={Boolean(touched.last_name && errors.last_name)}>
                       <InputLabel>
                         Last Name <span style={{ color: 'red' }}>*</span>
                       </InputLabel>
                       <OutlinedInput
                         size="small"
                         label="Last Name *"
-                        name="lastName"
-                        value={values.lastName}
+                        name="last_name"
+                        value={values.last_name}
                         onBlur={handleBlur}
                         onChange={handleChange}
                       />
-                      {touched.lastName && errors.lastName && (
-                        <FormHelperText id="helper-text-lastName" error>
-                          {errors.lastName}
+                      {touched.last_name && errors.last_name && (
+                        <FormHelperText id="helper-text-last_name" error>
+                          {errors.last_name}
                         </FormHelperText>
                       )}
                     </FormControl>
@@ -443,21 +443,21 @@ const ViewBrand = () => {
                     </FormControl>
                   </Grid>
                   <Grid item xs={12} sm={6}>
-                    <FormControl fullWidth error={Boolean(touched.brandName && errors.brandName)}>
+                    <FormControl fullWidth error={Boolean(touched.brand_name && errors.brand_name)}>
                       <InputLabel>
                         Brand Name <span style={{ color: 'red' }}>*</span>
                       </InputLabel>
                       <OutlinedInput
                         size="small"
                         label="Brand Name *"
-                        name="brandName"
-                        value={values.brandName}
+                        name="brand_name"
+                        value={values.brand_name}
                         onBlur={handleBlur}
                         onChange={handleChange}
                       />
-                      {touched.brandName && errors.brandName && (
-                        <FormHelperText id="helper-text-brandName" error>
-                          {errors.brandName}
+                      {touched.brand_name && errors.brand_name && (
+                        <FormHelperText id="helper-text-brand_name" error>
+                          {errors.brand_name}
                         </FormHelperText>
                       )}
                     </FormControl>
@@ -491,7 +491,6 @@ const ViewBrand = () => {
                       <OutlinedInput
                         size="small"
                         label="Phone *"
-                        type="number"
                         name="phone"
                         value={values.phone}
                         onBlur={handleBlur}

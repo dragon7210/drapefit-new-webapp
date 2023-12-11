@@ -154,10 +154,9 @@ const changeBrandStaffPwd = asyncHandler(async (req, res) => {
   try {
     const { id, email, password } = req.body;
     const brandStaff = await ProfileBrandStaff.findByPk(id);
-    const user = await User.findByPk(brandStaff?.userId);
-    const salt = await bcrypt.genSalt(10);
-    const hashPassword = await bcrypt.hash(password, salt);
-    user.password = hashPassword;
+    const user = await User.findByPk(brandStaff?.user_id);
+    const newPwd = await HashPassword(password);
+    user.password = newPwd;
     await user.save();
 
     //-- skip notify-email for development stage
@@ -216,23 +215,15 @@ const changeBrandStaffPwd = asyncHandler(async (req, res) => {
 
 const editBrandStaffInfo = asyncHandler(async (req, res) => {
   try {
-    const { id, firstName, lastName, email, phone, address, brandName } = req.body;
-
-    const brandStaff = await ProfileBrandStaff.findByPk(id);
-    const user = await User.findByPk(brandStaff.userId);
-    //-- edit brand user account
-    user.name = genUsername(firstName, lastName);
-    await user.save();
-    //-- edit brand info
-    brandStaff.firstName = firstName;
-    brandStaff.lastName = lastName;
-    brandStaff.phone = phone;
-    brandStaff.address = address;
-    brandStaff.brandName = brandName;
-    await brandStaff.save();
+    const { id, first_name, last_name, email, phone, address, brand_name } = req.body;
+    const brandStaff = await ProfileBrandStaff.update(
+      { first_name, last_name, email, phone, address, brand_name },
+      { where: { id } }
+    );
+    const user = await User.findByPk(brandStaff.user_id);
     //-- temporary attachment for table listing
-    const resBrandStaff = JSON.parse(JSON.stringify(brandStaff));
-    resBrandStaff.is_active = user.is_active;
+    let resBrandStaff = JSON.parse(JSON.stringify(brandStaff));
+    resBrandStaff.is_active = user?.is_active;
 
     //-- skip notify-email for development stage
     // if (process.env.NODE_ENV === 'development') {
@@ -250,11 +241,11 @@ const editBrandStaffInfo = asyncHandler(async (req, res) => {
         <p>Your brand account info has been updated by inventory manager.</p>
         <p>Please confirm the following updates:</p><br>
         <pre style="border:1px solid #232f3e;border-radius:0.5em;padding:1em;color:#f76c02;max-width:600px">
-        First Name: ${firstName}
-        Last Name: ${lastName}
+        First Name: ${first_name}
+        Last Name: ${last_name}
         Phone: ${phone}
         Address: ${address}
-        Brand Name: ${brandName}
+        Brand Name: ${brand_name}
         </pre><br>
         <p>Thanks.</p>
         <p><small>The Support Team at Drape Fit Inc.</small></p>
@@ -263,11 +254,11 @@ const editBrandStaffInfo = asyncHandler(async (req, res) => {
     const msgTxt = `Hi, there!\n
         Your brand account info has been updated by inventory manager.\n
         Please confirm the following updates:\n\n
-        First Name: ${firstName}\n
-        Last Name: ${lastName}\n
+        First Name: ${first_name}\n
+        Last Name: ${last_name}\n
         Phone: ${phone}\n
         Address: ${address}\n
-        Brand Name: ${brandName}\n\n
+        Brand Name: ${brand_name}\n\n
         Thanks.\n
         The Support Team at Drape Fit Inc.
       `;
@@ -307,7 +298,7 @@ const deleteBrandStaff = asyncHandler(async (req, res) => {
   try {
     const { id } = req.body;
     const brandStaff = await ProfileBrandStaff.findByPk(id);
-    await User.destroy({ where: { id: brandStaff?.userId } });
+    await User.destroy({ where: { id: brandStaff?.user_id } });
     await ProfileBrandStaff.destroy({ where: { id } });
     //-- skip notify-email for development stage
     // if (process.env.NODE_ENV === 'development') {
@@ -322,10 +313,10 @@ const deleteBrandStaff = asyncHandler(async (req, res) => {
         <p>Your Drape Fit brand account has been deleted by inventory manager.</p>
         <p>The deleted account information is as follows:</p>
         <pre style="border:1px solid #232f3e;border-radius:0.5em;padding:1em;color:#f76c02;max-width:600px">
-        Email: ${email}
-        First Name: ${firstName}
-        Last Name: ${lastName}
-        Responsible Brand Name: ${brandName}
+        Email: ${brandStaff.email}
+        First Name: ${brandStaff.first_name}
+        Last Name: ${brandStaff.last_name}
+        Responsible Brand Name: ${brandStaff.brand_name}
         </pre><br>
         <p>Please contact us if there is any problem or inconvenience.</p>
         <p>Thanks.</p>
@@ -335,10 +326,10 @@ const deleteBrandStaff = asyncHandler(async (req, res) => {
     const msgTxt = `Hi, there!\n
         Your Drape Fit brand account has been deleted by inventory manager.\n
         The deleted account information is as follows:\n\n
-        Email: ${email}\n
-        First Name: ${firstName}\n
-        Last Name: ${lastName}\n
-        Responsible Brand Name: ${brandName}\n\n
+        Email: ${brandStaff.email}
+        First Name: ${brandStaff.first_name}
+        Last Name: ${brandStaff.last_name}
+        Responsible Brand Name: ${brandStaff.brand_name}
         Please contact us if there is any problem or inconvenience.\n
         Thanks.\n
         The Support Team at Drape Fit Inc.
@@ -377,7 +368,7 @@ const toggleActiveBrandStaffStatus = asyncHandler(async (req, res) => {
   try {
     const { id } = req.body;
     const brandStaff = await ProfileBrandStaff.findByPk(id);
-    const user = await User.findByPk(brandStaff.userId);
+    const user = await User.findByPk(brandStaff.user_id);
     const { email } = user;
     const status = user.is_active;
     let message = '';
@@ -467,15 +458,10 @@ const countBrandStaff = asyncHandler(async (req, res) => {
 
 const createCollaborationBrand = asyncHandler(async (req, res) => {
   try {
-    const { brandName, name, email, phone, website } = req.body;
+    const { ...rest } = req.body;
     await InvCollaborationBrand.create({
-      brandName,
-      name,
-      email,
-      phone,
-      website
+      ...rest
     });
-    //-- okay
     console.log('API_createCollaborationBrand_200:');
     res.status(200).send('Collaboration Brand has been created');
   } catch (e) {
