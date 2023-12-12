@@ -75,7 +75,7 @@ const GiftCardEmail = () => {
       createdDate: DateType(item.created_dt),
       expiry_date: DateType(item.expiry_date),
       delivery_date: DateType(item.delivery_date),
-      deliveryStatus: item.deliveryStatus ? 'Delivery' : 'No delivery',
+      deliveryStatus: item.mail_status === 1 ? 'Yes deliveryed' : 'No delivery',
       action: action_btn
     };
   });

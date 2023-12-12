@@ -18,7 +18,6 @@ const columns = [
   { accessorKey: 'from_email', header: 'From Email' },
   { accessorKey: 'giftcode', header: 'GiftCode' },
   { accessorKey: 'price', header: 'Price' },
-  { accessorKey: 'delivery_date', header: 'Delivery Date' },
   { accessorKey: 'expiry_date', header: 'Expiry Date' },
   { accessorKey: 'createdDate', header: 'Created Date' },
   { accessorKey: 'deliveryStatus', header: 'Delivery Status' },
@@ -95,8 +94,7 @@ const GiftCardPrint = () => {
       ...item,
       createdDate: DateType(item.created_dt),
       expiry_date: DateType(item.expiry_date),
-      delivery_date: DateType(item.delivery_date),
-      deliveryStatus: item.deliveryStatus ? 'Delivery' : 'No delivery',
+      deliveryStatus: item.mail_status == 1 ? 'Yes deliveryed' : 'No delivery',
       action: action_btn
     };
   });

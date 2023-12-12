@@ -96,7 +96,7 @@ const SubscriptionCancellation = () => {
       date: DateType(item.applay_dt),
       scheduledFixes: item.try_new_items_with_scheduled_fixes === 1 ? 'Yes' : 'No',
       timeFix: 'Every ' + item.how_often_would_you_lik_fixes + ' months',
-      status: item.autoMentions === 0 ? 'Subscription' : 'Un-subscription',
+      status: item.try_new_items_with_scheduled_fixes === 1 ? 'Subscription' : 'Un-subscription',
       kidName: item.kids_detail?.kids_first_name
     };
   });

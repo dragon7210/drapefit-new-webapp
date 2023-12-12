@@ -40,7 +40,7 @@ const columns = [
   { accessorKey: 'price', header: 'Price' },
   { accessorKey: 'createdDate', header: 'Created Date' },
   { accessorKey: 'expiry_date', header: 'Expiry Date' },
-  { accessorKey: 'comments', header: 'comments' },
+  { accessorKey: 'msg', header: 'comments' },
   { accessorKey: 'action', header: 'Action' }
 ];
 

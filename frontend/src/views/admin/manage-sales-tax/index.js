@@ -247,7 +247,7 @@ const ManageSalesTax = () => {
             })}
             onSubmit={async (values, actions) => {
               try {
-                await dispatch(editStateSalesTax(values));
+                dispatch(editStateSalesTax(values));
                 actions.resetForm();
                 handleEditDialog();
               } catch (err) {

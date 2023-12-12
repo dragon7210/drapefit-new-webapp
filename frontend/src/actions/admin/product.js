@@ -32,6 +32,7 @@ export const getExchangeProduct = () => async (dispatch) => {
 
 export const getDeclineProduct = () => async (dispatch) => {
   try {
+    dispatch({ type: SET_LOADING });
     const res = await Api.get('/admmain/manage/declineProduct/tblist');
     if (res.data) {
       dispatch({
@@ -41,7 +42,9 @@ export const getDeclineProduct = () => async (dispatch) => {
     } else {
       setAlert('ACTION_getDeclineProduct_ERROR', 'error');
     }
+    dispatch({ type: SET_LOADING });
   } catch (err) {
+    dispatch({ type: SET_LOADING });
     DFnewLogger(err?.message);
     ErrorHandler(err);
   }

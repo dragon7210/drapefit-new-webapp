@@ -36,7 +36,7 @@ const getExchangeProduct = asyncHandler(async (req, res) => {
 const getDeclineProduct = asyncHandler(async (req, res) => {
   try {
     let data = await Product.findAll({
-      where: { keep_status: 99 },
+      where: { is_payment_fail: 1 },
       include: [
         { model: User, include: { model: UserDetail } },
         { model: PaymentGetway, include: { model: DeliverDate } },

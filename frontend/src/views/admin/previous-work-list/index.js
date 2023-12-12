@@ -14,7 +14,7 @@ import DeleteModal from 'ui-component/modal/DeleteModal';
 const columns = [
   { accessorKey: 'fullName', header: 'Full Name' },
   { accessorKey: 'gender', header: 'Gender' },
-  { accessorKey: 'profile', header: 'Profile' },
+  { accessorKey: 'count', header: 'Profile' },
   { accessorKey: 'orderDate', header: 'Order Date' },
   { accessorKey: 'assigncustomerstylist', header: 'Assign Customer Stylist' },
   { accessorKey: 'customerAction', header: 'Customer Action' },

@@ -24,7 +24,6 @@ const JunkUserList = () => {
   }, [dispatch]);
 
   const { junkList } = useSelector((state) => state.customer);
-  console.log(junkList);
   let updateData = [];
   updateData = junkList.map((item) => {
     return {

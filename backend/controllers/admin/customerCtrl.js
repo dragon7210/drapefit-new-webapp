@@ -54,8 +54,10 @@ const getPaidList = asyncHandler(async (req, res) => {
         payment_type: 1,
         work_status: {
           [Op.or]: [0, 1, 2]
-        }
+        },
+        count: 1
       },
+      order: [['created_dt', 'DESC']],
       include: [{ model: User, include: { model: UserDetail } }, KidsDetail, DeliverDate]
     });
     return res.status(200).send(data);
@@ -83,12 +85,11 @@ const getPaymentRefund = asyncHandler(async (req, res) => {
     const data = await PaymentGetway.findAll({
       where: {
         status: 1,
-        refound_status: 0,
+        refound_status: {
+          [Op.not]: 1
+        },
         work_status: {
           [Op.or]: [0, 1, 2]
-        },
-        price: {
-          [Op.gt]: 0
         }
       },
       include: [{ model: User, include: { model: UserDetail } }, PaymentCardDetail]
@@ -163,7 +164,8 @@ const getNotPaidLsit = asyncHandler(async (req, res) => {
   try {
     const data = await User.findAll({
       where: { type: 2 },
-      include: [UserDetail, KidsDetail]
+      include: [UserDetail, KidsDetail],
+      group: ['id']
     });
     return res.status(200).send(data);
   } catch (e) {
@@ -188,7 +190,8 @@ const getPreviewWorkList = asyncHandler(async (req, res) => {
   try {
     const data = await PaymentGetway.findAll({
       where: { status: 1, payment_type: 1, work_status: 2 },
-      include: [{ model: User, include: { model: UserDetail } }, KidsDetail]
+      include: [{ model: User, include: { model: UserDetail } }, KidsDetail],
+      order: [['created_dt', 'DESC']]
     });
     return res.status(200).send(data);
   } catch (e) {

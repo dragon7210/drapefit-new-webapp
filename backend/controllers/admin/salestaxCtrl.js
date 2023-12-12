@@ -7,7 +7,7 @@
  * @company Drape Fit Inc.
  */
 import asyncHandler from 'express-async-handler';
-import SalesTaxOverState from '../../models/admin/salesTaxOverState.js';
+import SalesNotApplicableState from '../../models/admin/salesNotApplicableState.js';
 
 const addStateSalesTax = asyncHandler(async (req, res) => {
   try {
@@ -19,7 +19,7 @@ const addStateSalesTax = asyncHandler(async (req, res) => {
       });
     }
     //-- create
-    const salesTax = await SalesTaxOverState.create({
+    const salesTax = await SalesNotApplicableState.create({
       ...rest,
       zip_min,
       zip_max
@@ -49,7 +49,7 @@ const addStateSalesTax = asyncHandler(async (req, res) => {
 
 const listStateSalesTaxTable = asyncHandler(async (req, res) => {
   try {
-    const result = await SalesTaxOverState.findAll();
+    const result = await SalesNotApplicableState.findAll();
     if (result === null) {
       console.log('API_listStateSalesTaxTable_400:', 'Failed to get table list data');
       return res.status(400).json({
@@ -69,8 +69,8 @@ const listStateSalesTaxTable = asyncHandler(async (req, res) => {
 const editStateSalesTax = asyncHandler(async (req, res) => {
   try {
     const { id, state_name, zip_min, zip_max, tax_rate } = req.body;
-    const salesTax = await SalesTaxOverState.update({ state_name, zip_min, zip_max, tax_rate }, { where: { id } });
-    //-- okay
+    await SalesNotApplicableState.update({ state_name, zip_min, zip_max, tax_rate }, { where: { id } });
+    const salesTax = await SalesNotApplicableState.findOne({ where: { id } });
     console.log('API_editStateSalesTax_200:', 'Sales tax has been updated');
     res.status(200).json(salesTax);
   } catch (e) {
@@ -83,7 +83,7 @@ const editStateSalesTax = asyncHandler(async (req, res) => {
 const deleteStateSalesTax = asyncHandler(async (req, res) => {
   try {
     const { id } = req.body;
-    await SalesTaxOverState.destroy({ where: { id } });
+    await SalesNotApplicableState.destroy({ where: { id } });
     //-- okay
     console.log('API_deleteStateSalesTax_200:', 'Sales tax has been deleted');
     res.status(200).send('Sales tax has been deleted');

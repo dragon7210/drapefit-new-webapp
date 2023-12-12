@@ -18,7 +18,7 @@ const columns = [
   { accessorKey: 'rqDate', header: 'Rq Date' },
   { accessorKey: 'email', header: 'Email' },
   { accessorKey: 'gender', header: 'Gender' },
-  { accessorKey: 'fitNumber', header: 'Fit Number' },
+  { accessorKey: 'count', header: 'Fit Number' },
   { accessorKey: 'orderDate', header: 'Order Date' },
   { accessorKey: 'orderNumber', header: 'Order Number' },
   { accessorKey: 'action', header: 'Action' }
@@ -74,9 +74,9 @@ const DeclinedProducts = () => {
       fullName: item.user?.user_detail?.first_name + ' ' + item.user?.user_detail?.last_name,
       rqDate: item?.payment_getway?.deliver_date?.date_in_time,
       orderNumber: '#DFPYMID' + item?.payment_getway?.id,
-      fitNumber: 'st',
       kidName: item.kids_detail?.kids_first_name,
-      email: item.user?.email
+      email: item.user?.email,
+      count: item?.payment_getway?.count
     };
   });
 

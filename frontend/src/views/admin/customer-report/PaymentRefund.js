@@ -31,8 +31,8 @@ const columns = [
   { accessorKey: 'name', header: 'Name' },
   { accessorKey: 'email', header: 'Email' },
   { accessorKey: 'profileGender', header: 'Profile Gender' },
-  { accessorKey: 'profileCount', header: 'Profile Count' },
-  { accessorKey: 'transactionId', header: 'Transaction ID.' },
+  { accessorKey: 'count', header: 'Profile Count' },
+  { accessorKey: 'transactionId', header: 'Transaction ID' },
   { accessorKey: 'price', header: 'Price' },
   { accessorKey: 'orderType', header: 'Order Type' },
   { accessorKey: 'action', header: 'Action' }
@@ -52,7 +52,6 @@ const PaymentRefund = () => {
   }, [dispatch]);
 
   const { paymentRefund } = useSelector((state) => state.customer);
-  console.log(paymentRefund);
   let updateData = paymentRefund.map((item) => {
     const action_btn = (
       <div style={{ display: 'flex', flexWrap: 'nowrap', gap: '0.5rem' }}>
@@ -78,7 +77,8 @@ const PaymentRefund = () => {
       email: item.user?.email,
       profileGender: Gender(Number(item?.profile_type)),
       transactionId: item?.transactions_id,
-      price: '$' + item?.price
+      price: '$' + item?.price,
+      orderType: item?.payment_type === 1 ? 'Box order' : item?.payment_type === 3 ? 'Direct charge' : 'Checkout order'
     };
   });
 

@@ -9,8 +9,8 @@
 import { sequelize } from '../../config/db.js';
 import { DataTypes } from 'sequelize';
 
-const SalesTaxOverState = sequelize.define(
-  'salesTaxOverState',
+const SalesNotApplicableState = sequelize.define(
+  'sales_not_applicable_state',
   {
     state_name: {
       type: DataTypes.STRING
@@ -23,12 +23,12 @@ const SalesTaxOverState = sequelize.define(
     },
     tax_rate: {
       type: DataTypes.NUMBER
-    },
+    }
   },
   {
     timestamps: false,
-    tableName: 'sales_tax_overStates'
+    tableName: 'sales_not_applicable_state'
   }
 );
 
-export default SalesTaxOverState;
+export default SalesNotApplicableState;

@@ -110,7 +110,7 @@ const NotPaidList = () => {
     }
   };
   let data = [];
-  if (notPaidList !== []) {
+  if (notPaidList?.length !== 0) {
     data = process(notPaidList, { skip: 10 }).data;
   }
   const exportPDF = () => {

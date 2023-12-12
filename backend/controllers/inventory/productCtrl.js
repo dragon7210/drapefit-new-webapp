@@ -12,19 +12,22 @@ const listInvProductsTable = asyncHandler(async (req, res) => {
       data = await InvProduct.findAll({
         where: { profile_type: profile, product_type: categoryId },
         include: InvColor,
-        order: [['id', 'DESC']]
+        order: [['id', 'DESC']],
+        group: ['prod_id']
       });
     } else if (profile) {
       data = await InvProduct.findAll({
         where: { profile_type: profile },
         include: InvColor,
-        order: [['id', 'DESC']]
+        order: [['id', 'DESC']],
+        group: ['prod_id']
       });
     } else if (categoryId) {
       data = await InvProduct.findAll({
         where: { product_type: categoryId },
         include: InvColor,
-        order: [['id', 'DESC']]
+        order: [['id', 'DESC']],
+        group: ['prod_id']
       });
     }
     console.log('API_listInvProductsTable_200:', 'Table list data is retrieved');
@@ -195,7 +198,7 @@ const editInvProduct = asyncHandler(async (req, res) => {
 
 const getManualProduct = asyncHandler(async (req, res) => {
   try {
-    let data = await InvProduct.findAll({ where: { available_status: 1 } });
+    let data = await InvProduct.findAll({ where: { brand_id: 0 } });
     console.log('API_getManualProduct_200:');
     res.status(200).send(data);
   } catch (e) {

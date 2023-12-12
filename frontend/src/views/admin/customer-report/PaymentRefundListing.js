@@ -16,7 +16,7 @@ const columns = [
   { accessorKey: 'name', header: 'Name' },
   { accessorKey: 'email', header: 'Email' },
   { accessorKey: 'profileGender', header: 'Profile Gender' },
-  { accessorKey: 'profileCount', header: 'Profile Count' },
+  { accessorKey: 'count', header: 'Profile Count' },
   { accessorKey: 'transactionId', header: 'Transaction ID.' },
   { accessorKey: 'refundTransactionId', header: 'Refund Transaction ID.' },
   { accessorKey: 'price', header: 'Price' },
@@ -47,12 +47,13 @@ const PaymentRefundListing = () => {
       ...item,
       action: action_btn,
       paymentDate: DateType(item.created_dt),
-      name: item.payment_card_detail?.card_name,
+      name: item.user?.name,
       email: item.user.email,
       profileGender: Gender(Number(item.user?.user_detail.gender)),
       transactionId: item.transactions_id,
       refundTransactionId: item.refund_transactions_id,
-      price: '$' + item.price
+      price: '$' + item.price,
+      orderType: item?.payment_type === 1 ? 'Box order' : item?.payment_type === 3 ? 'Direct charge' : 'Checkout order'
     };
   });
   return (

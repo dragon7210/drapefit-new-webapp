@@ -44,7 +44,6 @@ import Table from 'ui-component/Table';
 const columns = [
   { accessorKey: 'brand_id', header: 'Brand Name' },
   { accessorKey: 'product_name_one', header: 'Product Name 1' },
-  { accessorKey: 'product_name_two', header: 'Product Name 2' },
   { accessorKey: 'productImage', header: 'Product Image', enableColumnFilter: false, enableSorting: false },
   { accessorKey: 'colorName', header: 'Color' },
   { accessorKey: 'purchase_price', header: 'Purchase Price', enableColumnFilter: false },
@@ -188,7 +187,7 @@ const ProductList = () => {
 
     return {
       ...item,
-      productImage: <ShowImg url={`https://drapefittest.com/files/product_img/${item.product_image}`} />,
+      productImage: <ShowImg url={`https://www.drapefittest.com/inventory/files/product_img/${item.product_image}`} />,
       colorName: item.in_color?.name,
       action: action_btn
     };
