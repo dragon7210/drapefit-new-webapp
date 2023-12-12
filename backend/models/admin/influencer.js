@@ -29,6 +29,9 @@ const Influencer = sequelize.define(
     },
     created_on: {
       type: DataTypes.DATE
+    },
+    uniq_id: {
+      type: DataTypes.STRING
     }
   },
   {

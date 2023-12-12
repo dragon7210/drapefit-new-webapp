@@ -89,7 +89,8 @@ const Influencer = () => {
 
     return {
       ...item,
-      action: action_btn
+      action: action_btn,
+      link: 'https://www.drapefittest.com/influencer/' + item?.uniq_id
     };
   });
 
