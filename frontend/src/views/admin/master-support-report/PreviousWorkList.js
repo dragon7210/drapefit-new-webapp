@@ -16,7 +16,7 @@ const columns = [
   { accessorKey: 'gender', header: 'Gender' },
   { accessorKey: 'orderDate', header: 'Order Date' },
   { accessorKey: 'customEmail', header: 'Custom Email' },
-  { accessorKey: 'fitNumber', header: 'Fit Number' },
+  { accessorKey: 'count', header: 'Fit Number' },
   { accessorKey: 'listProduct', header: 'List of Product added' },
   { accessorKey: 'productFinalize', header: 'Product finalized or not' },
   { accessorKey: 'transactions_id', header: 'Transaction Number' },

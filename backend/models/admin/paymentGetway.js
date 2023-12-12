@@ -35,25 +35,25 @@ const PaymentGetway = sequelize.define(
       type: DataTypes.INTEGER
     },
     status: {
-      type: DataTypes.NUMBER
+      type: DataTypes.INTEGER
     },
     price: {
-      type: DataTypes.NUMBER
+      type: DataTypes.INTEGER
     },
     profile_type: {
-      type: DataTypes.NUMBER
+      type: DataTypes.INTEGER
     },
     count: {
-      type: DataTypes.NUMBER
+      type: DataTypes.INTEGER
     },
     payment_type: {
-      type: DataTypes.NUMBER
+      type: DataTypes.INTEGER
     },
     mail_status: {
-      type: DataTypes.NUMBER
+      type: DataTypes.INTEGER
     },
     work_status: {
-      type: DataTypes.NUMBER
+      type: DataTypes.INTEGER
     },
     transactions_id: {
       type: DataTypes.STRING
@@ -62,7 +62,7 @@ const PaymentGetway = sequelize.define(
       type: DataTypes.DATE
     },
     refound_status: {
-      type: DataTypes.NUMBER
+      type: DataTypes.INTEGER
     },
     refund_msg: {
       type: DataTypes.STRING
@@ -71,7 +71,7 @@ const PaymentGetway = sequelize.define(
       type: DataTypes.STRING
     },
     refund_amount: {
-      type: DataTypes.NUMBER
+      type: DataTypes.INTEGER
     },
     payment_card_details_id: {
       type: DataTypes.INTEGER,
@@ -90,19 +90,19 @@ const PaymentGetway = sequelize.define(
       type: DataTypes.STRING
     },
     is_parent_auto_checkout: {
-      type: DataTypes.NUMBER
+      type: DataTypes.INTEGER
     },
     is_style_fee: {
-      type: DataTypes.NUMBER
+      type: DataTypes.INTEGER
     },
     finalize_date: {
       type: DataTypes.DATE
     },
     finalize_count: {
-      type: DataTypes.NUMBER
+      type: DataTypes.INTEGER
     },
     tr_count: {
-      type: DataTypes.NUMBER
+      type: DataTypes.INTEGER
     },
     delivery_id: {
       type: DataTypes.INTEGER,
@@ -128,7 +128,7 @@ const PaymentGetway = sequelize.define(
       type: DataTypes.STRING
     },
     done_status: {
-      type: DataTypes.NUMBER
+      type: DataTypes.INTEGER
     },
     created_dt: {
       type: DataTypes.DATE
