@@ -1,6 +1,8 @@
 import asyncHandler from 'express-async-handler';
 import InvProduct from '../../models/inventory/product.js';
 import InvColor from '../../models/inventory/color.js';
+import ProfileBrandStaff from '../../models/admin/profileBrandStaff.js';
+import InvUser from '../../models/inventory/user.js';
 
 const listInvProductsTable = asyncHandler(async (req, res) => {
   try {
@@ -71,7 +73,16 @@ const toggleInvProductActive = asyncHandler(async (req, res) => {
 
 const reportInvProductsTbllist = asyncHandler(async (req, res) => {
   try {
-    let data = await InvProduct.findAll();
+    let data = await InvUser.findAll({
+      include: [
+        {
+          model: InvProduct,
+          where: {
+            match_status: 2
+          }
+        }
+      ]
+    });
     console.log('API_reportInvProductsTbllist_200:', 'Report table list data is retrieved');
     res.status(200).send(data);
   } catch (e) {
@@ -83,7 +94,7 @@ const reportInvProductsTbllist = asyncHandler(async (req, res) => {
 
 const summaryInvProductsListForMen = asyncHandler(async (req, res) => {
   try {
-    let data = await InvProduct.findAll();
+    let data = await InvUser.findAll();
     console.log('API_summaryInvProductsListForMen_200:', 'Report table list data is retrieved');
     res.status(200).send(data);
   } catch (e) {

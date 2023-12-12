@@ -24,7 +24,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { getProductCategories } from 'actions/inventory/productCategory';
 
 const columns = [
-  { accessorKey: 'brandName', header: 'Brand Name' },
+  { accessorKey: 'brand_name', header: 'Brand Name' },
   { accessorKey: 'quantity', header: 'Quantity' },
   { accessorKey: 'used', header: 'Used' },
   { accessorKey: 'currentStock', header: 'Current Stock' },
@@ -49,13 +49,13 @@ const InventorySummary = () => {
   };
 
   useEffect(() => {
-    dispatch(getProductCategories());
+    // dispatch(getProductCategories());
     dispatch(getSummaryProduct(filter));
   }, [dispatch, filter]);
 
   const { summaryProduct } = useSelector((state) => state.invProduct);
   const { prodCategories } = useSelector((state) => state.invProductCategory);
-
+  console.log(summaryProduct);
   return (
     <>
       <Grid container className="admin-page-title-part">

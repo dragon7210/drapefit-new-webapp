@@ -45,10 +45,10 @@ const getInvProdTypes = asyncHandler(async (req, res) => {
   try {
     const prodCategories = await InvProductType.findAll();
     //-- okay
-    console.log('API_getInvProdCategories_200:', 'Product categories are retrieved');
+    console.log('API_getInvProdTypes_200:', 'Product categories are retrieved');
     res.status(200).send(prodCategories);
   } catch (e) {
-    console.log('API_getInvProdCategories_500:', e?.message);
+    console.log('API_getInvProdTypes_500:', e?.message);
     res.status(500);
     throw new Error('Internal error occurred');
   }
@@ -59,10 +59,10 @@ const getSubCategories = asyncHandler(async (req, res) => {
     let { in_product_type_id } = req.body;
     const data = await InvRack.findAll({ where: { in_product_type_id } });
     //-- okay
-    console.log('API_getInvProdCategories_200:', 'Product categories are retrieved');
+    console.log('API_getSubCategories_200:', 'Product categories are retrieved');
     res.status(200).send(data);
   } catch (e) {
-    console.log('API_getInvProdCategories_500:', e?.message);
+    console.log('API_getSubCategories_500:', e?.message);
     res.status(500);
     throw new Error('Internal error occurred');
   }

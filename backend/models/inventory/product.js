@@ -8,7 +8,6 @@
  */
 import { sequelize } from '../../config/db.js';
 import { DataTypes } from 'sequelize';
-import User from '../admin/user.js';
 import InvProductType from './productType.js';
 import InvColor from './color.js';
 import InvRack from './rack.js';
@@ -19,11 +18,7 @@ const InvProduct = sequelize.define(
   'in_product',
   {
     user_id: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: User,
-        key: 'id'
-      }
+      type: DataTypes.INTEGER
     },
     profile_type: {
       type: DataTypes.INTEGER
@@ -316,9 +311,6 @@ const InvProduct = sequelize.define(
   }
 );
 
-InvProduct.belongsTo(User, {
-  foreignKey: 'user_id'
-});
 InvProduct.belongsTo(InvProductType, {
   foreignKey: 'product_type'
 });
