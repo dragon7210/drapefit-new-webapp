@@ -49,13 +49,13 @@ const InventorySummary = () => {
   };
 
   useEffect(() => {
-    // dispatch(getProductCategories());
+    dispatch(getProductCategories());
     dispatch(getSummaryProduct(filter));
   }, [dispatch, filter]);
 
   const { summaryProduct } = useSelector((state) => state.invProduct);
   const { prodCategories } = useSelector((state) => state.invProductCategory);
-  console.log(summaryProduct);
+
   return (
     <>
       <Grid container className="admin-page-title-part">
