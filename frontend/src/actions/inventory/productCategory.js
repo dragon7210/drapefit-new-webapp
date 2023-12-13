@@ -20,7 +20,6 @@ export const addProductCategory = (values, data) => async (dispatch) => {
     dispatch({ type: SET_LOADING });
     DFnewLogger(err?.message);
     ErrorHandler(err);
-    return Promise.reject();
   }
 };
 
@@ -35,16 +34,13 @@ export const editProductCategory = (values) => async (dispatch) => {
         type: INV_EDIT_PRODUCT_CATEGORY,
         payload: res.data
       });
-      return Promise.resolve();
     } else {
       setAlert('ACTION_editProductCategory_ERROR', 'error');
-      return Promise.reject();
     }
   } catch (err) {
     dispatch({ type: SET_LOADING });
     DFnewLogger(err?.message);
     ErrorHandler(err);
-    return Promise.reject();
   }
 };
 
@@ -56,16 +52,13 @@ export const deleteProductCategory = (values, data) => async (dispatch) => {
     if (res.data === 'Product category has been deleted') {
       setAlert(res.data, 'success');
       dispatch(getProductCategories(data));
-      return Promise.resolve();
     } else {
       setAlert('ACTION_deleteProductCategory_ERROR', 'error');
-      return Promise.reject();
     }
   } catch (err) {
     dispatch({ type: SET_LOADING });
     DFnewLogger(err?.message);
     ErrorHandler(err);
-    return Promise.reject();
   }
 };
 

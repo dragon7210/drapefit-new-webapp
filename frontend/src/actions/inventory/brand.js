@@ -46,16 +46,13 @@ export const addBrand = (values) => async (dispatch) => {
     dispatch({ type: SET_LOADING });
     if (res.data.includes('Brand has been created')) {
       setAlert(res.data, 'success');
-      return Promise.resolve();
     } else {
       setAlert('ACTION_addBrand_ERROR', 'error');
-      return Promise.reject();
     }
   } catch (err) {
     dispatch({ type: SET_LOADING });
     DFnewLogger(err?.message);
     ErrorHandler(err);
-    return Promise.reject();
   }
 };
 
@@ -67,16 +64,13 @@ export const changeBrandPwd = (values) => async (dispatch) => {
     dispatch({ type: SET_LOADING });
     if (res.data.includes('Password has been changed')) {
       setAlert(res.data, 'success');
-      return Promise.resolve();
     } else {
       setAlert('ACTION_changeBrandPwd_ERROR', 'error');
-      return Promise.reject();
     }
   } catch (err) {
     dispatch({ type: SET_LOADING });
     DFnewLogger(err?.message);
     ErrorHandler(err);
-    return Promise.reject();
   }
 };
 
@@ -92,16 +86,13 @@ export const editBrand = (values) => async (dispatch) => {
         type: INV_EDIT_BRAND,
         payload: res.data?.data
       });
-      return Promise.resolve();
     } else {
       setAlert('ACTION_editBrand_ERROR', 'error');
-      return Promise.reject();
     }
   } catch (err) {
     dispatch({ type: SET_LOADING });
     DFnewLogger(err?.message);
     ErrorHandler(err);
-    return Promise.reject();
   }
 };
 
@@ -114,16 +105,13 @@ export const deleteBrand = (values) => async (dispatch) => {
     if (res.data.includes('Brand account has been deleted')) {
       setAlert(res.data, 'success');
       dispatch(getBrand());
-      return Promise.resolve();
     } else {
       setAlert('ACTION_deleteBrand_ERROR', 'error');
-      return Promise.reject();
     }
   } catch (err) {
     dispatch({ type: SET_LOADING });
     DFnewLogger(err?.message);
     ErrorHandler(err);
-    return Promise.reject();
   }
 };
 
@@ -139,16 +127,13 @@ export const toggleBrandActive = (values) => async (dispatch) => {
         type: INV_TOGGLE_BRAND,
         payload: values
       });
-      return Promise.resolve();
     } else {
       setAlert('ACTION_toggleBrandActive_ERROR', 'error');
-      return Promise.reject();
     }
   } catch (err) {
     dispatch({ type: SET_LOADING });
     DFnewLogger(err?.message);
     ErrorHandler(err);
-    return Promise.reject();
   }
 };
 
@@ -159,16 +144,13 @@ export const createCollaborationBrand = (values) => async (dispatch) => {
     dispatch({ type: SET_LOADING });
     if (res.data.includes('Collaboration Brand has been created')) {
       setAlert(res.data, 'success');
-      return Promise.resolve();
     } else {
       setAlert('ACTION_createCollaborationBrand_ERROR', 'error');
-      return Promise.reject();
     }
   } catch (err) {
     dispatch({ type: SET_LOADING });
     DFnewLogger(err?.message);
     ErrorHandler(err);
-    return Promise.reject();
   }
 };
 

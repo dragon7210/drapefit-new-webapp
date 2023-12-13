@@ -29,16 +29,13 @@ export const addSplProduct = (values, data) => async (dispatch) => {
     if (res.data) {
       setAlert(res.data?.msg, 'success');
       dispatch(getSplProducts(data));
-      return Promise.resolve();
     } else {
       setAlert('ACTION_addSplProduct_ERROR', 'error');
-      return Promise.reject();
     }
   } catch (err) {
     dispatch({ type: SET_LOADING });
     DFnewLogger(err?.message);
     ErrorHandler(err);
-    return Promise.reject();
   }
 };
 
@@ -65,16 +62,13 @@ export const editSplProduct = (values, data) => async (dispatch) => {
     if (res.data) {
       setAlert('Supplier product has been updated', 'success');
       dispatch(getSplProducts(data));
-      return Promise.resolve();
     } else {
       setAlert('ACTION_editSplProduct_ERROR', 'error');
-      return Promise.reject();
     }
   } catch (err) {
     dispatch({ type: SET_LOADING });
     DFnewLogger(err?.message);
     ErrorHandler(err);
-    return Promise.reject();
   }
 };
 
@@ -86,16 +80,13 @@ export const addSplProdStock = (values, data) => async (dispatch) => {
     if (res.data) {
       setAlert('Added more stock to supplier products', 'success');
       dispatch(getSplProducts(data));
-      return Promise.resolve();
     } else {
       setAlert('ACTION_addSplProdStock_ERROR', 'error');
-      return Promise.reject();
     }
   } catch (err) {
     dispatch({ type: SET_LOADING });
     DFnewLogger(err?.message);
     ErrorHandler(err);
-    return Promise.reject();
   }
 };
 
@@ -107,16 +98,13 @@ export const manualDeductSplProdStock = (values, data) => async (dispatch) => {
     if (res.data) {
       setAlert('Deducted stock manually from supplier products', 'success');
       dispatch(getSplProducts(data));
-      return Promise.resolve();
     } else {
       setAlert('ACTION_manualDeductSplProdStock_ERROR', 'error');
-      return Promise.reject();
     }
   } catch (err) {
     dispatch({ type: SET_LOADING });
     DFnewLogger(err?.message);
     ErrorHandler(err);
-    return Promise.reject();
   }
 };
 
@@ -128,15 +116,12 @@ export const deleteSplProduct = (values) => async (dispatch) => {
     if (res.data === 'Supplier product has been deleted') {
       setAlert(res.data, 'success');
       dispatch(getSplProducts());
-      return Promise.resolve();
     } else {
       setAlert('ACTION_deleteSplProduct_ERROR', 'error');
-      return Promise.reject();
     }
   } catch (err) {
     dispatch({ type: SET_LOADING });
     DFnewLogger(err?.message);
     ErrorHandler(err);
-    return Promise.reject();
   }
 };

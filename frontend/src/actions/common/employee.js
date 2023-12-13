@@ -38,16 +38,13 @@ export const addEmployee = (values) => async (dispatch) => {
     dispatch({ type: SET_LOADING });
     if (res.data.includes('Employee account has been created')) {
       setAlert(res.data, 'success');
-      return Promise.resolve();
     } else {
       setAlert('ACTION_addEmployee_ERROR', 'error');
-      return Promise.reject();
     }
   } catch (err) {
     dispatch({ type: SET_LOADING });
     DFnewLogger(err?.message);
     ErrorHandler(err);
-    return Promise.reject();
   }
 };
 
@@ -59,16 +56,13 @@ export const changeEmployeePwd = (values) => async (dispatch) => {
     dispatch({ type: SET_LOADING });
     if (res.data.includes('Password has been changed')) {
       setAlert(res.data, 'success');
-      return Promise.resolve();
     } else {
       setAlert('ACTION_changeEmployeePwd_ERROR', 'error');
-      return Promise.reject();
     }
   } catch (err) {
     dispatch({ type: SET_LOADING });
     DFnewLogger(err?.message);
     ErrorHandler(err);
-    return Promise.reject();
   }
 };
 
@@ -84,16 +78,13 @@ export const editEmployee = (values) => async (dispatch) => {
         type: EDIT_EMPLOYEE,
         payload: res.data?.data
       });
-      return Promise.resolve();
     } else {
       setAlert('ACTION_editEmployee_ERROR', 'error');
-      return Promise.reject();
     }
   } catch (err) {
     dispatch({ type: SET_LOADING });
     DFnewLogger(err?.message);
     ErrorHandler(err);
-    return Promise.reject();
   }
 };
 
@@ -106,16 +97,13 @@ export const deleteEmployee = (values, data) => async (dispatch) => {
     if (res.data === 'Employee account has been deleted') {
       setAlert(res.data, 'success');
       dispatch(getEmployee(data));
-      return Promise.resolve();
     } else {
       setAlert('ACTION_deleteEmployee_ERROR', 'error');
-      return Promise.reject();
     }
   } catch (err) {
     dispatch({ type: SET_LOADING });
     DFnewLogger(err?.message);
     ErrorHandler(err);
-    return Promise.reject();
   }
 };
 
@@ -134,16 +122,13 @@ export const toggleEmployeeActive = (values) => async (dispatch) => {
         type: TOGGLE_EMPLOYEE_ACTIVE,
         payload: values
       });
-      return Promise.resolve();
     } else {
       setAlert('ACTION_toggleEmployeeActive_ERROR', 'error');
-      return Promise.reject();
     }
   } catch (err) {
     dispatch({ type: SET_LOADING });
     DFnewLogger(err?.message);
     ErrorHandler(err);
-    return Promise.reject();
   }
 };
 

@@ -29,16 +29,13 @@ export const addProdSubCategory = (values) => async (dispatch) => {
     if (res.data) {
       setAlert('Product sub-category has been added', 'success');
       dispatch(getProdSubCategories());
-      return Promise.resolve();
     } else {
       setAlert('ACTION_addProdSubCategory_ERROR', 'error');
-      return Promise.reject();
     }
   } catch (err) {
     dispatch({ type: SET_LOADING });
     DFnewLogger(err?.message);
     ErrorHandler(err);
-    return Promise.reject();
   }
 };
 
@@ -50,16 +47,13 @@ export const editProdSubCategory = (values) => async (dispatch) => {
     if (res.data) {
       setAlert('Product sub-category has been updated', 'success');
       dispatch(getProdSubCategories());
-      return Promise.resolve();
     } else {
       setAlert('ACTION_editProdSubCategory_ERROR', 'error');
-      return Promise.reject();
     }
   } catch (err) {
     dispatch({ type: SET_LOADING });
     DFnewLogger(err?.message);
     ErrorHandler(err);
-    return Promise.reject();
   }
 };
 
@@ -71,16 +65,13 @@ export const deleteProdSubCategory = (values) => async (dispatch) => {
     if (res.data) {
       setAlert(res.data, 'success');
       dispatch(getProdSubCategories());
-      return Promise.resolve();
     } else {
       setAlert('ACTION_deleteProdSubCategory_ERROR', 'error');
-      return Promise.reject();
     }
   } catch (err) {
     dispatch({ type: SET_LOADING });
     DFnewLogger(err?.message);
     ErrorHandler(err);
-    return Promise.reject();
   }
 };
 

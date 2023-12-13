@@ -23,23 +23,19 @@ export const getSplCategory = () => async (dispatch) => {
 
 export const addSplCategory = (values, data) => async (dispatch) => {
   try {
-    DFnewLogger(values);
     dispatch({ type: SET_LOADING });
     const res = await Api.post('/admsupplier/manage/category/add', values);
     dispatch({ type: SET_LOADING });
     if (res.data) {
       setAlert('A new supplier product category has been added', 'success');
       dispatch(getSplCategory(data));
-      return Promise.resolve();
     } else {
       setAlert('ACTION_addSplCategory_ERROR', 'error');
-      return Promise.reject();
     }
   } catch (err) {
     dispatch({ type: SET_LOADING });
     DFnewLogger(err?.message);
     ErrorHandler(err);
-    return Promise.reject();
   }
 };
 
@@ -51,16 +47,13 @@ export const editSplCategory = (values) => async (dispatch) => {
     if (res.data) {
       setAlert(res.data, 'success');
       dispatch(getSplCategory());
-      return Promise.resolve();
     } else {
       setAlert('ACTION_editSplCategory_ERROR', 'error');
-      return Promise.reject();
     }
   } catch (err) {
     dispatch({ type: SET_LOADING });
     DFnewLogger(err?.message);
     ErrorHandler(err);
-    return Promise.reject();
   }
 };
 
@@ -72,15 +65,12 @@ export const deleteSplCategory = (values) => async (dispatch) => {
     if (res.data === 'Supplier product category has been deleted') {
       setAlert(res.data, 'success');
       dispatch(getSplCategory());
-      return Promise.resolve();
     } else {
       setAlert('ACTION_deleteSplCategory_ERROR', 'error');
-      return Promise.reject();
     }
   } catch (err) {
     dispatch({ type: SET_LOADING });
     DFnewLogger(err?.message);
     ErrorHandler(err);
-    return Promise.reject();
   }
 };

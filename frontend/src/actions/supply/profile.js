@@ -23,40 +23,34 @@ export const getSupplierProfile = () => async (dispatch) => {
 
 export const editSupplierProfile = (values) => async (dispatch) => {
   try {
-    // dispatch({ type: SET_LOADING });
-    // const res = await Api.post('/admsupplier/manage/splsetting/profile/edit', values);
-    // dispatch({ type: SET_LOADING });
-    // if (res.data) {
-    //   setAlert('Profile has been updated', 'success');
-    //   return Promise.resolve();
-    // } else {
-    //   setAlert('ACTION_editSupplierProfile_ERROR', 'error');
-    //   return Promise.reject();
-    // }
+    dispatch({ type: SET_LOADING });
+    const res = await Api.post('/admsupplier/manage/splsetting/profile/edit', values);
+    dispatch({ type: SET_LOADING });
+    if (res.data) {
+      setAlert('Profile has been updated', 'success');
+    } else {
+      setAlert('ACTION_editSupplierProfile_ERROR', 'error');
+    }
   } catch (err) {
     dispatch({ type: SET_LOADING });
     DFnewLogger(err?.message);
     ErrorHandler(err);
-    return Promise.reject();
   }
 };
 
 export const resetSupplierPwd = (values) => async (dispatch) => {
   try {
-    // dispatch({ type: SET_LOADING });
-    // const res = await Api.post('/admsupplier/manage/splsetting/password/reset', values);
-    // dispatch({ type: SET_LOADING });
-    // if (res.data.includes('Password has been updated')) {
-    //   setAlert(res.data, 'success');
-    //   return Promise.resolve();
-    // } else {
-    //   setAlert('ACTION_resetSupplierPwd_ERROR', 'error');
-    //   return Promise.reject();
-    // }
+    dispatch({ type: SET_LOADING });
+    const res = await Api.post('/admsupplier/manage/splsetting/password/reset', values);
+    dispatch({ type: SET_LOADING });
+    if (res.data.includes('Password has been updated')) {
+      setAlert(res.data, 'success');
+    } else {
+      setAlert('ACTION_resetSupplierPwd_ERROR', 'error');
+    }
   } catch (err) {
     dispatch({ type: SET_LOADING });
     DFnewLogger(err?.message);
     ErrorHandler(err);
-    return Promise.reject();
   }
 };

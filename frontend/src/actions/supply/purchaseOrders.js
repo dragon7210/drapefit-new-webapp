@@ -32,11 +32,9 @@ export const handleAdd = (values, data) => async (dispatch) => {
       dispatch(getPurchaseOrders(data));
       dispatch({ type: SET_LOADING });
       setAlert('A new purchase order has been added', 'success');
-      return Promise.resolve();
     } else {
       dispatch({ type: SET_LOADING });
       setAlert('ACTION_addSplPurchaseOrders_ERROR', 'error');
-      return Promise.reject();
     }
   } catch (err) {
     dispatch({ type: SET_LOADING });
@@ -57,10 +55,8 @@ export const handleDelete = (values) => async (dispatch) => {
         dispatch(getPurchaseOrders({ userEmail: values.userEmail }));
       }
       dispatch({ type: SET_LOADING });
-      return Promise.resolve();
     } else {
       setAlert('ACTION_handleAssign_ERROR', 'error');
-      return Promise.reject();
     }
   } catch (error) {
     DFnewLogger(err?.message);
@@ -80,10 +76,8 @@ export const handleEdit = (values, data) => async (dispatch) => {
       } else {
         dispatch(getPurchaseOrders());
       }
-      return Promise.resolve();
     } else {
       setAlert('ACTION_handleEdit_ERROR', 'error');
-      return Promise.reject();
     }
   } catch (err) {
     DFnewLogger(err?.message);
@@ -99,10 +93,8 @@ export const handleAddRequiredQuantity = (data) => async (dispatch) => {
       dispatch(getPurchaseOrders({ userEmail: data.userEmail }));
       dispatch({ type: SET_LOADING });
       setAlert('Success', 'success');
-      return Promise.resolve();
     } else {
       setAlert('ACTION_handleAddRequiredQuantity_ERROR', 'error');
-      return Promise.reject();
     }
   } catch (err) {
     DFnewLogger(err?.message);
@@ -156,10 +148,8 @@ export const sendMail = (values) => async (dispatch) => {
       dispatch(getPurchaseOrders());
       dispatch({ type: SET_LOADING });
       setAlert('Success', 'success');
-      return Promise.resolve();
     } else {
       setAlert('ACTION_SendMail_ERROR', 'error');
-      return Promise.reject();
     }
   } catch (err) {
     DFnewLogger(err?.message);
@@ -175,10 +165,8 @@ export const handleClose = (values) => async (dispatch) => {
       dispatch(getAllPurchaseOrder({ userEmail: values.userEmail }));
       dispatch({ type: SET_LOADING });
       setAlert('A new purchase order has been closed', 'success');
-      return Promise.resolve();
     } else {
       setAlert('ACTION_handleApprove_ERROR', 'error');
-      return Promise.reject();
     }
   } catch (err) {
     DFnewLogger(err?.message);
@@ -194,10 +182,8 @@ export const handleApprove = (data) => async (dispatch) => {
       dispatch(getPurchaseOrdersAssigned(data));
       dispatch({ type: SET_LOADING });
       setAlert('Success', 'success');
-      return Promise.resolve();
     } else {
       setAlert('ACTION_handleApprove_ERROR', 'error');
-      return Promise.reject();
     }
   } catch (err) {
     DFnewLogger(err?.message);
@@ -213,10 +199,8 @@ export const handleAssign = (values, data) => async (dispatch) => {
       dispatch(getPurchaseOrders(data));
       dispatch({ type: SET_LOADING });
       setAlert('A new purchase order has been assigned', 'success');
-      return Promise.resolve();
     } else {
       setAlert('ACTION_handleAssign_ERROR', 'error');
-      return Promise.reject();
     }
   } catch (err) {
     DFnewLogger(err?.message);
@@ -232,10 +216,8 @@ export const handleOrderChange = (data) => async (dispatch) => {
       dispatch(getPurchaseOrdered());
       dispatch({ type: SET_LOADING });
       setAlert('Success', 'success');
-      return Promise.resolve();
     } else {
       setAlert('ACTION_handleOrderChange_ERROR', 'error');
-      return Promise.reject();
     }
   } catch (err) {
     DFnewLogger(err?.message);
@@ -254,10 +236,8 @@ export const handleOrderDelete = (id, userEmail) => async (dispatch) => {
       dispatch(getPurchaseOrdered({ userEmail }));
       dispatch({ type: SET_LOADING });
       setAlert('A new purchase order has been deleted', 'success');
-      return Promise.resolve();
     } else {
       setAlert('ACTION_handleOrderDelete', 'error');
-      return Promise.reject();
     }
   } catch (err) {
     DFnewLogger(err?.message);
@@ -273,10 +253,8 @@ export const handleOrdered = (data) => async (dispatch) => {
       dispatch(getPurchaseOrdersApproved({ userEmail: data.userEmail }));
       dispatch({ type: SET_LOADING });
       setAlert('Success', 'success');
-      return Promise.resolve();
     } else {
       setAlert('ACTION_handleOrdered_ERROR', 'error');
-      return Promise.reject();
     }
   } catch (err) {
     DFnewLogger(err?.message);
