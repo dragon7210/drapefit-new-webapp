@@ -180,7 +180,7 @@ const updateStylist = asyncHandler(async (req, res) => {
     let { id, stylist } = req.body;
     return res.status(200).send('success');
   } catch (e) {
-    console.log('API_getPaidList_500:', e?.message);
+    console.log('API_updateStylist_500:', e?.message);
     res.status(500);
     throw new Error('Internal error occurred');
   }
@@ -190,12 +190,19 @@ const getPreviewWorkList = asyncHandler(async (req, res) => {
   try {
     const data = await PaymentGetway.findAll({
       where: { status: 1, payment_type: 1, work_status: 2 },
-      include: [{ model: User, include: { model: UserDetail } }, KidsDetail],
+      include: [
+        {
+          model: User,
+          include: { model: UserDetail }
+        },
+        KidsDetail
+      ],
       order: [['created_dt', 'DESC']]
     });
+    console.log('API_getPreviewWorkList_200:');
     return res.status(200).send(data);
   } catch (e) {
-    console.log('API_getPaidList_500:', e?.message);
+    console.log('API_getPreviewWorkList_500:', e?.message);
     res.status(500);
     throw new Error('Internal error occurred');
   }

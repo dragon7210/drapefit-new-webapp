@@ -16,6 +16,7 @@ import subscriptionRoutes from './subscriptionRoutes.js';
 import reportRoutes from './reportRoutes.js';
 import masterSummaryRoutes from './masterSummaryRoutes.js';
 import masterSupportRoutes from './masterSupportRoutes.js';
+import initialRoutes from './initialRoutes.js';
 
 const adminRoutes = express.Router();
 
@@ -36,5 +37,6 @@ adminRoutes.use('/manage/subscription', subscriptionRoutes);
 adminRoutes.use('/manage/report', reportRoutes);
 adminRoutes.use('/manage/master', masterSummaryRoutes);
 adminRoutes.use('/manage/master-support', masterSupportRoutes);
+adminRoutes.use('/manage/initial', initialRoutes);
 
 export default adminRoutes;

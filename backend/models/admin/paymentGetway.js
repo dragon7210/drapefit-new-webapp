@@ -34,6 +34,15 @@ const PaymentGetway = sequelize.define(
     emp_id: {
       type: DataTypes.INTEGER
     },
+    inv_id: {
+      type: DataTypes.INTEGER
+    },
+    qa_id: {
+      type: DataTypes.INTEGER
+    },
+    support_id: {
+      type: DataTypes.INTEGER
+    },
     status: {
       type: DataTypes.INTEGER
     },

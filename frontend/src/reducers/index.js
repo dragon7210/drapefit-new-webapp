@@ -20,6 +20,7 @@ import blog from './admin/blog';
 import news from './admin/news';
 import subscription from './admin/subscription';
 import report from './admin/report';
+import initial from './admin/initial';
 //-- Supplier
 import splProdCategory from './supply/prodCategory';
 import splProduct from './supply/product';
@@ -79,5 +80,6 @@ export default combineReducers({
   subscription,
   report,
   masterSummary,
-  masterSupport
+  masterSupport,
+  initial
 });

@@ -16,7 +16,7 @@ const columns = [
   { accessorKey: 'gender', header: 'Gender' },
   { accessorKey: 'count', header: 'Profile' },
   { accessorKey: 'orderDate', header: 'Order Date' },
-  { accessorKey: 'assigncustomerstylist', header: 'Assign Customer Stylist' },
+  { accessorKey: 'assigncustomerstylist', header: 'Assign Customer Stylist', minWidth: '500px' },
   { accessorKey: 'customerAction', header: 'Customer Action' },
   { accessorKey: 'kidName', header: 'Kid Name' },
   { accessorKey: 'assignkidstylist', header: 'Assign Kid Stylist' },
@@ -26,15 +26,21 @@ const columns = [
 
 const PreviousWorkList = () => {
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getPreviewWorkList());
   }, [dispatch]);
+
   const [id, setId] = useState();
   const [openDelete, setOpenDelete] = useState(false);
+
   const handleDeleteDialog = () => {
     setOpenDelete(!openDelete);
   };
+
   const { previewWorkList } = useSelector((state) => state.customer);
+  const { emp_initial } = useSelector((state) => state.initial);
+
   let updateData = previewWorkList.map((item) => {
     const action_btn = (
       <div style={{ display: 'flex', flexWrap: 'nowrap', gap: '0.5rem' }}>
@@ -75,6 +81,18 @@ const PreviousWorkList = () => {
         </Tooltip>
       </div>
     );
+    const assignList = (
+      <>
+        <p className="flex-nowrap py-0">Stylist : {emp_initial?.emp?.filter((i) => i.id === item?.emp_id)[0]?.name}</p>
+        <p className="flex-nowrap py-0">
+          Inventory : {emp_initial?.inventory?.filter((i) => i.id === item?.inv_id)[0]?.name}
+        </p>
+        <p className="flex-nowrap py-0">QA : {emp_initial?.qa?.filter((i) => i.id === item?.qa_id)[0]?.name}</p>
+        <p className="flex-nowrap py-0">
+          Support : {emp_initial?.support?.filter((i) => i.id === item?.support_id)[0]?.name}
+        </p>
+      </>
+    );
 
     return {
       ...item,
@@ -82,7 +100,8 @@ const PreviousWorkList = () => {
       fullName: item.user?.user_detail?.first_name + ' ' + item.user?.user_detail?.last_name,
       gender: Gender(Number(item.profile_type)),
       customerAction: action_btn,
-      action: del_btn
+      action: del_btn,
+      assigncustomerstylist: assignList
     };
   });
   return (

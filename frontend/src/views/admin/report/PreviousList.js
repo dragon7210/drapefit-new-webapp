@@ -13,7 +13,7 @@ import { Gender } from 'constant/function';
 const columns = [
   { accessorKey: 'fullName', header: 'Full Name' },
   { accessorKey: 'gender', header: 'Gender' },
-  { accessorKey: 'profile', header: 'Profile' },
+  { accessorKey: 'count', header: 'Profile' },
   { accessorKey: 'orderDate', header: 'Order Date' },
   { accessorKey: 'assigncustomerstylist', header: 'Assign Customer Stylist' },
   { accessorKey: 'kidName', header: 'Kid Name' },
@@ -28,13 +28,17 @@ const PreviousList = () => {
   }, [dispatch]);
 
   const { previewWorkList } = useSelector((state) => state.customer);
+  const { emp_initial } = useSelector((state) => state.initial);
   let updateData = previewWorkList.map((item) => {
     return {
       ...item,
       orderDate: DateType(item.created_dt),
       fullName: item.user?.user_detail?.first_name + ' ' + item.user?.user_detail?.last_name,
       gender: Gender(Number(item.profile_type)),
-      kidName: item.kids_detail?.kids_first_name
+      kidName: item.kids_detail?.kids_first_name,
+      assigncustomerstylist: (
+        <p className="flex-nowrap py-0">{emp_initial?.emp?.filter((i) => i.id === item?.emp_id)[0]?.name}</p>
+      )
     };
   });
 

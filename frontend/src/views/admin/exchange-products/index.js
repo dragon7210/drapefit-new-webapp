@@ -15,7 +15,7 @@ const columns = [
   { accessorKey: 'fullName', header: 'Full Name' },
   { accessorKey: 'rqDate', header: 'Rq Date' },
   { accessorKey: 'gender', header: 'Gender' },
-  { accessorKey: 'fitNumber', header: 'Fit Number' },
+  { accessorKey: 'count', header: 'Fit Number' },
   { accessorKey: 'orderDate', header: 'Order Date' },
   { accessorKey: 'orderNumber', header: 'Order Number' },
   { accessorKey: 'action', header: 'Action' }
@@ -78,7 +78,6 @@ const ExchangeProducts = () => {
       fullName: item.user?.user_detail?.first_name + ' ' + item.user?.user_detail?.last_name,
       rqDate: item?.payment_getway?.deliver_date?.date_in_time,
       orderNumber: '#DFPYMID' + item?.payment_getway?.id,
-      fitNumber: 'st',
       action: action_btn
     };
   });

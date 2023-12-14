@@ -8,13 +8,17 @@ import TotalNumOfPaidFemaleMembers from './TotalNumOfPaidFemaleMembers';
 import TotalNumOfNonPaidFemaleMembers from './TotalNumOfNonPaidFemaleMembers';
 import TotalNumOfPaidKidMembers from './TotalNumOfPaidKidMembers';
 import TotalNumOfNonPaidKidMembers from './TotalNumOfNonPaidKidMembers';
+import { useDispatch } from 'react-redux';
+import { getInitial } from 'actions/admin/initial';
 
 const Dashboard = () => {
   const [isLoading, setLoading] = useState(true);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setLoading(false);
-  }, []);
+    dispatch(getInitial());
+  }, [dispatch]);
 
   return (
     <Grid container spacing={gridSpacing}>
