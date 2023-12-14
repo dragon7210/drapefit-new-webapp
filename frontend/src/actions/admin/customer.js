@@ -63,7 +63,6 @@ export const updateStylist = (id, stylist) => async (dispatch) => {
     const res = await Api.post('/admmain/manage/customer/updateStylist', { id, stylist });
     dispatch({ type: SET_LOADING });
     if (res.data) {
-      dispatch(getNotPaidList());
       dispatch(getPaidList());
       setAlert('Success', 'success');
     } else {
@@ -82,7 +81,6 @@ export const updateSupport = (id, sup_id) => async (dispatch) => {
     const res = await Api.post('/admmain/manage/customer/updateSupport', { id, support_id });
     dispatch({ type: SET_LOADING });
     if (res.data) {
-      dispatch(getNotPaidList());
       dispatch(getPaidList());
       setAlert('Success', 'success');
     } else {
@@ -101,7 +99,6 @@ export const updateInventory = (id, inv_id) => async (dispatch) => {
     const res = await Api.post('/admmain/manage/customer/updateInventory', { id, inv_id });
     dispatch({ type: SET_LOADING });
     if (res.data) {
-      dispatch(getNotPaidList());
       dispatch(getPaidList());
       setAlert('Success', 'success');
     } else {
@@ -120,7 +117,6 @@ export const updateQA = (id, qa_id) => async (dispatch) => {
     const res = await Api.post('/admmain/manage/customer/updateQA', { id, qa_id });
     dispatch({ type: SET_LOADING });
     if (res.data) {
-      dispatch(getNotPaidList());
       dispatch(getPaidList());
       setAlert('Success', 'success');
     } else {

@@ -60,6 +60,7 @@ const getPaidList = asyncHandler(async (req, res) => {
       order: [['created_dt', 'DESC']],
       include: [{ model: User, include: { model: UserDetail } }, KidsDetail, DeliverDate]
     });
+    console.log('API_getPaidList_200');
     return res.status(200).send(data);
   } catch (e) {
     console.log('API_getPaidList_500:', e?.message);

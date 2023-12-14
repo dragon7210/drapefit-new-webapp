@@ -109,7 +109,8 @@ const PreviousWorkList = () => {
       gender: Gender(Number(item.profile_type)),
       customerAction: action_btn,
       action: del_btn,
-      assigncustomerstylist: assignList
+      assigncustomerstylist: item?.profile_type !== 3 ? assignList : '',
+      assignkidstylist: item?.profile_type === 3 ? assignList : ''
     };
   });
   return (

@@ -6,6 +6,7 @@ import BasicInfo from 'views/client/profile/women/BasicInfo';
 import StyleCustom from 'views/client/profile/women/StyleCustom';
 import PriceRange from 'views/client/profile/women/PriceRange';
 import StyleFit from 'views/client/profile/women/StyleFit';
+import InfoTable from './InfoTable';
 
 const WomenView = () => {
   return (
@@ -17,6 +18,7 @@ const WomenView = () => {
         </Link>
       </Box>
       <Paper className="admin-form-container form-border">
+        <InfoTable />
         <BasicInfo />
         <StyleFit />
         <PriceRange />

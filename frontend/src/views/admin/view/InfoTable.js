@@ -40,7 +40,6 @@ const InfoTable = () => {
   }, [dispatch]);
 
   const { profile } = useSelector((state) => state.auth);
-  console.log(profile);
 
   return (
     <>

@@ -41,8 +41,7 @@ const StyleCustom = () => {
     profile_note: '',
     dsgnImgUrl1st: '',
     dsgnImgUrl2nd: '',
-    dsgnImgUrl3rd: '',
-    user_id
+    dsgnImgUrl3rd: ''
   };
 
   return (
