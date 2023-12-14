@@ -41,7 +41,6 @@ export const getNotPaidList = () => async (dispatch) => {
   try {
     dispatch({ type: SET_LOADING });
     const res = await Api.get('/admmain/manage/customer/notPaidList');
-    dispatch({ type: SET_LOADING });
     if (res.data) {
       dispatch({
         type: GET_NOT_PAID_LIST,
@@ -50,6 +49,7 @@ export const getNotPaidList = () => async (dispatch) => {
     } else {
       setAlert('ACTION_getNotPaidList_ERROR', 'error');
     }
+    dispatch({ type: SET_LOADING });
   } catch (err) {
     dispatch({ type: SET_LOADING });
     DFnewLogger(err?.message);
@@ -63,10 +63,68 @@ export const updateStylist = (id, stylist) => async (dispatch) => {
     const res = await Api.post('/admmain/manage/customer/updateStylist', { id, stylist });
     dispatch({ type: SET_LOADING });
     if (res.data) {
-      dispatch(getCustomers());
+      dispatch(getNotPaidList());
+      dispatch(getPaidList());
       setAlert('Success', 'success');
     } else {
       setAlert('ACTION_updateStylist_ERROR', 'error');
+    }
+  } catch (err) {
+    dispatch({ type: SET_LOADING });
+    DFnewLogger(err?.message);
+    ErrorHandler(err);
+  }
+};
+
+export const updateSupport = (id, sup_id) => async (dispatch) => {
+  try {
+    dispatch({ type: SET_LOADING });
+    const res = await Api.post('/admmain/manage/customer/updateSupport', { id, support_id });
+    dispatch({ type: SET_LOADING });
+    if (res.data) {
+      dispatch(getNotPaidList());
+      dispatch(getPaidList());
+      setAlert('Success', 'success');
+    } else {
+      setAlert('ACTION_updateSupport_ERROR', 'error');
+    }
+  } catch (err) {
+    dispatch({ type: SET_LOADING });
+    DFnewLogger(err?.message);
+    ErrorHandler(err);
+  }
+};
+
+export const updateInventory = (id, inv_id) => async (dispatch) => {
+  try {
+    dispatch({ type: SET_LOADING });
+    const res = await Api.post('/admmain/manage/customer/updateInventory', { id, inv_id });
+    dispatch({ type: SET_LOADING });
+    if (res.data) {
+      dispatch(getNotPaidList());
+      dispatch(getPaidList());
+      setAlert('Success', 'success');
+    } else {
+      setAlert('ACTION_updateInventory_ERROR', 'error');
+    }
+  } catch (err) {
+    dispatch({ type: SET_LOADING });
+    DFnewLogger(err?.message);
+    ErrorHandler(err);
+  }
+};
+
+export const updateQA = (id, qa_id) => async (dispatch) => {
+  try {
+    dispatch({ type: SET_LOADING });
+    const res = await Api.post('/admmain/manage/customer/updateQA', { id, qa_id });
+    dispatch({ type: SET_LOADING });
+    if (res.data) {
+      dispatch(getNotPaidList());
+      dispatch(getPaidList());
+      setAlert('Success', 'success');
+    } else {
+      setAlert('ACTION_updateQA_ERROR', 'error');
     }
   } catch (err) {
     dispatch({ type: SET_LOADING });

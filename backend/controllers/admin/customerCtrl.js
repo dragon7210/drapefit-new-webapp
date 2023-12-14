@@ -167,6 +167,7 @@ const getNotPaidLsit = asyncHandler(async (req, res) => {
       include: [UserDetail, KidsDetail],
       group: ['id']
     });
+    console.log('API_getNotPaidLsit_200:');
     return res.status(200).send(data);
   } catch (e) {
     console.log('API_getNotPaidLsit_500:', e?.message);
@@ -178,9 +179,43 @@ const getNotPaidLsit = asyncHandler(async (req, res) => {
 const updateStylist = asyncHandler(async (req, res) => {
   try {
     let { id, stylist } = req.body;
+    await PaymentGetway.update({ emp_id: stylist }, { where: { id } });
     return res.status(200).send('success');
   } catch (e) {
     console.log('API_updateStylist_500:', e?.message);
+    res.status(500);
+    throw new Error('Internal error occurred');
+  }
+});
+const updateSupport = asyncHandler(async (req, res) => {
+  try {
+    let { id, support_id } = req.body;
+    await PaymentGetway.update({ support_id }, { where: { id } });
+    return res.status(200).send('success');
+  } catch (e) {
+    console.log('API_updateSupport_500:', e?.message);
+    res.status(500);
+    throw new Error('Internal error occurred');
+  }
+});
+const updateQA = asyncHandler(async (req, res) => {
+  try {
+    let { id, qa_id } = req.body;
+    await PaymentGetway.update({ qa_id }, { where: { id } });
+    return res.status(200).send('success');
+  } catch (e) {
+    console.log('API_updateQA_500:', e?.message);
+    res.status(500);
+    throw new Error('Internal error occurred');
+  }
+});
+const updateInventory = asyncHandler(async (req, res) => {
+  try {
+    let { id, inv_id } = req.body;
+    await PaymentGetway.update({ inv_id }, { where: { id } });
+    return res.status(200).send('success');
+  } catch (e) {
+    console.log('API_updateInventory_500:', e?.message);
     res.status(500);
     throw new Error('Internal error occurred');
   }
@@ -2300,6 +2335,9 @@ export {
   updateSelPaymentRefundInfo,
   getNotPaidLsit,
   updateStylist,
+  updateQA,
+  updateInventory,
+  updateSupport,
   getPreviewWorkList,
   delPreviewWorkList,
   delPaidList,

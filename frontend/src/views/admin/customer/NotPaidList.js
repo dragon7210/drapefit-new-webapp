@@ -25,7 +25,6 @@ import 'jspdf-autotable';
 import Table from 'ui-component/Table';
 import GenFileName from 'utils/GenFileName';
 import DFnewLogger from 'utils/DFnewLogger';
-import { userEmployeeTypes } from 'constant/other';
 import InputForm from 'ui-component/input/InputForm';
 import InputTextarea from 'ui-component/input/InputTextarea';
 import { useDispatch, useSelector } from 'react-redux';
@@ -54,6 +53,8 @@ const NotPaidList = () => {
   }, [dispatch]);
 
   const { notPaidList } = useSelector((state) => state.customer);
+  const { emp_initial } = useSelector((state) => state.initial);
+
   let updateData = notPaidList.map((item, index) => {
     const action_btn = (
       <div key={index} style={{ display: 'flex', flexWrap: 'nowrap', gap: '0.5rem' }}>
@@ -82,10 +83,10 @@ const NotPaidList = () => {
       </div>
     );
     const styleSelect = (
-      <Select size="small" value={0} onChange={(e) => dispatch(updateStylist(item.id, e.target.value))} fullWidth>
-        {userEmployeeTypes.map((item, index) => (
-          <MenuItem key={index} value={index}>
-            {item}
+      <Select size="small" value={''} onChange={(e) => dispatch(updateStylist(item.id, e.target.value))} fullWidth>
+        {emp_initial?.emp?.map((item, index) => (
+          <MenuItem key={index} value={item.id}>
+            {item.name}
           </MenuItem>
         ))}
       </Select>

@@ -10,12 +10,13 @@ import { getPaidList, delPaidList } from 'actions/admin/customer';
 import { Gender } from 'constant/function';
 import DeleteModal from 'ui-component/modal/DeleteModal';
 import { format } from 'date-fns';
+import EmpSelect from './EmpSelect';
 
 const columns = [
   { accessorKey: 'fullName', header: 'Full Name' },
   { accessorKey: 'rqDate', header: 'Rq Date' },
   { accessorKey: 'gender', header: 'Gender' },
-  { accessorKey: 'fitNumber', header: 'Fit Number' },
+  { accessorKey: 'count', header: 'Fit Number' },
   { accessorKey: 'orderDate', header: 'Order Date' },
   { accessorKey: 'orderNumber', header: 'Order Number' },
   { accessorKey: 'previous', header: 'Previous', size: 170 },
@@ -26,34 +27,6 @@ const columns = [
   { accessorKey: 'kidsAction', header: 'Kids Action', size: 300 },
   { accessorKey: 'delete', header: 'Delete' }
 ];
-const previous = (
-  <Grid container>
-    <Grid item xs={6}>
-      <Typography>Stylist:&nbsp;</Typography>
-    </Grid>
-    <Grid item xs={6}>
-      <Typography>Not yet</Typography>
-    </Grid>
-    <Grid item xs={6}>
-      <Typography>Inventory:&nbsp;</Typography>
-    </Grid>
-    <Grid item xs={6}>
-      <Typography>Not yet</Typography>
-    </Grid>
-    <Grid item xs={6}>
-      <Typography>QA:&nbsp;</Typography>
-    </Grid>
-    <Grid item xs={6}>
-      <Typography>Not yet</Typography>
-    </Grid>
-    <Grid item xs={6}>
-      <Typography>Support:&nbsp;</Typography>
-    </Grid>
-    <Grid item xs={6}>
-      <Typography>Not yet</Typography>
-    </Grid>
-  </Grid>
-);
 
 const PaidList = () => {
   const dispatch = useDispatch();
@@ -70,6 +43,8 @@ const PaidList = () => {
   }, [dispatch]);
 
   const { paidList } = useSelector((state) => state.customer);
+  const { emp_initial } = useSelector((state) => state.initial);
+
   let updateData = paidList.map((item) => {
     const actionBTN = (
       <Grid container spacing={1}>
@@ -169,6 +144,29 @@ const PaidList = () => {
         </Button>
       </Tooltip>
     );
+    const previous = (
+      <>
+        <p style={{ margin: 0, whiteSpace: 'nowrap' }}>
+          <span style={{ fontWeight: 'bold' }}>Stylist</span> :{' '}
+          {emp_initial?.emp?.filter((i) => i.id === item?.emp_id)[0]?.name ?? 'Not yet'}
+        </p>
+        <p style={{ margin: 0, whiteSpace: 'nowrap' }}>
+          <span style={{ fontWeight: 'bold' }}>Inventory</span>:{' '}
+          {emp_initial?.inventory?.filter((i) => i.id === item?.inv_id)[0]?.name ?? 'Not yet'}
+        </p>
+        <p style={{ margin: 0, whiteSpace: 'nowrap' }}>
+          <span style={{ fontWeight: 'bold' }}>QA</span>:{' '}
+          {emp_initial?.qa?.filter((i) => i.id === item?.qa_id)[0]?.name ?? 'Not yet'}
+        </p>
+        <p style={{ margin: 0, whiteSpace: 'nowrap' }}>
+          <span style={{ fontWeight: 'bold' }}>Support</span>:{' '}
+          {emp_initial?.support?.filter((i) => i.id === item?.support_id)[0]?.name ?? 'Not yet'}
+        </p>
+      </>
+    );
+    const assignEmployee = item?.profile_type !== 3 ? <EmpSelect data={item} /> : '';
+    const assignEmployeeKid = item?.profile_type === 3 ? <EmpSelect data={item} /> : '';
+
     return {
       ...item,
       rqDate: item.deliver_date?.date_in_time,
@@ -180,7 +178,9 @@ const PaidList = () => {
       customerAction: item.kids_detail ? '' : actionBTN,
       kidsAction: item.kids_detail ? actionBTN : '',
       kidName: item.kids_detail ? item.kids_detail.kids_first_name : '',
-      orderNumber: '#DFPYMID' + item?.id
+      orderNumber: '#DFPYMID' + item?.id,
+      assignEmployee,
+      assignEmployeeKid
     };
   });
   return (

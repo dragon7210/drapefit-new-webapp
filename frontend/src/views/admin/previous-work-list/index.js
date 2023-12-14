@@ -83,13 +83,21 @@ const PreviousWorkList = () => {
     );
     const assignList = (
       <>
-        <p className="flex-nowrap py-0">Stylist : {emp_initial?.emp?.filter((i) => i.id === item?.emp_id)[0]?.name}</p>
-        <p className="flex-nowrap py-0">
-          Inventory : {emp_initial?.inventory?.filter((i) => i.id === item?.inv_id)[0]?.name}
+        <p style={{ margin: 0, whiteSpace: 'nowrap' }}>
+          <span style={{ fontWeight: 'bold' }}>Stylist</span> :{' '}
+          {emp_initial?.emp?.filter((i) => i.id === item?.emp_id)[0]?.name ?? 'Not yet'}
         </p>
-        <p className="flex-nowrap py-0">QA : {emp_initial?.qa?.filter((i) => i.id === item?.qa_id)[0]?.name}</p>
-        <p className="flex-nowrap py-0">
-          Support : {emp_initial?.support?.filter((i) => i.id === item?.support_id)[0]?.name}
+        <p style={{ margin: 0, whiteSpace: 'nowrap' }}>
+          <span style={{ fontWeight: 'bold' }}>Inventory</span>:{' '}
+          {emp_initial?.inventory?.filter((i) => i.id === item?.inv_id)[0]?.name ?? 'Not yet'}
+        </p>
+        <p style={{ margin: 0, whiteSpace: 'nowrap' }}>
+          <span style={{ fontWeight: 'bold' }}>QA</span>:{' '}
+          {emp_initial?.qa?.filter((i) => i.id === item?.qa_id)[0]?.name ?? 'Not yet'}
+        </p>
+        <p style={{ margin: 0, whiteSpace: 'nowrap' }}>
+          <span style={{ fontWeight: 'bold' }}>Support</span>:{' '}
+          {emp_initial?.support?.filter((i) => i.id === item?.support_id)[0]?.name ?? 'Not yet'}
         </p>
       </>
     );

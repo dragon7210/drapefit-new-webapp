@@ -37,7 +37,9 @@ const PreviousList = () => {
       gender: Gender(Number(item.profile_type)),
       kidName: item.kids_detail?.kids_first_name,
       assigncustomerstylist: (
-        <p className="flex-nowrap py-0">{emp_initial?.emp?.filter((i) => i.id === item?.emp_id)[0]?.name}</p>
+        <p style={{ margin: 0, whiteSpace: 'nowrap' }}>
+          {emp_initial?.emp?.filter((i) => i.id === item?.emp_id)[0]?.name}
+        </p>
       )
     };
   });

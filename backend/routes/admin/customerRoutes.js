@@ -85,6 +85,27 @@ customerRoutes.route('/tbllist').get(protectAdmin, customerCtrl.getCustomers);
  * @desc update the stylist
  */
 customerRoutes.route('/updateStylist').post(protectAdmin, customerCtrl.updateStylist);
+/**
+ * @method POST
+ * @route dfnew/admmain/manage/customer/updateSupport;
+ * @access private
+ * @desc update the Support
+ */
+customerRoutes.route('/updateSupport').post(protectAdmin, customerCtrl.updateSupport);
+/**
+ * @method POST
+ * @route dfnew/admmain/manage/customer/updateQA;
+ * @access private
+ * @desc update the QA
+ */
+customerRoutes.route('/updateQA').post(protectAdmin, customerCtrl.updateQA);
+/**
+ * @method POST
+ * @route dfnew/admmain/manage/customer/updateInventory;
+ * @access private
+ * @desc update the Inventory
+ */
+customerRoutes.route('/updateInventory').post(protectAdmin, customerCtrl.updateInventory);
 
 /**
  * @method GET
