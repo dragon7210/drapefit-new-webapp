@@ -8,7 +8,7 @@
  */
 import express from 'express';
 import * as newsCtrl from '../../controllers/admin/newsCtrl.js';
-import { protectAdmin, protectClinet } from '../../middleware/authMdware.js';
+import { protectAdmin } from '../../middleware/authMdware.js';
 
 const newsRoute = express.Router();
 
@@ -18,7 +18,7 @@ const newsRoute = express.Router();
  * @access private
  * @desc get the news
  */
-newsRoute.route('/tbllist').get(protectClinet, newsCtrl.getNews);
+newsRoute.route('/tbllist').get(protectAdmin, newsCtrl.getNews);
 
 /**
  * @method POST

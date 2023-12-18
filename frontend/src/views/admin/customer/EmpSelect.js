@@ -7,7 +7,7 @@ const EmpSelect = ({ data }) => {
   const { emp_initial } = useSelector((state) => state.initial);
   return (
     <>
-      <div style={{ display: 'flex', alignItems: 'center' }}>
+      <div style={{ display: 'flex', alignItems: 'center', marginBottom: '4px' }}>
         <span style={{ fontWeight: 'bold', width: '62px' }}>Stylist</span>
         <Select
           size="small"
@@ -23,7 +23,7 @@ const EmpSelect = ({ data }) => {
           <MenuItem value={0}>{'Assign Stylist'}</MenuItem>
         </Select>
       </div>
-      <div style={{ display: 'flex', alignItems: 'center' }}>
+      <div style={{ display: 'flex', alignItems: 'center', marginBottom: '4px' }}>
         <span style={{ fontWeight: 'bold', width: '62px' }}>Inventory</span>
         <Select
           size="small"
@@ -39,7 +39,7 @@ const EmpSelect = ({ data }) => {
           <MenuItem value={0}>{'Assign Inventory'}</MenuItem>
         </Select>
       </div>
-      <div style={{ display: 'flex', alignItems: 'center' }}>
+      <div style={{ display: 'flex', alignItems: 'center', marginBottom: '4px' }}>
         <span style={{ fontWeight: 'bold', width: '62px' }}>QA</span>
         <Select
           size="small"
@@ -55,7 +55,7 @@ const EmpSelect = ({ data }) => {
           <MenuItem value={0}>{'Assign QA'}</MenuItem>
         </Select>
       </div>
-      <div style={{ display: 'flex', alignItems: 'center' }}>
+      <div style={{ display: 'flex', alignItems: 'center', marginBottom: '4px' }}>
         <span style={{ fontWeight: 'bold', width: '62px' }}>SUPPORT</span>
         <Select
           size="small"
