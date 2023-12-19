@@ -52,8 +52,8 @@
         "endOfLine": "auto"
       }
     ]
-  },
-  "eslint.workingDirectories": [
-    {"mode": "auto"}
-  ]
+  }
+  // "eslint.workingDirectories": [
+  //   {"mode": "auto"}
+  // ]
 }
