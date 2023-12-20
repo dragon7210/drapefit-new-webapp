@@ -6,6 +6,7 @@
  * @coauthor suprakash.dev@drapefit.com
  * @company Drape Fit Inc.
  */
+
 import express from 'express';
 
 import { protect } from '../../middleware/authMdware.js';
