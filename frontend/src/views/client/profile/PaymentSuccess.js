@@ -17,7 +17,7 @@ const PaymentSuccess = () => {
             &nbsp;&nbsp;Thank You For Choosing Drape Fit
           </Typography>
           <Box className="h-align-center">
-            <Link to="/welcome/schedule">
+            <Link to="/">
               <Button className="continue-homepage-btn">CONTINUE TO HOMEPAGE</Button>
             </Link>
           </Box>

@@ -19,6 +19,16 @@ export const attachPaymentMethod = async (formData, navigate) => {
   }
 };
 
+export const createCustomerSecretMethod = async () => {
+  try {
+    const res = await Api.post('/payment/stripe/customer/create');
+    return res.data;
+  } catch (error) {
+    DFnewLogger(error?.message);
+    ErrorHandler(error);
+  }
+};
+
 export const getPaymentMethods = () => async (dispatch) => {
   try {
     const res = await Api.get('/payment/stripe/paymethods/list');
@@ -67,8 +77,6 @@ export const confirmPayIntent = (data, navigate) => async (dispatch) => {
         dispatch(addGirlBillingInfo(data, order));
       } else if (fitFor === '4') {
         dispatch(addBoyBillingInfo(data, order));
-      } else {
-        setAlert('ACTION_confirmPayIntent_ERROR', 'error');
       }
     }
   } catch (err) {

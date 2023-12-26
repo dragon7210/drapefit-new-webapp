@@ -12,6 +12,7 @@ import User from '../../models/admin/user.js';
 import UserDetail from '../../models/admin/userDetail.js';
 import bcrypt from 'bcryptjs';
 import LetsPlanYourFirstFix from '../../models/admin/letsPlanYourFirstFix.js';
+import Stripe from 'stripe';
 
 const editShipAddress = asyncHandler(async (req, res) => {
   try {
@@ -33,6 +34,27 @@ const addShipAddress = asyncHandler(async (req, res) => {
       ...rest,
       user_id
     });
+
+    if (!req.user.stripe_customer_key) {
+      const stripe = new Stripe(process.env.STRIPE_TEST_SK);
+      const customer = await stripe.customers.create({
+        email: req?.user?.email,
+        name: req?.user?.name,
+        description: 'Customer creating',
+        address: {
+          city: req.body.city,
+          country: req.body.country,
+          line1: req.body.address,
+          line2: req.body.address_line_2,
+          postal_code: req.body.zipcode,
+          state: req.body.state
+        }
+      });
+      const customerId = customer.id;
+
+      await User.update({ stripe_customer_key: customerId }, { where: { id: user_id } });
+    }
+
     console.log('API_addShipAddress_200');
     res.status(200).send('success');
   } catch (e) {

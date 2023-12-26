@@ -16,6 +16,24 @@ const paymentRoutes = express.Router();
 
 /**
  * @method POST
+ * @route dfnew/payment/stripe/customer/create
+ * @access private
+ * @desc Create a stripe customer
+ */
+
+paymentRoutes.route('/customer/create').post(protect, paymentCtrl.createCustomerSecret);
+
+/**
+ * @method POST
+ * @route dfnew/payment/stripe/card/confirm
+ * @access private
+ * @desc Create a stripe customer
+ */
+
+paymentRoutes.route('/card/confirm/:userId').post(paymentCtrl.confirmCard);
+
+/**
+ * @method POST
  * @route dfnew/payment/stripe/paymethod/attach
  * @access private
  * @desc Add payment method

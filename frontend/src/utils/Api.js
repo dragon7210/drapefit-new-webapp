@@ -6,10 +6,10 @@ import GlobalEnv from 'configs/GlobalEnv';
 import MyEnvConfig from 'configs/MyEnvConfig';
 import DFnewLogger from 'utils/DFnewLogger';
 
-const baseurl = GlobalEnv.isDebug ? `${MyEnvConfig.baseurl.dev}/dfnew` : `${MyEnvConfig.baseurl.prod}/dfnew`;
+export const BaseUrl = GlobalEnv.isDebug ? `${MyEnvConfig.baseurl.dev}/dfnew` : `${MyEnvConfig.baseurl.prod}/dfnew`;
 
 const Api = axios.create({
-  baseURL: baseurl,
+  baseURL: BaseUrl,
   headers: { 'Content-Type': 'application/json' }
 });
 

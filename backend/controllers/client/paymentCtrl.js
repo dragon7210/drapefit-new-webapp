@@ -9,6 +9,54 @@
 import asyncHandler from 'express-async-handler';
 import Stripe from 'stripe';
 
+const createCustomerSecret = asyncHandler(async (req, res) => {
+  try {
+    let customerId = '';
+
+    const stripe = new Stripe(process.env.STRIPE_TEST_SK);
+
+    if (req?.user?.stripe_customer_key) {
+      customerId = req?.user?.stripe_customer_key;
+    } else {
+      return res.status(200).json({
+        code: 400,
+        message: 'Add address before add card'
+      });
+    }
+
+    const intent = await stripe.setupIntents.create({ customer: customerId, payment_method_types: ['card'] });
+    const clientSecret = intent.client_secret;
+
+    return res.status(200).json({
+      code: 200,
+      message: 'success',
+      clientSecret,
+      user: req.user
+    });
+  } catch (error) {
+    console.log('API_CreateCustomer_500:', e?.message);
+    res.status(500);
+    throw new Error('Internal error occurred');
+  }
+});
+
+const confirmCard = asyncHandler(async (req, res) => {
+  const userId = req.params?.userId;
+  if (!userId) {
+    console.log('API_ConfirmCard_400');
+    return res.status(400).send('User not found');
+  }
+
+  try {
+    console.log('body: ', req.body);
+    console.log('user: ', req.user);
+  } catch (error) {
+    console.log('API_ConfirmCard_500:', e?.message);
+    res.status(500);
+    throw new Error('Internal error occurred');
+  }
+});
+
 const attachPayMethod = asyncHandler(async (req, res) => {
   try {
     const stripe = new Stripe(process.env.STRIPE_TEST_SK); // *
@@ -65,8 +113,12 @@ const createPayIntentOfStyleFee = asyncHandler(async (req, res) => {
         msg: 'User has no Stripe customer ID'
       });
     }
+
     const { paymentMethod } = req.body;
     const amountOfStyleFee = 20; // *
+
+    console.log('aaaa', paymentMethod);
+
     const payintent = await stripe.paymentIntents.create({
       amount: amountOfStyleFee * 100, // *
       currency: 'usd',
@@ -76,7 +128,7 @@ const createPayIntentOfStyleFee = asyncHandler(async (req, res) => {
       description: 'Buy Styling FIT'
     });
     //-- TODO | add payment intent record to the DB | webhook ?
-    console.log('API_createPayIntentOfStyleFee_200:', 'Payment intent has been created');
+    console.log('API_createPayIntentOfStyleFee_200:', 'Payment intent has been created', payintent);
     res.status(200).json(payintent);
   } catch (e) {
     console.log('API_createPayIntentOfStyleFee_500:', e?.message);
@@ -153,4 +205,12 @@ const payWebhookHandler = asyncHandler(async (req, res) => {
   }
 });
 
-export { attachPayMethod, getPayMethods, createPayIntentOfStyleFee, confirmPayIntent, payWebhookHandler };
+export {
+  attachPayMethod,
+  getPayMethods,
+  createPayIntentOfStyleFee,
+  confirmPayIntent,
+  payWebhookHandler,
+  createCustomerSecret,
+  confirmCard
+};
