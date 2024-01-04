@@ -1,16 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { CssBaseline, StyledEngineProvider, ThemeProvider } from '@mui/material';
-import { FloatButton } from 'antd';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronUp } from '@fortawesome/free-solid-svg-icons';
-import LoadingOverlay from 'react-loading-overlay-ts';
 
 import store from 'store.js';
-import ThemeRoutes from 'routes';
 import themes from 'themes';
-import NavigationScroll from 'layout/NavigationScroll';
 import { LOGOUT } from 'actions/common/types';
 import { loadUser } from 'actions/common/auth';
 import { setAlert } from 'actions/common/alert';
@@ -87,6 +81,7 @@ const App = () => {
         store.dispatch({ type: LOGOUT });
       }
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loadingFlag]);
 
   const arrowUP = <FontAwesomeIcon icon={faChevronUp} style={{ fontWeight: '900' }} />;

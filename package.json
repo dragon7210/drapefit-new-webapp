@@ -29,6 +29,8 @@
     "newrelic": "^9.15.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.23.7",
+    "@babel/preset-react": "^7.23.3",
     "c8": "^7.13.0",
     "chai": "^4.3.7",
     "concurrently": "^7.6.0",
