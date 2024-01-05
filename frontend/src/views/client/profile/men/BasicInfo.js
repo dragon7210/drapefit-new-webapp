@@ -572,6 +572,7 @@ const BasicInfo = () => {
                           errors={errors}
                           handleChange={handleChange}
                           value={values.your_occupation || ''}
+                          name="your_occupation"
                         />
                       </Grid>
                       <Grid item xs={12}>

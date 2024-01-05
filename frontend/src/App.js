@@ -10,6 +10,13 @@ import { loadUser } from 'actions/common/auth';
 import { setAlert } from 'actions/common/alert';
 import SetAuthToken from 'utils/SetAuthToken';
 import DFnewLogger from 'utils/DFnewLogger';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { CssBaseline, StyledEngineProvider, ThemeProvider } from '@mui/material';
+import { FloatButton } from 'antd';
+import LoadingOverlay from 'react-loading-overlay-ts';
+
+import ThemeRoutes from 'routes';
+import NavigationScroll from 'layout/NavigationScroll';
 
 const App = () => {
   const location = useLocation();
@@ -84,7 +91,6 @@ const App = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loadingFlag]);
 
-  const arrowUP = <FontAwesomeIcon icon={faChevronUp} style={{ fontWeight: '900' }} />;
   if (loadingFlag) {
     return null; // *
   }
@@ -94,7 +100,10 @@ const App = () => {
       <ThemeProvider theme={themes(customization)}>
         <CssBaseline />
         <NavigationScroll>
-          <FloatButton.BackTop icon={arrowUP} style={{ backgroundColor: '#232f3e', zIndex: '9999' }} />
+          <FloatButton.BackTop
+            icon={<FontAwesomeIcon icon={faChevronUp} style={{ fontWeight: '900' }} />}
+            style={{ backgroundColor: '#232f3e', zIndex: '9999' }}
+          />
           <LoadingOverlay
             active={customization.isLoading}
             spinner

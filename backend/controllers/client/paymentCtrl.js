@@ -8,6 +8,7 @@
  */
 import asyncHandler from 'express-async-handler';
 import Stripe from 'stripe';
+import PaymentGetway from '../../models/admin/paymentGetway.js';
 
 const createCustomerSecret = asyncHandler(async (req, res) => {
   try {
@@ -115,9 +116,7 @@ const createPayIntentOfStyleFee = asyncHandler(async (req, res) => {
     }
 
     const { paymentMethod } = req.body;
-    const amountOfStyleFee = 20; // *
-
-    console.log('aaaa', paymentMethod);
+    let amountOfStyleFee = 20; // *
 
     const payintent = await stripe.paymentIntents.create({
       amount: amountOfStyleFee * 100, // *
@@ -125,10 +124,38 @@ const createPayIntentOfStyleFee = asyncHandler(async (req, res) => {
       customer: customerId,
       payment_method: paymentMethod,
       confirmation_method: 'manual', //-- For 3D Security
-      description: 'Buy Styling FIT'
+      description: 'Buy Styling FIT',
+      confirm: true
     });
     //-- TODO | add payment intent record to the DB | webhook ?
     console.log('API_createPayIntentOfStyleFee_200:', 'Payment intent has been created', payintent);
+
+    if (payintent.status === 'succeeded') {
+      const profile_type = req.user.user_detail.gender;
+      const paymentGetwayObj = {
+        user_id: req.user.id,
+        price: amountOfStyleFee,
+        kid_id: 0,
+        count: 0,
+        payment_card_details_id: paymentMethod,
+        profile_type,
+        payment_type: 1,
+        status: 0,
+        created_dt: new Date().toISOString().slice(0, 19).replace('T', ' '),
+        shipping_address_id: payintent.shipping
+      };
+      if (profile_type === 3) {
+        paymentGetwayObj.kid_id = req.user.id;
+        paymentGetwayObj.count = (await PaymentGetway.findAll({ where: { kid_id: req.user.id } })).length + 1;
+      } else if (profile_type === 1) {
+        paymentGetwayObj.count = (await PaymentGetway.findAll({ where: { user_id: req.user.id } })).length + 1;
+      } else {
+        paymentGetwayObj.count = (await PaymentGetway.findAll({ where: { user_id: req.user.id } })).length + 1;
+      }
+
+      await PaymentGetway.create(paymentGetwayObj);
+    }
+
     res.status(200).json(payintent);
   } catch (e) {
     console.log('API_createPayIntentOfStyleFee_500:', e?.message);

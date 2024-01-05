@@ -41,7 +41,7 @@ const occupation_v2 = (props) => {
   return (
     <RadioGroup
       aria-labelledby="demo-customized-radios"
-      name="occupation_v2"
+      name={props.name ? props.name : 'occupation_v2'}
       value={props.value}
       onChange={props.handleChange}
     >
@@ -57,9 +57,9 @@ const occupation_v2 = (props) => {
               // disabled={props.disabled}
               className="occupation_v2-radio-btn"
               style={{ margin: '-6px 0' }}
-              value={index}
               control={<CustomRadio />}
               label={item}
+              value={index + 1}
             />
           </Grid>
         ))}

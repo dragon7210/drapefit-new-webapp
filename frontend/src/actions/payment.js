@@ -48,8 +48,13 @@ export const createPayIntentOfStyleFee = (data, navigate) => async (dispatch) =>
     DFnewLogger(new Date());
     DFnewLogger(data);
     const res = await Api.post('/payment/stripe/payintent/stylingfee/create', data);
+    console.log('[PayIntent]: ', res.data);
     if (res.data.status === 'requires_confirmation') {
       dispatch(confirmPayIntent({ paymentMethod: data.paymentMethod, paymentIntent: res.data.id }, navigate));
+    } else if (res.data.status === 'succeeded') {
+      console.log('asdfasdf');
+      navigate('/payment-success');
+      dispatch({ type: SET_LOADING });
     } else {
       setAlert('ACTION_createPayIntentOfStyleFee_ERROR', 'error');
     }

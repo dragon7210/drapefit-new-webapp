@@ -49,7 +49,8 @@ const signupUser = asyncHandler(async (req, res) => {
       email,
       password: newPwd,
       fitFor,
-      role: USER_ROLE_CLIENT
+      role: USER_ROLE_CLIENT,
+      type: 2
     });
     const userDetail = await UserDetail.create({
       first_name: firstName,
