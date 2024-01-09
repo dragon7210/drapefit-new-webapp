@@ -6,20 +6,24 @@ import { Typography, Button } from '@mui/material';
 import 'assets/scss/_addPayMethod.scss';
 import DFnewLogger from 'utils/DFnewLogger';
 import { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+import { addCardDetails } from 'actions/payment';
 
 const CheckoutForm = ({ userId }) => {
   const navigate = useNavigate();
   const elements = useElements();
   const stripe = useStripe();
+  const dispatch = useDispatch();
 
   const handleSubmit = useCallback(
     async (e) => {
       e.preventDefault();
-      const { error } = await stripe.confirmSetup({
+      const { error, setupIntent } = await stripe.confirmSetup({
         elements,
         redirect: 'if_required'
       });
 
+      dispatch(addCardDetails(setupIntent));
       setTimeout(() => navigate('/welcome/payment'), 2000);
 
       if (error) {

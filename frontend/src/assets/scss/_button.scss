@@ -408,3 +408,20 @@
     height: 40px;
   }
 }
+
+.back-button-box {
+  padding: 8px 15px;
+  color: #ff6c00;
+  background: #232f3e;
+  font-size: 15px;
+  font-family: "Amazon Ember", Arial, sans-serif;
+  font-weight: bold;
+  margin-bottom: 15px;
+  border-radius: 0;
+  text-transform: uppercase;
+
+  &:hover {
+    background: #ff6c00;
+    color: #232f3e;
+  }
+}

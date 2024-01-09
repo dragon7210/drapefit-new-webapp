@@ -24,6 +24,7 @@ const PaymentList = () => {
   const navigate = useNavigate();
   const { payMethods } = useSelector((state) => state.payment);
   const [card, setCard] = useState(null);
+  const { allAddress, shippingAddressId } = useSelector((state) => state.profile);
 
   useEffect(() => {
     dispatch(getPaymentMethods());
@@ -31,7 +32,19 @@ const PaymentList = () => {
 
   const handleSubmit = () => {
     dispatch({ type: SET_LOADING });
-    dispatch(createPayIntentOfStyleFee({ paymentMethod: card.id }, navigate));
+
+    let addressId = shippingAddressId;
+    if (!shippingAddressId) {
+      allAddress.forEach((ele) => {
+        if (ele.default_set) {
+          addressId = ele.id;
+        }
+      });
+      if (!addressId) {
+        addressId = allAddress[0].id;
+      }
+    }
+    dispatch(createPayIntentOfStyleFee({ paymentMethod: card.id, shippingAddressId: addressId }, navigate));
   };
 
   return (

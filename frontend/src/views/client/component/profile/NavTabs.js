@@ -29,6 +29,7 @@ const NavTabs = () => {
   let current = 0;
   switch (location.pathname) {
     case '/order-review':
+    case '/customer-order-review':
     case '/welcome/schedule':
       current = 0;
       break;

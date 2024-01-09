@@ -91,6 +91,7 @@ const delShipAddress = asyncHandler(async (req, res) => {
 const defaultShipAddress = asyncHandler(async (req, res) => {
   try {
     let { id } = req.body;
+    await ShippingAddress.update({ default_set: 0 }, { where: { user_id: req.user.id } });
     await ShippingAddress.update({ default_set: 1 }, { where: { id } });
     res.status(200).send('success');
   } catch (e) {

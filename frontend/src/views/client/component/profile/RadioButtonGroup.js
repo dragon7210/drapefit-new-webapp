@@ -22,7 +22,7 @@ const RadioButtonGroup = (props) => {
             </Button>
           ))}
         </ButtonGroup>
-        {props.touched[`${props.name}`] && props.errors[`${props.name}`] && (
+        {props.touched[`${props.name}`] && props.errors && props.errors[`${props.name}`] && (
           <FormHelperText id="standard-weight-helper-text--signup" error>
             {props.errors[`${props.name}`]}
           </FormHelperText>

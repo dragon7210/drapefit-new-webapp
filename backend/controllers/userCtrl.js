@@ -30,6 +30,8 @@ import {
 import User, { CreateToken, HashPassword } from '../models/admin/user.js';
 import KidsDetail from '../models/client/kidsDetail.js';
 import UserDetail from '../models/admin/userDetail.js';
+import Product from '../models/admin/product.js';
+import PaymentGetway from '../models/admin/paymentGetway.js';
 
 const signupUser = asyncHandler(async (req, res) => {
   try {
@@ -1140,6 +1142,66 @@ const getProfile = asyncHandler(async (req, res) => {
   }
 });
 
+const getProducts = asyncHandler(async (req, res) => {
+  try {
+    let userId = req.user.id;
+    const paymentGetway = await PaymentGetway.findOne({ where: { user_id: userId }, order: [['id', 'DESC']] });
+    const products = await Product.findAll({
+      where: { user_id: userId, kid_id: 0, checkedout: 'N', payment_id: paymentGetway.id }
+    });
+    return res.status(200).send(products);
+  } catch (error) {
+    console.log('API_getProducts_500:', e?.message);
+    res.status(500);
+    throw new Error('Internal error occurred');
+  }
+});
+
+const orderReview = asyncHandler(async (req, res) => {
+  try {
+    const { products, productStatus } = req.body;
+    for (let i = 0; i < products.length; i++) {
+      const product = await Product.findOne({ where: { id: products[i].id } });
+
+      product.keep_status = productStatus[i];
+
+      if (productStatus[i] === 3) {
+        // keep
+        product.customer_purchase_status = 'Y';
+        product.exchange_status = 'N';
+        product.return_status = 'N';
+
+        const currentDate = new Date();
+        const year = currentDate.getFullYear();
+        const month = ('0' + (currentDate.getMonth() + 1)).slice(-2);
+        const day = ('0' + currentDate.getDate()).slice(-2);
+
+        product.customer_purchasedate = year + '-' + month + '-' + day;
+      } else if (productStatus[i] === 2) {
+        // exchange
+        product.customer_purchasedate = '';
+        product.customer_purchase_status = 'N';
+        product.exchange_status = 'Y';
+        product.return_status = 'N';
+      } else {
+        product.customer_purchasedate = '';
+        product.customer_purchase_status = 'N';
+        product.exchange_status = 'N';
+        product.return_status = 'Y';
+
+        const currentDate = new Date();
+        product.product_valid_return_date = currentDate.toISOString().slice(0, 19).replace('T', ' ');
+      }
+      await product.save();
+    }
+    return res.status(200).send(products);
+  } catch (error) {
+    console.log('API_orderReview_500:', error?.message);
+    res.status(500);
+    throw new Error('Internal error occurred');
+  }
+});
+
 export {
   signupUser,
   loginUser,
@@ -1162,5 +1224,7 @@ export {
   updateProfie,
   getEmails,
   updatePassword,
-  getProfile
+  getProfile,
+  getProducts,
+  orderReview
 };

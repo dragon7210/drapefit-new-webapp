@@ -72,4 +72,12 @@ paymentRoutes.route('/payintent/confirm').post(protect, paymentCtrl.confirmPayIn
  */
 paymentRoutes.post('/webhook', bodyParser.raw({ type: 'application/json' }), paymentCtrl.payWebhookHandler);
 
+/**
+ * @method POST
+ * @route dfnew/payment/stripe/card/add
+ * @access private
+ * @desc Add card details
+ */
+paymentRoutes.route('/card/add').post(protect, paymentCtrl.addCardDetails);
+
 export default paymentRoutes;

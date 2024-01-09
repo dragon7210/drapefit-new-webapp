@@ -10,7 +10,8 @@ import {
   GET_WOMEN_PRICE_RANGE,
   GET_WOMEN_STYLE_CUSTOM,
   GET_SCHEDULE,
-  GET_ALL_ADDRESS
+  GET_ALL_ADDRESS,
+  GET_CLIENT_PRODUCTS
 } from 'actions/common/types';
 import Api from 'utils/Api';
 import { ErrorHandler } from 'utils/ErrorHandler';
@@ -376,6 +377,30 @@ export const defaultAddress = (data) => async (dispatch) => {
     }
     setAlert('Success', 'success');
   } catch (err) {
+    DFnewLogger(err?.message);
+    ErrorHandler(err);
+  }
+};
+
+export const getUserProducts = () => async (dispatch) => {
+  try {
+    let res = await Api.get('/user/getProducts');
+    return dispatch({
+      type: GET_CLIENT_PRODUCTS,
+      payload: res.data
+    });
+  } catch (e) {
+    DFnewLogger(err?.message);
+    ErrorHandler(err);
+  }
+};
+
+export const reportOrderReview = (products, productStatus, navigate) => async (dispatch) => {
+  try {
+    await Api.post('/user/orderReview', { products, productStatus });
+    navigate('/customer-order-review');
+    return dispatch(getUserProducts());
+  } catch (error) {
     DFnewLogger(err?.message);
     ErrorHandler(err);
   }

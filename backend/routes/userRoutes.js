@@ -197,4 +197,22 @@ router.route('/updatePassword').post(protect, userCtrl.updatePassword);
  */
 router.route('/getProfile').post(protect, userCtrl.getProfile);
 
+/**
+ * @method GET
+ * @route dfnew/user/getProducts
+ * @access private
+ * @desc get the producsts of user
+ */
+
+router.route('/getProducts').get(protect, userCtrl.getProducts);
+
+/**
+ * @method Post
+ * @route dfnew/user/orderReview
+ * @access private
+ * @desc Update reviews for products
+ */
+
+router.route('/orderReview').post(protect, userCtrl.orderReview);
+
 export default router;

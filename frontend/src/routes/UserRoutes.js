@@ -58,6 +58,9 @@ const NotShipped = Loadable(lazy(() => ComponentLoader(() => import('views/clien
 const Order = Loadable(lazy(() => ComponentLoader(() => import('views/client/profile/Order'))));
 const Referrals = Loadable(lazy(() => ComponentLoader(() => import('views/client/profile/Referrals'))));
 const OrderReview = Loadable(lazy(() => ComponentLoader(() => import('views/client/profile/OrderReview'))));
+const CustomerOrderReview = Loadable(
+  lazy(() => ComponentLoader(() => import('views/client/profile/CustomerOrderReview')))
+);
 const WomenBasicInfo = Loadable(lazy(() => ComponentLoader(() => import('views/client/profile/women/BasicInfo'))));
 const WomenStyleFit = Loadable(lazy(() => ComponentLoader(() => import('views/client/profile/women/StyleFit'))));
 const WomenPriceRange = Loadable(lazy(() => ComponentLoader(() => import('views/client/profile/women/PriceRange'))));
@@ -313,6 +316,10 @@ const UserRoutes = {
     {
       path: '/order-review',
       element: <PrivateClientRoutes component={OrderReview} />
+    },
+    {
+      path: '/customer-order-review',
+      element: <PrivateClientRoutes component={CustomerOrderReview} />
     },
     {
       path: '/clients/referrals',

@@ -8,7 +8,9 @@ import {
   GET_WOMEN_BASIC_INFO,
   GET_WOMEN_STYLE_FIT,
   GET_WOMEN_PRICE_RANGE,
-  GET_WOMEN_STYLE_CUSTOM
+  GET_WOMEN_STYLE_CUSTOM,
+  GET_CLIENT_PRODUCTS,
+  SET_SHIPPING_ADDRESS_ID
 } from 'actions/common/types';
 
 const initialState = {
@@ -19,10 +21,12 @@ const initialState = {
   mStyleCustom: null,
   schedule: null,
   allAddress: [],
+  shippingAddressId: null,
   wBasicInfo: null,
   wStyleFit: null,
   wPriceRange: null,
-  wStyleCustom: null
+  wStyleCustom: null,
+  products: []
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -88,7 +92,16 @@ const profileReducer = (state = initialState, action) => {
         ...state,
         allAddress: payload
       };
-
+    case SET_SHIPPING_ADDRESS_ID:
+      return {
+        ...state,
+        shippingAddressId: payload
+      };
+    case GET_CLIENT_PRODUCTS:
+      return {
+        ...state,
+        products: payload
+      };
     default:
       return state;
   }

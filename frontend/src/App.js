@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { faChevronUp } from '@fortawesome/free-solid-svg-icons';
 
 import store from 'store.js';
@@ -17,6 +17,8 @@ import LoadingOverlay from 'react-loading-overlay-ts';
 
 import ThemeRoutes from 'routes';
 import NavigationScroll from 'layout/NavigationScroll';
+import { getUserProducts } from 'actions/client/profile';
+import { getAllAddress } from 'actions/client/profile';
 
 const App = () => {
   const location = useLocation();
@@ -26,7 +28,8 @@ const App = () => {
     return new Promise((resolve) => setTimeout(() => resolve(), timeout));
   };
   const customization = useSelector((state) => state.customization);
-  const { user } = useSelector((state) => state.auth);
+  const { user, loading } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     simulateRequest().then(() => {
@@ -91,6 +94,13 @@ const App = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loadingFlag]);
 
+  useEffect(() => {
+    if (user && user.user_id) {
+      dispatch(getUserProducts());
+      dispatch(getAllAddress());
+    }
+  }, [user, dispatch]);
+
   if (loadingFlag) {
     return null; // *
   }
@@ -105,7 +115,7 @@ const App = () => {
             style={{ backgroundColor: '#232f3e', zIndex: '9999' }}
           />
           <LoadingOverlay
-            active={customization.isLoading}
+            active={customization.isLoading || loading}
             spinner
             styles={{
               overlay: (base) => ({ ...base, zIndex: '10000' }),

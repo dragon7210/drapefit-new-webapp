@@ -13,34 +13,26 @@ import {
   DialogActions,
   DialogTitle
 } from '@mui/material';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import 'yup-phone-lite';
-import {
-  addAddress,
-  deleteAddress,
-  getAllAddress,
-  editAddress,
-  defaultAddress,
-  deliverAddress
-} from 'actions/client/profile';
+import { addAddress, deleteAddress, editAddress, defaultAddress, deliverAddress } from 'actions/client/profile';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLongArrowRight } from '@fortawesome/free-solid-svg-icons';
 import InputForm from 'ui-component/input/InputForm';
 import AnimateButton from 'ui-component/extended/AnimateButton';
 import NavTabs from '../component/profile/NavTabs';
+import { SET_SHIPPING_ADDRESS_ID } from 'actions/common/types';
 
 const Address = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { pathname } = useLocation();
   let state = false;
   if (pathname.includes('addressbook')) {
     state = true;
   }
-  useEffect(() => {
-    dispatch(getAllAddress());
-  }, [dispatch]);
 
   const theme = useTheme();
   const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
@@ -178,43 +170,28 @@ const Address = () => {
                         EDIT
                       </Button>
                     </Grid>
-                    {state ? (
-                      <Grid item xs={12}>
-                        {item.default_set === 1 ? (
-                          <Button
-                            fullWidth
-                            className="set-default-btn"
-                            onClick={() => dispatch(deliverAddress({ id: item.id }))}
-                          >
-                            DELIVER ADDRESS
-                          </Button>
-                        ) : (
-                          <Button
-                            fullWidth
-                            className="set-default-btn"
-                            onClick={() => dispatch(defaultAddress({ id: item.id }))}
-                          >
-                            SET IN DEFAULT
-                          </Button>
-                        )}
-                      </Grid>
-                    ) : (
-                      <Grid item xs={12}>
-                        {item.default_set === 1 ? (
-                          <Button fullWidth className="set-default-btn default">
-                            DEFAULT ADDRESS
-                          </Button>
-                        ) : (
-                          <Button
-                            fullWidth
-                            className="set-default-btn"
-                            onClick={() => dispatch(defaultAddress({ id: item.id }))}
-                          >
-                            SET IN DEFAULT
-                          </Button>
-                        )}
-                      </Grid>
-                    )}
+                    <Grid item xs={12}>
+                      <Button
+                        fullWidth
+                        className="set-default-btn"
+                        onClick={() => {
+                          dispatch({ type: SET_SHIPPING_ADDRESS_ID, payload: item.id });
+                          navigate('/welcome/payment');
+                        }}
+                      >
+                        DELIVER ADDRESS
+                      </Button>
+                      {item.default_set === 0 && (
+                        <Button
+                          fullWidth
+                          className="set-default-btn"
+                          sx={{ mt: '10px' }}
+                          onClick={() => dispatch(defaultAddress({ id: item.id }))}
+                        >
+                          SET IN DEFAULT
+                        </Button>
+                      )}
+                    </Grid>
                   </Grid>
                 </Box>
               </Grid>

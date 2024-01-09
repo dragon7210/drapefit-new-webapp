@@ -43,6 +43,16 @@ export const getPaymentMethods = () => async (dispatch) => {
   }
 };
 
+export const addCardDetails = (setupIntent) => async (dispatch) => {
+  try {
+    await Api.post('/payment/stripe/card/add', { setupIntent });
+    dispatch(getPaymentMethods());
+  } catch (err) {
+    DFnewLogger(err?.message);
+    ErrorHandler(err);
+  }
+};
+
 export const createPayIntentOfStyleFee = (data, navigate) => async (dispatch) => {
   try {
     DFnewLogger(new Date());
@@ -52,7 +62,6 @@ export const createPayIntentOfStyleFee = (data, navigate) => async (dispatch) =>
     if (res.data.status === 'requires_confirmation') {
       dispatch(confirmPayIntent({ paymentMethod: data.paymentMethod, paymentIntent: res.data.id }, navigate));
     } else if (res.data.status === 'succeeded') {
-      console.log('asdfasdf');
       navigate('/payment-success');
       dispatch({ type: SET_LOADING });
     } else {

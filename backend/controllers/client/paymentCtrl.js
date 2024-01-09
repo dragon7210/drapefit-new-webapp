@@ -9,6 +9,7 @@
 import asyncHandler from 'express-async-handler';
 import Stripe from 'stripe';
 import PaymentGetway from '../../models/admin/paymentGetway.js';
+import PaymentCardDetail from '../../models/admin/paymentCardDetail.js';
 
 const createCustomerSecret = asyncHandler(async (req, res) => {
   try {
@@ -81,6 +82,51 @@ const attachPayMethod = asyncHandler(async (req, res) => {
   }
 });
 
+const addCardDetails = asyncHandler(async (req, res) => {
+  try {
+    const stripe = new Stripe(process.env.STRIPE_TEST_SK); // *
+    const customerId = req.user?.stripe_customer_key;
+    if (!customerId) {
+      console.log('API_addCardDetails_400:', 'User has no Stripe customer ID');
+      return res.status(400).json({
+        msg: 'User has no Stripe customer ID'
+      });
+    }
+
+    const { data } = await stripe.customers.listPaymentMethods(customerId, {
+      type: 'card'
+    });
+    const { setupIntent } = req.body;
+
+    for (let i = 0; i < data.length; i++) {
+      const card = data[i];
+      if (card.id === setupIntent.payment_method) {
+        const cardDetails = new PaymentCardDetail({
+          user_id: req.user.id,
+          card_name: req.user.name,
+          card_type: card.card.brand,
+          card_number: 'XXXX XXXX XXXX ' + card.card.last4,
+          card_expire: card.card.exp_year + '-' + card.card.exp_month,
+          cvv: '',
+          stripe_payment_key: card.id,
+          stripe_client_secret_key: setupIntent.client_secret,
+          stripe_setup_intent: setupIntent.client_secret,
+          is_save: 1
+        });
+        await cardDetails.save();
+
+        return res.status(200).json(cardDetails);
+      }
+    }
+
+    res.status(200).send('Card details successfully added');
+  } catch (e) {
+    console.log('API_attachPayMethod_500:', e?.message);
+    res.status(500);
+    throw new Error('Internal error occurred');
+  }
+});
+
 const getPayMethods = asyncHandler(async (req, res) => {
   try {
     const stripe = new Stripe(process.env.STRIPE_TEST_SK);
@@ -115,7 +161,7 @@ const createPayIntentOfStyleFee = asyncHandler(async (req, res) => {
       });
     }
 
-    const { paymentMethod } = req.body;
+    const { paymentMethod, shippingAddressId } = req.body;
     let amountOfStyleFee = 20; // *
 
     const payintent = await stripe.paymentIntents.create({
@@ -131,6 +177,7 @@ const createPayIntentOfStyleFee = asyncHandler(async (req, res) => {
     console.log('API_createPayIntentOfStyleFee_200:', 'Payment intent has been created', payintent);
 
     if (payintent.status === 'succeeded') {
+      const paymentCardDetail = await PaymentCardDetail.findOne({ where: { stripe_payment_key: paymentMethod } });
       const profile_type = req.user.user_detail.gender;
       const paymentGetwayObj = {
         user_id: req.user.id,
@@ -140,9 +187,15 @@ const createPayIntentOfStyleFee = asyncHandler(async (req, res) => {
         payment_card_details_id: paymentMethod,
         profile_type,
         payment_type: 1,
-        status: 0,
+        status: 1,
         created_dt: new Date().toISOString().slice(0, 19).replace('T', ' '),
-        shipping_address_id: payintent.shipping
+        shipping_address_id: shippingAddressId,
+        payment_card_details_id: paymentCardDetail ? paymentCardDetail.id : 0,
+        payment_intent_id: payintent.id,
+        charge_id: payintent.latest_charge,
+        receipt_url: payintent.charges.data[0].receipt_url,
+        transactions_id: payintent.charges.data[0].balance_transaction,
+        done_status: 1
       };
       if (profile_type === 3) {
         paymentGetwayObj.kid_id = req.user.id;
@@ -239,5 +292,6 @@ export {
   confirmPayIntent,
   payWebhookHandler,
   createCustomerSecret,
-  confirmCard
+  confirmCard,
+  addCardDetails
 };
