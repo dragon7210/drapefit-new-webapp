@@ -23,7 +23,7 @@ export const loadUser = (navigate) => async (dispatch) => {
     if (navigate) {
       localStorage.setItem('fitFor', res.data?.fitFor);
       setTimeout(() => {
-        navigate(res.data?.pRoute);
+        navigate('/');
       }, 0);
     }
   } catch (err) {

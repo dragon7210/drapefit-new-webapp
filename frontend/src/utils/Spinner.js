@@ -1,7 +1,7 @@
 import 'assets/scss/_spinner.scss';
 
 const Spinner = () => {
-  return <span class="loader" />;
+  return <span className="loader" />;
 };
 
 export default Spinner;

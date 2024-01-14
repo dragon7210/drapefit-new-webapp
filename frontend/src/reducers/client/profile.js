@@ -26,7 +26,8 @@ const initialState = {
   wStyleFit: null,
   wPriceRange: null,
   wStyleCustom: null,
-  products: []
+  products: [],
+  paidStatus: 0
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -100,7 +101,8 @@ const profileReducer = (state = initialState, action) => {
     case GET_CLIENT_PRODUCTS:
       return {
         ...state,
-        products: payload
+        products: payload.products,
+        paidStatus: payload.paidStatus
       };
     default:
       return state;

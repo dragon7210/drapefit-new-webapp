@@ -32,6 +32,7 @@ import KidsDetail from '../models/client/kidsDetail.js';
 import UserDetail from '../models/admin/userDetail.js';
 import Product from '../models/admin/product.js';
 import PaymentGetway from '../models/admin/paymentGetway.js';
+import SalesNotApplicableState from '../models/admin/salesNotApplicableState.js';
 
 const signupUser = asyncHandler(async (req, res) => {
   try {
@@ -1145,11 +1146,38 @@ const getProfile = asyncHandler(async (req, res) => {
 const getProducts = asyncHandler(async (req, res) => {
   try {
     let userId = req.user.id;
-    const paymentGetway = await PaymentGetway.findOne({ where: { user_id: userId }, order: [['id', 'DESC']] });
-    const products = await Product.findAll({
-      where: { user_id: userId, kid_id: 0, checkedout: 'N', payment_id: paymentGetway.id }
+    const paymentGetway = await PaymentGetway.findOne({
+      where: { user_id: userId, payment_type: 1 },
+      order: [['id', 'DESC']]
     });
-    return res.status(200).send(products);
+    if (!paymentGetway) {
+      return res.status(200).send({
+        paidStatus: 1, // didn't pay for stylefit fee($20)
+        products: []
+      });
+    }
+    const products = (
+      await Product.findAll({
+        where: { user_id: userId, kid_id: 0, payment_id: paymentGetway.id }
+      })
+    ).filter((p) => p.checkedout === 'Y' || p.checkedout === 'N');
+    let paidStatus;
+
+    if (products.length === 0) {
+      paidStatus = 2; // paid for stylefit fee but products are not shipped yet
+    } else if (
+      products.filter((p) => p.keep_status === 2 && p.checkedout === 'Y').length !==
+      products.filter((p) => p.is_replace).length
+    ) {
+      paidStatus = 3; // paid for stylefit fee and products for exchange are not shipped yet
+    } else {
+      paidStatus = 4; // last paid stylefit is completed so should reschedule and pay for the new stylefit fee.
+    }
+
+    return res.status(200).send({
+      paidStatus,
+      products: products.filter((p) => p.checkedout === 'Y' || p.checkedout === 'N')
+    });
   } catch (error) {
     console.log('API_getProducts_500:', e?.message);
     res.status(500);
@@ -1202,6 +1230,27 @@ const orderReview = asyncHandler(async (req, res) => {
   }
 });
 
+const getTax = asyncHandler(async (req, res) => {
+  try {
+    const taxes = await SalesNotApplicableState.findAll();
+    const zipcode = parseInt(req.query.zipcode + '');
+    let tax = 0;
+
+    for (let i = 0; i < taxes.length; i++) {
+      if (zipcode >= taxes[i].zip_min && zipcode < taxes[i].zip_max) {
+        tax = taxes[i].tax_rate / 100;
+        break;
+      }
+    }
+
+    return res.status(200).send({ tax, taxes });
+  } catch (error) {
+    console.log('API_orderReview_500:', error?.message);
+    res.status(500);
+    throw new Error('Internal error occurred');
+  }
+});
+
 export {
   signupUser,
   loginUser,
@@ -1226,5 +1275,6 @@ export {
   updatePassword,
   getProfile,
   getProducts,
-  orderReview
+  orderReview,
+  getTax
 };

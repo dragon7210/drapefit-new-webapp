@@ -215,4 +215,13 @@ router.route('/getProducts').get(protect, userCtrl.getProducts);
 
 router.route('/orderReview').post(protect, userCtrl.orderReview);
 
+/**
+ * @method Get
+ * @route dfnew/user/tax
+ * @access private
+ * @desc Get tax info with zipcode
+ */
+
+router.route('/tax').get(protect, userCtrl.getTax);
+
 export default router;

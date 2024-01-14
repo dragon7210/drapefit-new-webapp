@@ -80,4 +80,12 @@ paymentRoutes.post('/webhook', bodyParser.raw({ type: 'application/json' }), pay
  */
 paymentRoutes.route('/card/add').post(protect, paymentCtrl.addCardDetails);
 
+/**
+ * @method POST
+ * @route dfnew/payment/stripe/pay/products
+ * @access private
+ * @desc pay for products
+ */
+paymentRoutes.route('/pay/products').post(protect, paymentCtrl.payForProducts);
+
 export default paymentRoutes;

@@ -1,6 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Box, Tabs, Tab, Chip } from '@mui/material';
+import { useEffect, useState } from 'react';
 
 const LinkTab = (props) => {
   return (
@@ -25,12 +26,15 @@ const NavTabs = () => {
   const fitFor = localStorage.getItem('fitFor');
   const order = localStorage.getItem('order');
   const { user } = useSelector((state) => state.auth);
+  const { products, paidStatus } = useSelector((state) => state.profile);
   const location = useLocation();
   let current = 0;
   switch (location.pathname) {
     case '/order-review':
     case '/customer-order-review':
     case '/welcome/schedule':
+    case '/calendar-sechedule':
+    case '/not-yet-shipped':
       current = 0;
       break;
     case '/order':
@@ -43,27 +47,36 @@ const NavTabs = () => {
     default:
       current = 1;
   }
-  let orderRoute = '/not-yet-shipped';
-  let nameRoute = '/welcome/schedule';
-  let nameLabel = 'Info';
-  if (user) {
-    if (Number(fitFor) < 3) {
-      nameLabel = user?.name;
-      nameRoute = '/order-review';
+
+  const [orderRoute, setOrderRoute] = useState('/not-yet-shipped');
+  const [nameRoute, setNameRoute] = useState('/welcome/schedule');
+  const [nameLabel, setNameLabel] = useState('Info');
+
+  useEffect(() => {
+    if (!products) {
+      return;
+    }
+    console.log(paidStatus);
+    if (products.filter((p) => p.checkedout === 'N').length) {
+      setNameRoute('/order-review');
+    } else if (paidStatus === 1) {
+      setNameRoute('/welcome/schedule');
+    } else if (paidStatus === 4) {
+      setNameRoute('/calendar-sechedule');
     } else {
-      nameLabel = user?.kids[order - 1]?.name;
-      if (user?.kids[order - 1]?.isCheckoutPending) {
-        nameRoute = '/order-review';
+      setNameRoute('/not-yet-shipped');
+    }
+  }, [paidStatus, products]);
+
+  useEffect(() => {
+    if (user) {
+      if (Number(fitFor) < 3) {
+        setNameLabel(user?.name);
       } else {
-        nameRoute = user?.kids[order - 1]?.kRoute;
-      }
-      if (user?.kids[order - 1]?.kStatus == 7) {
-        orderRoute = '/order';
-      } else {
-        orderRoute = '/not-yet-shipped';
+        setNameLabel(user?.kids[order - 1]?.name);
       }
     }
-  }
+  }, [fitFor, order, user]);
   return (
     <Box sx={{ width: '100%' }}>
       <Tabs value={current} aria-label="nav tabs example" centered>

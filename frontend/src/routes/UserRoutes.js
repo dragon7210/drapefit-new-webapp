@@ -83,6 +83,7 @@ const KidsGirlStyleCustom = Loadable(
 const Account = Loadable(lazy(() => ComponentLoader(() => import('views/client/account/index'))));
 const SelectFIT = Loadable(lazy(() => ComponentLoader(() => import('views/client/profile/SelectFIT'))));
 const ConfirmInfluencer = Loadable(lazy(() => import('views/pages/redirect/ConfirmInfluencer')));
+const CalendarSchedule = Loadable(lazy(() => import('views/client/profile/CalendarSchedule')));
 const Page404 = Loadable(lazy(() => import('views/pages/error/Page404')));
 
 const UserRoutes = {
@@ -332,6 +333,10 @@ const UserRoutes = {
     {
       path: '/select-gender',
       element: <PrivateClientRoutes component={SelectFIT} />
+    },
+    {
+      path: '/calendar-sechedule',
+      element: <PrivateClientRoutes component={CalendarSchedule} />
     },
     {
       path: '*',

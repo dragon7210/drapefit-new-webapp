@@ -41,10 +41,12 @@ const LinkSection = () => {
   const theme = useTheme();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { products, paidStatus } = useSelector((state) => state.profile);
   const matchDownMD = useMediaQuery(theme.breakpoints.down('md'));
   const { user } = useSelector((state) => state.auth);
   const order = user?.kids?.length;
   const [open, setOpen] = useState(false);
+  const [nameRoute, setNameRoute] = useState('/welcome/schedule');
   const anchorRef = useRef(null);
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -57,6 +59,30 @@ const LinkSection = () => {
   };
   const prevOpen = useRef(open);
 
+  useEffect(() => {
+    if (!user || !products) {
+      return;
+    }
+    console.log(user);
+    const userType = ['men', 'women', 'kids'][user.user_detail.gender - 1];
+    if (user.user_detail.is_progressbar === 0) {
+      setNameRoute(`/welcome/basic-info/${userType}`);
+    } else if (user.user_detail.is_progressbar === 25) {
+      setNameRoute(`/welcome/style-fit/${userType}`);
+    } else if (user.user_detail.is_progressbar === 50) {
+      setNameRoute(`/welcome/price-range/${userType}`);
+    } else if (user.user_detail.is_progressbar === 75) {
+      setNameRoute(`/welcome/style-custom/${userType}`);
+    } else if (products.filter((p) => p.checkedout === 'N').length) {
+      setNameRoute('/order-review');
+    } else if (paidStatus === 1) {
+      setNameRoute('/welcome/schedule');
+    } else if (paidStatus === 4) {
+      setNameRoute('/calendar-sechedule');
+    } else {
+      setNameRoute('/not-yet-shipped');
+    }
+  }, [paidStatus, products, user]);
   useEffect(() => {
     if (prevOpen.current === true && open === false) {
       anchorRef.current.focus();
@@ -179,7 +205,7 @@ const LinkSection = () => {
                         <Grid item xs={12}>
                           <Box sx={{ backgroundColor: '#1c2734' }}>
                             <Link
-                              to={user?.isCheckoutPending ? '/order-review' : `${user?.pRoute}`}
+                              to={nameRoute}
                               sx={{ textDecoration: 'none' }}
                               onClick={(e) => {
                                 userProfile();

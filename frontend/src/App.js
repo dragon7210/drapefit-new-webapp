@@ -19,6 +19,7 @@ import ThemeRoutes from 'routes';
 import NavigationScroll from 'layout/NavigationScroll';
 import { getUserProducts } from 'actions/client/profile';
 import { getAllAddress } from 'actions/client/profile';
+import { getPaymentMethods } from 'actions/payment';
 
 const App = () => {
   const location = useLocation();
@@ -98,6 +99,7 @@ const App = () => {
     if (user && user.user_id) {
       dispatch(getUserProducts());
       dispatch(getAllAddress());
+      dispatch(getPaymentMethods());
     }
   }, [user, dispatch]);
 

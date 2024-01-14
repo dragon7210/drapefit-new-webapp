@@ -405,3 +405,13 @@ export const reportOrderReview = (products, productStatus, navigate) => async (d
     ErrorHandler(err);
   }
 };
+
+export const getTaxRate = async (zipcode) => {
+  try {
+    const res = await Api.get('/user/tax', { params: { zipcode } });
+    return res.data.tax;
+  } catch (error) {
+    DFnewLogger(err?.message);
+    ErrorHandler(err);
+  }
+};

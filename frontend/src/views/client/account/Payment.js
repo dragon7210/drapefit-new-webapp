@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Box, Divider, Grid, Typography, Button, RadioGroup, FormControl, FormControlLabel } from '@mui/material';
 
 import { setAlert } from 'actions/common/alert';
-import { getPaymentMethods } from 'actions/payment';
 import GenS3Link from 'utils/GenS3Link';
 import DFnewImgTag from 'utils/DFnewImgTag';
 import AddZeroPrefix from 'utils/AddZeroPrefix';
@@ -16,10 +15,6 @@ const Payment = () => {
   const dispatch = useDispatch();
   const [card, setCard] = useState(null);
   const { payMethods } = useSelector((state) => state.payment);
-
-  useEffect(() => {
-    dispatch(getPaymentMethods());
-  }, [dispatch]);
 
   return (
     <Box className="overview">

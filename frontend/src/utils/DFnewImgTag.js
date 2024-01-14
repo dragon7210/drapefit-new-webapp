@@ -9,7 +9,7 @@ const DFnewImgTag = ({ src, fallback, alt, lzheight = '100%', ...rest }) => {
 
   return (
     <LazyLoad height={lzheight}>
-      <picture>
+      <picture style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
         <source srcSet={src} />
         <img
           src={fallback}

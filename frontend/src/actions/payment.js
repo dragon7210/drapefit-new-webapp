@@ -4,6 +4,7 @@ import { GET_PAYMENT_METHODS, SET_LOADING } from 'actions/common/types';
 import Api from 'utils/Api';
 import { ErrorHandler } from 'utils/ErrorHandler';
 import DFnewLogger from 'utils/DFnewLogger';
+import { getUserProducts } from './client/profile';
 
 export const attachPaymentMethod = async (formData, navigate) => {
   try {
@@ -64,6 +65,7 @@ export const createPayIntentOfStyleFee = (data, navigate) => async (dispatch) =>
     } else if (res.data.status === 'succeeded') {
       navigate('/payment-success');
       dispatch({ type: SET_LOADING });
+      dispatch(getUserProducts());
     } else {
       setAlert('ACTION_createPayIntentOfStyleFee_ERROR', 'error');
     }
@@ -157,6 +159,24 @@ export const addBoyBillingInfo = (data, order) => async (dispatch) => {
     } else {
       setAlert('ACTION_addBoyBillingInfo_ERROR', 'error');
     }
+  } catch (err) {
+    DFnewLogger(err?.message);
+    ErrorHandler(err);
+  }
+};
+
+export const payForProducts = (data, navigate) => async (dispatch) => {
+  try {
+    const res = await Api.post('/payment/stripe/pay/products', data);
+    if (res.data.status === 'requires_confirmation') {
+      dispatch(confirmPayIntent({ paymentMethod: data.paymentMethod, paymentIntent: res.data.id }, navigate));
+    } else if (res.data.status === 'succeeded') {
+      navigate('/payment-success');
+      dispatch(getUserProducts());
+    } else {
+      setAlert('ACTION_createPayIntentOfStyleFee_ERROR', 'error');
+    }
+    dispatch({ type: SET_LOADING });
   } catch (err) {
     DFnewLogger(err?.message);
     ErrorHandler(err);

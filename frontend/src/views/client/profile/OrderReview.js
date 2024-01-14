@@ -26,8 +26,8 @@ const OrderReview = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const products = useSelector((state) => state.profile.products);
-
+  const allproducts = useSelector((state) => state.profile.products);
+  const [products, setProducts] = useState([]);
   const [initialVal, setInitialVal] = useState({
     entireFIT: '0',
     satisfiedFIT: '0',
@@ -41,7 +41,8 @@ const OrderReview = () => {
       satisfiedFIT: '0',
       stylistWorked: '0'
     };
-    products.forEach((product, ind) => {
+    const p = allproducts.filter((prod) => prod.checkedout === 'N');
+    p.forEach((product, ind) => {
       if (product.exchange_status === 'Y') {
         tmp[`like${ind}`] = LikeButtons[1];
       } else if (product.return_status === 'Y') {
@@ -50,8 +51,9 @@ const OrderReview = () => {
         tmp[`like${ind}`] = LikeButtons[0];
       }
     });
+    setProducts(p);
     setInitialVal(tmp);
-  }, [products]);
+  }, [allproducts]);
 
   return (
     <>
