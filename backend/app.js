@@ -54,7 +54,7 @@ app.use(
 );
 
 //-- REST API routes
-const routingPrefix = '/dfnew';
+const routingPrefix = '/api/dfnew';
 app.use(`${routingPrefix}`, clientRoutes);
 app.use(`${routingPrefix}/user`, userRoutes);
 app.use(`${routingPrefix}/uploadfile`, uploadRoutes);
