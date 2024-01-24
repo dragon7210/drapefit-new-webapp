@@ -68,8 +68,8 @@ app.use(`${routingPrefix}/adminventory`, inventoryRouter);
 app.use('/dfstatic', express.static(path.join(__dirname, '/staticfiles')));
 
 //-- Static routing for Frontend
-app.use(express.static(path.join(__dirname, '/frontend/build')));
-app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html')));
+// app.use(express.static(path.join(__dirname, '/frontend/build')));
+// app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html')));
 
 //-- Middleware for error handling
 app.use(notFound);
