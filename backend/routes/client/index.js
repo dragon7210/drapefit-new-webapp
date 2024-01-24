@@ -12,5 +12,6 @@ clientRoutes.use('/payment/stripe', paymentRoutes);
 clientRoutes.use('/fitprofile', womenProfileRoutes);
 clientRoutes.use('/kidsprofile', kidsProfileRoutes);
 clientRoutes.use('/fitprofile', menProfileRoutes);
+clientRoutes.get('/test', (req, res) => res.send('success'));
 
 export default clientRoutes;
